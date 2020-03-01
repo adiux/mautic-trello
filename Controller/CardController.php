@@ -44,9 +44,9 @@ class CardController extends CommonApiController
         $code = Codes::HTTP_BAD_REQUEST;
 
         // Check if a parameter exists
-        if ( $request->request->has('ids')) {
+        if ( isset($post['ids']) && is_array($post['ids']) ) {
             // 71 = adrian@idea2.ch
-            foreach( $request->query->get('ids', array() ) as $id ){
+            foreach( $post['ids'] as $id ){
                 $contact  = $this->getExistingContact($id);
                 $data[]     = $this->getTrelloData($contact);
             }
