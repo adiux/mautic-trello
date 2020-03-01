@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CardController extends CommonApiController
 {
+    const MODEL_ID = 'lead.list';
+
     public function indexAction($page = 1)
     {
         return $this->delegateView(
@@ -32,34 +34,32 @@ class CardController extends CommonApiController
      */
     public function addCardAction()
     {
-        $data  = ['html' => '', 'style' => ''];
-        // $focus = $request->request->all();
-        // $channelId = (int) $this->request->request->get('channelId');
+        // 71 = adrian@idea2.ch
+        $data  = $this->getExistingLead(71);
 
-        // if (isset($focus['focus'])) {
-        //     $focusArray = InputHelper::_($focus['focus']);
-
-        //     if (!empty($focusArray['style']) && !empty($focusArray['type'])) {
-        //         /** @var \MauticPlugin\MauticFocusBundle\Model\FocusModel $model */
-        //         $model            = $this->getModel('focus');
-        //         $focusArray['id'] = 'preview';
-        //         $data['html']     = $model->getContent($focusArray, true);
-        //     }
-        // }
         $view    = $this->view($data, Codes::HTTP_OK);
-        $context = SerializationContext::create()->setGroups(['userList']);
+        $context = SerializationContext::create()->setGroups(['leadDetails']);
         $view->setSerializationContext($context);
+
         return $this->handleView($view);
     }
-    protected function getContacts(){
-        $model   = $this->getModel('lead.list');
-        $items = $model->getEntities(
-            [
-                'start'      => $start,
-                'limit'      => $limit,
-                'filter'     => $filter,
-                'orderBy'    => $orderBy,
-                'orderByDir' => $orderByDir,
-            ]);
+
+       /**
+     * Get existing duplicated contact based on unique fields and the request data.
+     *
+     * @param null $leadId
+     *
+     * @return Lead|null
+     *
+     * @deprecated since 2.12.2, to be removed in 3.0.0. Use $model->checkForDuplicateContact directly instead
+     */
+    protected function getExistingLead($leadId = null)
+    {
+        $leadModel = $this->getModel('lead');
+        $lead = $leadModel->getEntity($leadId);
+        
+        $contact = $lead->getId() ? $lead : null;
+
+        return $contact;
     }
 }
