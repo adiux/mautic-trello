@@ -1,4 +1,5 @@
 <?php
+
 // plugins/Idea2TrelloBundle/Controller/DefaultController.php
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
@@ -8,7 +9,7 @@ use Mautic\CoreBundle\Controller\FormController;
 class DefaultController extends FormController
 {
     /**
-     * Display the world view
+     * Display the world view.
      *
      * @param string $world
      *
@@ -16,29 +17,50 @@ class DefaultController extends FormController
      */
     public function worldAction($world = 'earth')
     {
-        /** @var \MauticPlugin\HelloBundleBundle\Model\WorldModel $model */
+        /* @var \MauticPlugin\HelloBundleBundle\Model\WorldModel $model */
         //$model = $this->getModel('helloworld.world');
 
         // Retrieve details about the world
         //$worldDetails = $model->getWorldDetails($world);
 
         return $this->delegateView(
-            array(
-                'viewParameters'  => array(
+            [
+                'viewParameters'  => [
                     'world'   => $world,
                     //'details' => $worldDetails
-                ),
+                ],
                 'contentTemplate' => 'Idea2TrelloBundle:World:index.html.php',
-                'passthroughVars' => array(
+                'passthroughVars' => [
                     'activeLink'    => 'plugin_helloworld_world',
-                    'route'         => $this->generateUrl('plugin_helloworld_world', array('world' => $world)),
-                    'mauticContent' => 'helloWorldDetails'
-                )
-            )
+                    'route'         => $this->generateUrl('plugin_helloworld_world', ['world' => $world]),
+                    'mauticContent' => 'helloWorldDetails',
+                ],
+            ]
         );
     }
-
     /**
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function addCardAction()
+    {
+        $data  = ['html' => '', 'style' => ''];
+        // $focus = $request->request->all();
+        // $channelId = (int) $this->request->request->get('channelId');
+
+        // if (isset($focus['focus'])) {
+        //     $focusArray = InputHelper::_($focus['focus']);
+
+        //     if (!empty($focusArray['style']) && !empty($focusArray['type'])) {
+        //         /** @var \MauticPlugin\MauticFocusBundle\Model\FocusModel $model */
+        //         $model            = $this->getModel('focus');
+        //         $focusArray['id'] = 'preview';
+        //         $data['html']     = $model->getContent($focusArray, true);
+        //     }
+        // }
+
+        return $this->handleView($data);
+    }
+    /*
      * Contact form
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
