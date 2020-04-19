@@ -20,7 +20,7 @@ $view['slots']->set('headerTitle', $header);
     <form action="/api/trello/card" method="post">
         
         <label for="contact_ids">Contact Ids (comma separated): </label>
-        <input type="text" id="contact_ids" name="contact_ids"><br>
+        <input type="text" id="contactIds" name="contactIds" value="<?php echo $contactIds; ?>"><br>
         <input type="submit" class="btn btn-primary" value="Create Contact in Trello">
 
     </form>

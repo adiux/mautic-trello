@@ -37,10 +37,7 @@ class CardController extends FormController
      */
     public function addAction($contactId = null)
     {
-        print '<pre>';
-        print '<h1>contactId</h1>';
-        print_r( $contactId );
-        print '</pre>'; exit;
+        
         $logger = $this->get('monolog.logger.mautic');
         $request = $this->get('request_stack')->getCurrentRequest();
         // $_GET
@@ -72,7 +69,7 @@ class CardController extends FormController
         return $this->delegateView(
             [
                 'viewParameters' => [
-                    'ids' => $contactId,
+                    'contactIds' => $contactId,
                 ],
                 'contentTemplate' => 'Idea2TrelloBundle:Card:addCard.html.php',
             ]
