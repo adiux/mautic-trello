@@ -24,7 +24,7 @@ return [
                 ],
             ],
             'plugin_create_cards' => [
-                'path'       => '/trello/card/add',
+                'path'       => '/trello/card/add/{contactId}',
                 'controller' => 'Idea2TrelloBundle:Card:add',
             ],
         ],

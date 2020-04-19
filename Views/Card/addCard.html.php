@@ -11,23 +11,17 @@ $tmpl = $view['slots']->get('tmpl', 'Details');
 //$view['slots']->set('mauticContent', 'helloWorld'.$tmpl);
 
 // Set the page and header title
-$header = ('World' == $tmpl)
-    ? $view['translator']->trans(
-        'plugin.helloworld.worlds',
-        ['%world%' => ucfirst($world)]
-    ) : $view['translator']->trans('plugin.helloworld.manage_worlds');
+$header = $view['translator']->trans('plugin.idea2trello.add_card_to_trello');
 $view['slots']->set('headerTitle', $header);
 ?>
 
 <div class="helloworld-content">
-    <?php $view['slots']->output('_content'); ?>
-    
-    <form action="/create-trello-card.php" method="get">
+    <?php // echo $view['router']->generate('plugin_helloworld_world', ['world' => 'mars']); ?>
+    <form action="/api/trello/card" method="post">
         
         <label for="contact_ids">Contact Ids (comma separated): </label>
         <input type="text" id="contact_ids" name="contact_ids"><br>
-        <input type="submit" class="btn btn-primary" value="Create Contact">
+        <input type="submit" class="btn btn-primary" value="Create Contact in Trello">
 
     </form>
-    <a href="<?php // echo $view['router']->generate('plugin_helloworld_world', ['world' => 'mars']); ?>" data-toggle="ajax" />Mars</a>
 </div>

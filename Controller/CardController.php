@@ -35,32 +35,36 @@ class CardController extends FormController
     /**
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function addAction($contactId = null)
     {
+        print '<pre>';
+        print '<h1>contactId</h1>';
+        print_r( $contactId );
+        print '</pre>'; exit;
         $logger = $this->get('monolog.logger.mautic');
         $request = $this->get('request_stack')->getCurrentRequest();
-        // $_POST
-        $post = $request->request->all();
-        $logger->info('Received add card request', $post);
+        // $_GET
+        
+        $logger->info('got request with id', array($contactId));
         $data = array();
 
         // Check if a parameter exists
-        if (isset($post['ids']) && is_array($post['ids'])) {
+        if (isset($contactId)) {
             // create a card for every contact
-            foreach ($post['ids'] as $id) {
-                $contact  = $this->getExistingContact($id);
-                $data     = $this->getTrelloData($contact);
-                $card = $this->postTrelloCard($data);
-                if (true !== $card) {
-                    $logger->info('could not add trello card for: '.$contact->getId().': '.$card);
+            // foreach ($post['ids'] as $id) {
+                // $contact  = $this->getExistingContact($id);
+                // $data     = $this->getTrelloData($contact);
+                // $card = $this->postTrelloCard($data);
+                // if (true !== $card) {
+                //     $logger->info('could not add trello card for: '.$contact->getId().': '.$card);
 
-                    return $this->badRequest('Could not create card: '.$card);
-                } else {
-                    $logger->info('added trello card: '.$contact->getId());
-                }
-            }
+                //     return $this->badRequest('Could not create card: '.$card);
+                // } else {
+                //     $logger->info('added trello card: '.$contact->getId());
+                // }
+            // }
         } else {
-            $logger->info('bad request', $post);
+            $logger->warning('bad request');
 
             // return $this->badRequest();
         }
@@ -68,7 +72,7 @@ class CardController extends FormController
         return $this->delegateView(
             [
                 'viewParameters' => [
-                    'campaigns' => 'test',
+                    'ids' => $contactId,
                 ],
                 'contentTemplate' => 'Idea2TrelloBundle:Card:addCard.html.php',
             ]
