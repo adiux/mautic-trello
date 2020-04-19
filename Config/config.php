@@ -36,4 +36,15 @@ return [
             ],
         ],
       ],
+      'services' => [
+        'events' => [
+            'mautic.channel.button.subscriber' => [
+                'class'     => \MauticPlugin\Idea2TrelloBundle\EventListener\ButtonSubscriber::class,
+                'arguments' => [
+                    'router',
+                    'translator',
+                ],
+            ],
+        ],
+    ],
 ];
