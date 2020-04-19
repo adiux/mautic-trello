@@ -24,8 +24,8 @@ return [
                 ],
             ],
             'plugin_create_cards' => [
-                'path'       => '',
-                'controller' => 'Idea2TrelloBundle:CreateCard',
+                'path'       => '/trello/card/add',
+                'controller' => 'Idea2TrelloBundle:Card:add',
             ],
         ],
         'api' => [

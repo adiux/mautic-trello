@@ -14,14 +14,14 @@ namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
 use FOS\RestBundle\Util\Codes;
 use JMS\Serializer\SerializationContext;
-use Mautic\ApiBundle\Controller\CommonApiController;
+use Mautic\CoreBundle\Controller\FormController;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Response;
 
 use Mautic\LeadBundle\Entity\Lead;
 
-class CardController extends CommonApiController
+class CardController extends FormController
 {
     public function indexAction($page = 1)
     {
@@ -33,14 +33,15 @@ class CardController extends CommonApiController
     }
 
     /**
-     * @return View
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function addCardAction()
+    public function addAction()
     {
         $logger = $this->get('monolog.logger.mautic');
         $request = $this->get('request_stack')->getCurrentRequest();
         // $_POST
         $post = $request->request->all();
+        $logger->info('Received add card request', $post);
         $data = array();
 
         // Check if a parameter exists
@@ -59,11 +60,24 @@ class CardController extends CommonApiController
                 }
             }
         } else {
-            return $this->badRequest();
-        }
-        $view    = $this->view($post['ids'], Codes::HTTP_OK);
+            $logger->info('bad request', $post);
 
-        return $this->handleView($view);
+            // return $this->badRequest();
+        }
+
+        return $this->delegateView(
+            [
+                'viewParameters' => [
+                    'campaigns' => 'test',
+                ],
+                'contentTemplate' => 'Idea2TrelloBundle:Card:addCard.html.php',
+            ]
+        );
+        // return $this->delegateView(
+        //     [
+        //         'contentTemplate' => 'Idea2TrelloBundle:Hello:index.html.php',
+        //     ]
+        // );
     }
 
 

@@ -82,7 +82,7 @@ class ButtonSubscriber implements EventSubscriberInterface
                         'data-toggle' => 'ajaxmodal',
                         'data-target' => '#MauticSharedModal',
                         'data-header' => $this->translator->trans(
-                            'mautic.world.dosomething.header',
+                            'plugin.idea2trello.add_card_to_trello',
                             ['%email%' => $event->getItem()->getEmail()]
                         ),
                         'href'        => $this->router->generate(

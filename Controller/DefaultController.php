@@ -38,28 +38,28 @@ class DefaultController extends FormController
             ]
         );
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function addCardAction()
-    {
-        $data  = ['html' => '', 'style' => ''];
-        // $focus = $request->request->all();
-        // $channelId = (int) $this->request->request->get('channelId');
+    // /**
+    //  * @return \Symfony\Component\HttpFoundation\JsonResponse
+    //  */
+    // public function addCardAction()
+    // {
+    //     $data  = ['html' => '', 'style' => ''];
+    //     // $focus = $request->request->all();
+    //     // $channelId = (int) $this->request->request->get('channelId');
 
-        // if (isset($focus['focus'])) {
-        //     $focusArray = InputHelper::_($focus['focus']);
+    //     // if (isset($focus['focus'])) {
+    //     //     $focusArray = InputHelper::_($focus['focus']);
 
-        //     if (!empty($focusArray['style']) && !empty($focusArray['type'])) {
-        //         /** @var \MauticPlugin\MauticFocusBundle\Model\FocusModel $model */
-        //         $model            = $this->getModel('focus');
-        //         $focusArray['id'] = 'preview';
-        //         $data['html']     = $model->getContent($focusArray, true);
-        //     }
-        // }
+    //     //     if (!empty($focusArray['style']) && !empty($focusArray['type'])) {
+    //     //         /** @var \MauticPlugin\MauticFocusBundle\Model\FocusModel $model */
+    //     //         $model            = $this->getModel('focus');
+    //     //         $focusArray['id'] = 'preview';
+    //     //         $data['html']     = $model->getContent($focusArray, true);
+    //     //     }
+    //     // }
 
-        return $this->handleView($data);
-    }
+    //     return $this->handleView($data);
+    // }
     /*
      * Contact form
      *
