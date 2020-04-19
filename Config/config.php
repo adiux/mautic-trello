@@ -38,8 +38,8 @@ return [
       ],
       'services' => [
         'events' => [
-            'mautic.channel.button.subscriber' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\EventListener\ButtonSubscriber::class,
+            'mautic.channel.button.subscriber.trello' => [
+                'class'     => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,
                 'arguments' => [
                     'router',
                     'translator',
