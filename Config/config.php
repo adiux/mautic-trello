@@ -35,7 +35,7 @@ return [
         ],
         'api' => [
             'plugin_api_trello_card_add' => [
-                'path'       => '/trello/card',
+                'path'       => '/v1/trello/card',
                 'method'     => 'POST',
                 'controller' => 'Idea2TrelloBundle:ApiCard:add',
             ],

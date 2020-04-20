@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Idea2 Trello API
+  description: Create card in Trello
+  version: 0.1.1
+servers:
+  - url: /api/v1
+    description: Production server
+paths:
+  /trello/card:
+    post:
+      description: Creates a new Trello card
+      operationId: addCard
+      requestBody:
+        description: Card to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewCard"
+      responses:
+        "200":
+          $ref: "#/components/responses/Ok"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+components:
+  schemas:
+    Card:
+      allOf:
+        - $ref: "#/components/schemas/NewCard"
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              minLength: 1
+            labels:
+              type: array
+              items: 
+                type: object
+            url:
+              type: string
+              format: uri
+              example: "https://trello.com/c/aJidRx3k/9-123"
+            dateLastActivity:
+              type: string
+              format: date-time
+              description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
+              example: "2019-09-21T00:00:00Z"
+            due:
+              type: string
+              format: date-time
+              description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
+              example: "2019-09-21T00:00:00Z"
+            idMembers:
+              type: array
+              items: 
+                type: object
+            attachments:
+              type: array
+              items: 
+                type: object
+    NewCard:
+      type: object
+      required:
+        - key
+        - token
+        - name
+        - idList
+      properties:
+        key: 
+          type: string
+          minLength: 1
+        token:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        idList:
+          type: string
+          minLength: 1
+          description: The ID of the list the card should be created in
+        desc:
+          type: string
+        pos:
+          type: string
+          enum: [top, bottom]
+        due:
+          type: string
+          format: date-time
+          description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
+          example: "2019-09-21"
+        urlSource:
+          type: string
+          format: uri
+          example: https://www.mautic.org
+        keepFromSource:
+          description: "If using idCardSource you can specify which properties to copy over."
+          type: string
+    CardError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: short error code
+          example: rest_no_route
+        message:
+          type: string
+          description: plain text error message for displaying to user
+          example: No route was found matching the URL and request method
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              format: int32
+              description: http error code
+              example: 404
+  responses:
+    Ok:
+        description: A Trello Card
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  $ref: "#/components/schemas/Card"
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CardError"
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CardError"
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
