@@ -16,12 +16,10 @@ $view['slots']->set('headerTitle', $header);
 ?>
 
 <div class="helloworld-content">
-    <?php // echo $view['router']->generate('plugin_helloworld_world', ['world' => 'mars']); ?>
-    <form action="/api/trello/card" method="post">
-        
-        <label for="contact_ids">Contact Ids (comma separated): </label>
-        <input type="text" id="contactIds" name="contactIds" value="<?php echo $contactIds; ?>"><br>
-        <input type="submit" class="btn btn-primary" value="Create Contact in Trello">
-
+    
+    <form action="/s/api/trello/card" method="post">
     </form>
+    <script src="<?php echo $view['assets']->getUrl('plugins/Idea2TrelloBundle/Assets/elements/analytics-counter.js'); ?>"></script>
+  
+    <analytics-counter></analytics-counter>
 </div>

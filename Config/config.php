@@ -27,12 +27,17 @@ return [
                 'path'       => '/trello/card/add/{contactId}',
                 'controller' => 'Idea2TrelloBundle:Card:add',
             ],
+            'plugin_trello_card_add' => [
+                'path'       => '/api/trello/card',
+                'method'     => 'POST',
+                'controller' => 'Idea2TrelloBundle:ApiCard:add',
+            ],
         ],
         'api' => [
             'plugin_api_trello_card_add' => [
                 'path'       => '/trello/card',
                 'method'     => 'POST',
-                'controller' => 'Idea2TrelloBundle:Card:addCard',
+                'controller' => 'Idea2TrelloBundle:ApiCard:add',
             ],
         ],
       ],
