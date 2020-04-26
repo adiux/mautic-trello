@@ -8,9 +8,11 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
-// namespace MauticPlugin\Idea2TrelloBundle;
-// namespace Mautic\LeadBundle\Controller\Api;
-
+use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Mautic\CoreBundle\Controller\FormController;
 
 class CardController extends FormController
@@ -22,6 +24,25 @@ class CardController extends FormController
                 'contentTemplate' => 'Idea2TrelloBundle:Hello:index.html.php',
             ]
         );
+    }
+
+    public function newAction($contactId = null)
+    {
+        // creates a card and gives it some dummy data for this example
+        $card = new Card();
+        $card->setName('Write a blog post');
+        // $card->setDueDate(new \DateTime('tomorrow'));
+
+        $form = $this->createFormBuilder($card)
+            ->add('name', TextType::class)
+            // ->add('dueDate', DateType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->getForm();
+            // HelloWorldBundle:Contact:form.html.php
+            // Idea2TrelloBundle:Card:addCard.html.php
+        return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

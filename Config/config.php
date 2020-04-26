@@ -22,6 +22,10 @@ return [
                     'world' => 'earth|mars',
                 ],
             ],
+            'plugin_new_card' => [
+                'path' => '/trello/card/new/{contactId}',
+                'controller' => 'Idea2TrelloBundle:Card:new',
+            ],
             'plugin_create_cards' => [
                 'path' => '/trello/card/add/{contactId}',
                 'controller' => 'Idea2TrelloBundle:Card:add',
