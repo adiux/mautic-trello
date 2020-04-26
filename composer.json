@@ -1,0 +1,14 @@
+{
+  "name": "idea2/idea2-trello-bundle",
+  "description": "Add Trello cards from Mautic",
+  "authors": [
+    {
+      "name": "Adrian Schimpf",
+      "email": "adrian@idea2.ch"
+    }
+  ],
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.1"
+  }
+}

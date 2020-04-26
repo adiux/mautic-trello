@@ -17,7 +17,7 @@ class DefaultController extends FormController
      */
     public function worldAction($world = 'earth')
     {
-        /* @var \MauticPlugin\HelloBundleBundle\Model\WorldModel $model */
+        // @var \MauticPlugin\HelloBundleBundle\Model\WorldModel $model
         //$model = $this->getModel('helloworld.world');
 
         // Retrieve details about the world
@@ -25,19 +25,20 @@ class DefaultController extends FormController
 
         return $this->delegateView(
             [
-                'viewParameters'  => [
-                    'world'   => $world,
+                'viewParameters' => [
+                    'world' => $world,
                     //'details' => $worldDetails
                 ],
                 'contentTemplate' => 'Idea2TrelloBundle:World:index.html.php',
                 'passthroughVars' => [
-                    'activeLink'    => 'plugin_helloworld_world',
-                    'route'         => $this->generateUrl('plugin_helloworld_world', ['world' => $world]),
+                    'activeLink' => 'plugin_helloworld_world',
+                    'route' => $this->generateUrl('plugin_helloworld_world', ['world' => $world]),
                     'mauticContent' => 'helloWorldDetails',
                 ],
             ]
         );
     }
+
     // /**
     //  * @return \Symfony\Component\HttpFoundation\JsonResponse
     //  */

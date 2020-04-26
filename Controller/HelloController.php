@@ -10,11 +10,7 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
 use Mautic\CoreBundle\Controller\FormController;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class HelloController extends FormController
 {

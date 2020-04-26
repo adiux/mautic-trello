@@ -1,7 +1,6 @@
 <?php
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -14,20 +13,17 @@ namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
 // require_once("../api/i2-card/autoload.php");
 
-use Symfony\Component\HttpFoundation\Response as Codes;
-use JMS\Serializer\SerializationContext;
+use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 // use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 // use Model\Card;
 // use MauticPlugin\Idea2TrelloBundle\Model\Card;
 
-use \Idea2TrelloApi\Model\Card;
+// use MauticPlugin\Idea2TrelloBundle\Adrian\Model\Card; =>ok!
 
-// use \MauticPlugin\Idea2TrelloBundle\Idea2Trello\Model\Card;
-
+use Symfony\Component\HttpFoundation\Response as Codes;
 
 class ApiCardController extends AbstractController
 {
@@ -44,20 +40,20 @@ class ApiCardController extends AbstractController
         $logger->info('Received add card request', $post);
 
         $test = new Card($post);
-      
-        $data = array();
+
+        $data = [];
 
         // Check if a parameter exists
-        if (!isset($post['ids'])|| !is_array($post['ids'])) {
-            return $this->returnError("No ids found");
+        if (!isset($post['ids']) || !is_array($post['ids'])) {
+            return $this->returnError('No ids found');
         }
-            // create a card for every contact
+        // create a card for every contact
         foreach ($post['ids'] as $id) {
-            $contact  = $this->getExistingContact($id);
+            $contact = $this->getExistingContact($id);
             if (empty($contact)) {
                 return $this->badRequest('No contact found for ids: '.implode(',', $post[ids]));
             }
-            $data     = $this->getTrelloData($contact);
+            $data = $this->getTrelloData($contact);
             if (empty($data)) {
                 return $this->badRequest('no stage for contact defined: '.implode(',', $post[ids]));
             }
@@ -66,60 +62,58 @@ class ApiCardController extends AbstractController
                 $logger->info('could not add trello card for: '.$contact->getId().': '.$card);
 
                 return $this->badRequest('Could not create card: '.$card);
-            } else {
-                $logger->info('added trello card: '.$contact->getId());
             }
+            $logger->info('added trello card: '.$contact->getId());
         }
-        
-        $view    = $this->view($post['ids'], Codes::HTTP_OK);
+
+        $view = $this->view($post['ids'], Codes::HTTP_OK);
 
         return $this->handleView($view);
     }
 
-
     protected function getTrelloData(Lead $contact)
     {
-        $desc = array( $contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName());
+        $desc = [$contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName()];
 
         $stage = $contact->getStage();
         if (empty($stage) || empty($stage->getName())) {
             return null;
         }
 
-        return array(
+        return [
             'name' => $contact->getName(),
             'desc' => implode('\\n', $desc),
             'idList' => $this->getTrelloListId($stage->getName()),
-            'urlSource' => $this->coreParametersHelper->getParameter('site_url')."/s/contacts/view/".$contact->getId(),
+            'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
             // 'idMembers' => ,
-        );
+        ];
     }
 
     protected function postTrelloCard($data = null)
     {
         $config = $this->getConfig();
-        $postUrl    = $this->getPostUrl($data);
+        $postUrl = $this->getPostUrl($data);
         $headers = $this->getHeaders();
-        
+
         try {
-            $client   = new Client(['timeout' => 15]);
+            $client = new Client(['timeout' => 15]);
             $response = $client->post(
                 $postUrl,
                 [
-                    'headers'     => $headers,
+                    'headers' => $headers,
                 ]
             );
-            
+
             return $this->parseResponse($response);
         } catch (ServerException $exception) {
             $this->parseResponse($exception->getResponse());
         } catch (\Exception $exception) {
-             return $exception->getMessage();
+            return $exception->getMessage();
         }
     }
 
     /**
-     * Get existing contact
+     * Get existing contact.
      *
      * @param null $leadId
      *
@@ -130,13 +124,14 @@ class ApiCardController extends AbstractController
         // maybe use Use $model->checkForDuplicateContact directly instead
         $leadModel = $this->getModel('lead');
         $lead = $leadModel->getEntity($leadId);
-        
+
         if ($lead && $lead->getId()) {
             return $lead;
         }
 
         return null;
     }
+
     protected function getTrelloListId($listName)
     {
         $lists = $this->getListsOnBoard();
@@ -145,22 +140,25 @@ class ApiCardController extends AbstractController
                 return $list['id'];
             }
         }
+
         throw new \InvalidArgumentException($listName.' is not a valid list name.');
     }
+
     protected function getConfig()
     {
-        $config['authorization_key']    =   "9ef17425c93fae626ad969e282ddb409";
-        $config['authorization_token']  =   "eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6";
-        $config['base_url'] = "https://api.trello.com/1/cards";
-        
+        $config['authorization_key'] = '9ef17425c93fae626ad969e282ddb409';
+        $config['authorization_token'] = 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6';
+        $config['base_url'] = 'https://api.trello.com/1/cards';
+
         return $config;
     }
+
     protected function getPostUrl($data)
     {
         $config = $this->getConfig();
-        $params = array();
+        $params = [];
         foreach ($data as $key => $value) {
-            $params[] = $key."=".urlencode($value);
+            $params[] = $key.'='.urlencode($value);
         }
         $params[] = 'key='.$config['authorization_key'];
         $params[] = 'token='.$config['authorization_token'];
@@ -168,42 +166,45 @@ class ApiCardController extends AbstractController
 
         return $config['base_url'].'?'.$urlParams;
     }
+
     protected function getHeaders()
     {
-        return array(
+        return [
             // 'X-Forwarded-For' => $event->getSubmission()->getIpAddress()->getIpAddress(),
-        );
+        ];
     }
+
     protected function getListsOnBoard()
     {
-        return array(
-            array(
-                "id" => "5e5c1f8f49c26f3ef8b6eba4",
-                "name" => "1. Lead",
-                "pos" => 65535,
-            ),
-            array(
-                "id" => "5e5c1f9aa8fe55462a918ceb",
-                "name" => "2. Lead Magnet",
-                "pos" => 131071,
-            ),
-            array(
-                "id" => "5e5c1f9e8ba0a9406069f3a8",
-                "name" => "3. Trip Wire",
-                "pos" => 196607,
-            ),
-            array(
-                "id" => "5e5c1fa1c959c2221c1d9bc2",
-                "name" => "4. Core",
-                "pos" => 262143,
-            ),
-            array(
-                "id" => "5e5c1fa6f8a36f344a4942fe",
-                "name" => "5. High Margin",
-                "pos" => 327679,
-            ),
-        );
+        return [
+            [
+                'id' => '5e5c1f8f49c26f3ef8b6eba4',
+                'name' => '1. Lead',
+                'pos' => 65535,
+            ],
+            [
+                'id' => '5e5c1f9aa8fe55462a918ceb',
+                'name' => '2. Lead Magnet',
+                'pos' => 131071,
+            ],
+            [
+                'id' => '5e5c1f9e8ba0a9406069f3a8',
+                'name' => '3. Trip Wire',
+                'pos' => 196607,
+            ],
+            [
+                'id' => '5e5c1fa1c959c2221c1d9bc2',
+                'name' => '4. Core',
+                'pos' => 262143,
+            ],
+            [
+                'id' => '5e5c1fa6f8a36f344a4942fe',
+                'name' => '5. High Margin',
+                'pos' => 327679,
+            ],
+        ];
     }
+
     protected function getBoards()
     {
         // return array(
@@ -281,24 +282,22 @@ class ApiCardController extends AbstractController
         //     }
         // );
     }
+
     /**
-     * Return a error message
-     *
-     * @param string $message
-     *
-     * @return void
+     * Return a error message.
      */
-    protected function returnError(string $message = "Unexpected Error")
+    protected function returnError(string $message = 'Unexpected Error')
     {
         return new Response($message, Response::HTTP_BAD_REQUEST);
     }
-     /**
+
+    /**
      * @return bool|mixed
      */
     private function parseResponse(Response $response): bool
     {
-        $body       = (string) $response->getBody();
-        $error      = false;
+        $body = (string) $response->getBody();
+        $error = false;
 
         if ($json = json_decode($body, true)) {
             $body = $json;

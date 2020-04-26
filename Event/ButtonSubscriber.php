@@ -1,18 +1,19 @@
 <?php
+
 // plugins/Idea2TrelloBundle/Event/ButtonSubscriber.php
 
 namespace MauticPlugin\Idea2TrelloBundle\Event;
 
 use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\Event\CustomButtonEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Mautic\CoreBundle\Templating\Helper\ButtonHelper;
 use Mautic\LeadBundle\Entity\Lead;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Add a Trello button
+ * Add a Trello button.
  */
 class ButtonSubscriber implements EventSubscriberInterface
 {
@@ -27,20 +28,16 @@ class ButtonSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
-     * init
-     *
-     * @param RouterInterface     $router
-     * @param TranslatorInterface $translator
+     * init.
      */
     public function __construct(RouterInterface $router, TranslatorInterface $translator)
     {
-        $this->router     = $router;
+        $this->router = $router;
         $this->translator = $translator;
     }
+
     /**
-     * Get Events
-     *
-     * @return void
+     * Get Events.
      */
     public static function getSubscribedEvents()
     {
@@ -49,9 +46,6 @@ class ButtonSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param CustomButtonEvent $event
-     */
     public function injectViewButtons(CustomButtonEvent $event)
     {
         // // mautic.view_inject_custom_buttons
@@ -74,26 +68,24 @@ class ButtonSubscriber implements EventSubscriberInterface
         //     ButtonHelper::LOCATION_TOOLBAR_ACTIONS
         // );
 
-        //
         if ($lead = $event->getItem()) {
-            
             if ($lead instanceof Lead) {
                 $addToTrelloBtn = [
-                    'attr'      => [
+                    'attr' => [
                         'data-toggle' => 'ajaxmodal',
                         'data-target' => '#MauticSharedModal',
                         'data-header' => $this->translator->trans(
                             'plugin.idea2trello.add_card_to_trello'
                         ),
-                        'href'        => $this->router->generate(
+                        'href' => $this->router->generate(
                             'plugin_create_cards',
                             ['contactId' => $lead->getId()]
                         ),
                     ],
-                    'btnText'   => 'Add to Trello',
+                    'btnText' => 'Add to Trello',
                     'iconClass' => 'fa fa-trello',
-                    'primary'   => true,
-                    'priority'  => 255,
+                    'primary' => true,
+                    'priority' => 255,
                 ];
 
                 // Inject a button into the page actions for the specified route (in this case /s/contacts/view/{contactId})
@@ -109,7 +101,8 @@ class ButtonSubscriber implements EventSubscriberInterface
                         $addToTrelloBtn,
                         ButtonHelper::LOCATION_LIST_ACTIONS,
                         'mautic_contact_index'
-                    );
+                    )
+                ;
             }
         }
     }

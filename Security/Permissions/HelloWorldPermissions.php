@@ -26,11 +26,11 @@ class HelloWorldPermissions extends AbstractPermissions
             'worlds' => [
                 // Custom permissions
                 'use_telescope' => 1,
-                'send_probe'    => 2,
-                'visit'         => 4,
+                'send_probe' => 2,
+                'visit' => 4,
                 // Full will almost always be included and should be significantly higher than the
                 // others in case new permissions need to be added later
-                'full'          => 1024,
+                'full' => 1024,
             ],
         ];
 
@@ -56,20 +56,20 @@ class HelloWorldPermissions extends AbstractPermissions
             [
                 'choices' => [
                     'use_telescope' => 'plugin.helloworld.permissions.use_telescope',
-                    'send_probe'    => 'plugin.helloworld.permissions.send_probe',
-                    'visit'         => 'plugin.helloworld.permissions.visit',
-                    'full'          => 'mautic.core.permissions.full',
+                    'send_probe' => 'plugin.helloworld.permissions.send_probe',
+                    'visit' => 'plugin.helloworld.permissions.visit',
+                    'full' => 'mautic.core.permissions.full',
                 ],
-                'label'   => 'plugin.helloworld.permissions',
+                'label' => 'plugin.helloworld.permissions',
 
                 // Set existing data
-                'data'    => (!empty($data['worlds']) ? $data['worlds'] : []),
+                'data' => (!empty($data['worlds']) ? $data['worlds'] : []),
 
                 // Bundle name (used to build frontend form)
-                'bundle'  => 'helloWorld',
+                'bundle' => 'helloWorld',
 
                 // Permission level (used to build frontend form)
-                'level'   => 'worlds',
+                'level' => 'worlds',
             ]
         );
     }
