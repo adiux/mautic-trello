@@ -58,9 +58,8 @@ components:
               description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
               example: "2019-09-21T00:00:00Z"
             idMembers:
-              type: array
-              items: 
-                type: object
+              type: string
+              description: Comma-separated list of member IDs
             attachments:
               type: array
               items: 
@@ -73,21 +72,17 @@ components:
         - name
         - idList
       properties:
-        key: 
-          type: string
-          minLength: 1
-        token:
-          type: string
-          minLength: 1
         name:
           type: string
           minLength: 1
+          description: Card Name
         idList:
           type: string
           minLength: 1
           description: The ID of the list the card should be created in
         desc:
           type: string
+          description: Card Description
         pos:
           type: string
           enum: [top, bottom]
