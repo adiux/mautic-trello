@@ -12,16 +12,24 @@ namespace MauticPlugin\Idea2TrelloBundle\Controller;
 // namespace MauticPlugin\Idea2TrelloBundle;
 // namespace Mautic\LeadBundle\Controller\Api;
 
+// require_once("../api/i2-card/autoload.php");
+
 use Symfony\Component\HttpFoundation\Response as Codes;
 use JMS\Serializer\SerializationContext;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Psr7\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-use Mautic\LeadBundle\Entity\Lead;
+// use Model\Card;
+// use MauticPlugin\Idea2TrelloBundle\Model\Card;
 
-class ApiCardController extends CommonApiController
+use \Idea2TrelloApi\Model\Card;
+
+// use \MauticPlugin\Idea2TrelloBundle\Idea2Trello\Model\Card;
+
+
+class ApiCardController extends AbstractController
 {
     /**
      * @return View
@@ -29,37 +37,40 @@ class ApiCardController extends CommonApiController
     public function addAction()
     {
         $logger = $this->get('monolog.logger.mautic');
+
         $request = $this->get('request_stack')->getCurrentRequest();
         // $_POST
         $post = $request->request->all();
-        $logger->debug('Received add card request', $post);
+        $logger->info('Received add card request', $post);
 
+        $test = new Card($post);
+      
         $data = array();
 
         // Check if a parameter exists
-        if (isset($post['ids']) && is_array($post['ids'])) {
-            // create a card for every contact
-            foreach ($post['ids'] as $id) {
-                $contact  = $this->getExistingContact($id);
-                if (empty($contact)) {
-                    return $this->badRequest('No contact found for ids: '.implode(',', $post[ids]));
-                }
-                $data     = $this->getTrelloData($contact);
-                if (empty($data)) {
-                    return $this->badRequest('no stage for contact defined: '.implode(',', $post[ids]));
-                }
-                $card = $this->postTrelloCard($data);
-                if (true !== $card) {
-                    $logger->info('could not add trello card for: '.$contact->getId().': '.$card);
-
-                    return $this->badRequest('Could not create card: '.$card);
-                } else {
-                    $logger->info('added trello card: '.$contact->getId());
-                }
-            }
-        } else {
-            return $this->badRequest();
+        if (!isset($post['ids'])|| !is_array($post['ids'])) {
+            return $this->returnError("No ids found");
         }
+            // create a card for every contact
+        foreach ($post['ids'] as $id) {
+            $contact  = $this->getExistingContact($id);
+            if (empty($contact)) {
+                return $this->badRequest('No contact found for ids: '.implode(',', $post[ids]));
+            }
+            $data     = $this->getTrelloData($contact);
+            if (empty($data)) {
+                return $this->badRequest('no stage for contact defined: '.implode(',', $post[ids]));
+            }
+            $card = $this->postTrelloCard($data);
+            if (true !== $card) {
+                $logger->info('could not add trello card for: '.$contact->getId().': '.$card);
+
+                return $this->badRequest('Could not create card: '.$card);
+            } else {
+                $logger->info('added trello card: '.$contact->getId());
+            }
+        }
+        
         $view    = $this->view($post['ids'], Codes::HTTP_OK);
 
         return $this->handleView($view);
@@ -269,6 +280,17 @@ class ApiCardController extends CommonApiController
         //         "id"=> "552d6bdb15755665d06cc4d5"
         //     }
         // );
+    }
+    /**
+     * Return a error message
+     *
+     * @param string $message
+     *
+     * @return void
+     */
+    protected function returnError(string $message = "Unexpected Error")
+    {
+        return new Response($message, Response::HTTP_BAD_REQUEST);
     }
      /**
      * @return bool|mixed
