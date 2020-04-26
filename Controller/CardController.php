@@ -10,11 +10,14 @@
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Validator\Constraints as Assert;
 use Mautic\CoreBundle\Controller\FormController;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
-use MauticPlugin\Idea2TrelloBundle\Form\CardType;
+use MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 
 class CardController extends FormController
 {
@@ -39,23 +42,28 @@ class CardController extends FormController
         $logger = $this->get('monolog.logger.mautic');
         $request = $this->get('request_stack')->getCurrentRequest();
 
-        $logger->info('got request with id', [$contactId]);
-        // $logger->warning('bad request');
+        $logger->warning('got request with id', [$contactId]);
+        // $logger->warning('request', );
 
         // creates a card and gives it some dummy data for this example
-        $card = new Card();
+        $card = new NewCard();
         $card->setName('Write a blog post');
         $card->setDue(new \DateTime('tomorrow'));
 
-        $form = $this->createForm(CardType::class, $card);
+        $form = $this->createForm(NewCardType::class, $card);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
-            $task = $form->getData();
+            $newCard = $form->getData();
 
+            $valid = $this->validateRequestData($newCard);
+            if ($valid !== true) {
+                return $valid;
+            }
+            
             // ... perform some action, such as saving the task to the database
 
             // return $this->redirectToRoute('task_success');
@@ -72,5 +80,30 @@ class CardController extends FormController
         // return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
         //     'form' => $form->createView(),
         // ]);
+    }
+
+    /**
+     * Validates to true or Returns an Error Response
+     *
+     * @param Request $request
+     *
+     * @return true || Response
+     */
+    protected function validateRequestData(NewCard $newCard)
+    {
+        // Validate the input values
+        // $asserts = [];
+        // $asserts[] = new Assert\NotNull();
+        // $asserts[] = new Assert\Type('MauticPlugin\\Idea2TrelloBundle\\Openapi\\Model\\NewCard');
+        // $asserts[] = new Assert\Valid();
+        // $response = $this->validate($newCard, $asserts);
+        // if ($response instanceof Response) {
+        //     return $response;
+        // }
+        if (empty($newCard->getName())) {
+            return new Response('Name not set', 400);
+        }
+
+        return true;
     }
 }

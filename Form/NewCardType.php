@@ -15,9 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard;
 
-class CardType extends AbstractType
+class NewCardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,7 +30,7 @@ class CardType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Card::class,
+            'data_class' => NewCard::class,
         ]);
     }
 }
