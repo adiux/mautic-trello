@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -8,12 +9,12 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Mautic\CoreBundle\Controller\FormController;
+
+use MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Form\CardType;
 
 class CardController extends FormController
 {
@@ -26,20 +27,36 @@ class CardController extends FormController
         );
     }
 
+    /**
+     * Build and Handle a new card
+     *
+     * @param [type] $contactId
+     *
+     * @return void
+     */
     public function newAction($contactId = null)
     {
         // creates a card and gives it some dummy data for this example
         $card = new Card();
         $card->setName('Write a blog post');
-        // $card->setDueDate(new \DateTime('tomorrow'));
+        $card->setDue(new \DateTime('tomorrow'));
 
-        $form = $this->createFormBuilder($card)
-            ->add('name', TextType::class)
-            // ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
-            // HelloWorldBundle:Contact:form.html.php
-            // Idea2TrelloBundle:Card:addCard.html.php
+        $form = $this->createForm(CardType::class, $card);
+            
+        $request = $this->get('request_stack')->getCurrentRequest();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $task = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+
+            // return $this->redirectToRoute('task_success');
+        }
+
+
         return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
             'form' => $form->createView(),
         ]);
