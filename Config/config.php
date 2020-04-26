@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -22,10 +23,6 @@ return [
                     'world' => 'earth|mars',
                 ],
             ],
-            'plugin_new_card' => [
-                'path' => '/trello/card/new/{contactId}',
-                'controller' => 'Idea2TrelloBundle:Card:new',
-            ],
             'plugin_create_cards' => [
                 'path' => '/trello/card/add/{contactId}',
                 'controller' => 'Idea2TrelloBundle:Card:add',
@@ -45,6 +42,10 @@ return [
         ],
     ],
     'services' => [
+        // 'forms' => [
+        //     'mautic.form.type.idea2trello.card' => [
+        //         'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\CardType',
+        //     ], ],
         'events' => [
             'mautic.channel.button.subscriber.trello' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,

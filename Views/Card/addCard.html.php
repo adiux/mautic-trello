@@ -16,10 +16,10 @@ $view['slots']->set('headerTitle', $header);
 ?>
 
 <div class="helloworld-content">
-    
-    <form action="/s/api/trello/card" method="post">
-    </form>
-    <script src="<?php echo $view['assets']->getUrl('plugins/Idea2TrelloBundle/Assets/elements/analytics-counter.js'); ?>"></script>
-  
-    <analytics-counter></analytics-counter>
+    <?php
+
+    echo $this->render('Idea2TrelloBundle:Card:new.html.twig', [
+         'form' => $form->createView(),
+    ]);
+    ?>
 </div>

@@ -34,16 +34,21 @@ class CardController extends FormController
      *
      * @return void
      */
-    public function newAction($contactId = null)
+    public function addAction($contactId = null)
     {
+        $logger = $this->get('monolog.logger.mautic');
+        $request = $this->get('request_stack')->getCurrentRequest();
+
+        $logger->info('got request with id', [$contactId]);
+        // $logger->warning('bad request');
+
         // creates a card and gives it some dummy data for this example
         $card = new Card();
         $card->setName('Write a blog post');
         $card->setDue(new \DateTime('tomorrow'));
 
         $form = $this->createForm(CardType::class, $card);
-            
-        $request = $this->get('request_stack')->getCurrentRequest();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,41 +61,16 @@ class CardController extends FormController
             // return $this->redirectToRoute('task_success');
         }
 
-
-        return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @param mixed|null $contactId
-     *
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function addAction($contactId = null)
-    {
-        $logger = $this->get('monolog.logger.mautic');
-        $request = $this->get('request_stack')->getCurrentRequest();
-        // $_GET
-
-        $logger->info('got request with id', [$contactId]);
-        $data = [];
-
-        // Check if a parameter exists
-        if (isset($contactId)) {
-        } else {
-            $logger->warning('bad request');
-
-            // return $this->badRequest();
-        }
-
         return $this->delegateView(
             [
                 'viewParameters' => [
-                    'contactIds' => $contactId,
+                    'form' => $form->createView(),
                 ],
-                'contentTemplate' => 'Idea2TrelloBundle:Card:addCard.html.php',
+                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.twig',
             ]
         );
+        // return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
+        //     'form' => $form->createView(),
+        // ]);
     }
 }
