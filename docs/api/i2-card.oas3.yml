@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Idea2 Trello API
-  description: Create card in Trello
+  description: Create or update a card via the Trello API
   version: 0.1.1
 servers:
   - url: /api/v1
