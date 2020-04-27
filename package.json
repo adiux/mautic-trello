@@ -16,7 +16,7 @@
     },
     "scripts": {
       "test": "NODE_PATH=. mocha tests",
-      "generate-api-card": "openapi-generator generate -i docs/api/i2-card.oas3.yml -g php-symfony -o Openapi --additional-properties='invokerPackage=MauticPlugin\\\\Idea2TrelloBundle\\\\Openapi,bundleName=Idea2Trello,phpLegacySupport=false'",
+      "generate-api-card": "openapi-generator generate -i docs/api/i2-card.oas3.yml -g php -o Openapi --additional-properties='invokerPackage=MauticPlugin\\\\Idea2TrelloBundle\\\\Openapi,bundleName=Idea2Trello,phpLegacySupport=false'",
       "openapi-generator-help": "openapi-generator config-help -g php-symfony",
       "format-all-code": "./vendor/bin/php-cs-fixer fix . --rules=@Symfony",
       "update-autoload": "./composer.phar dump-autoload -o"
