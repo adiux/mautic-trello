@@ -1,9 +1,6 @@
 next step: 
 
-1. Create OpenAPi Documentation for Trello Cards
-2. Create model for angular app/ web component
-3. Call API from angular
-
+1. 
 
 # Apis
 1. Call Mautic to add security and create card from Frontend (uses Mautic Frontend Auth /s)
@@ -17,3 +14,6 @@ And all should be well. If you are ever not sure what the actual namespace prefi
 ```
 bin/console debug:twig
 ```
+
+# Inspiration
+- https://github.com/cdaguerre/php-trello-api

@@ -9,23 +9,27 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\Controller\Controller;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Validator\Constraints as Assert;
-use Mautic\CoreBundle\Controller\FormController;
-use FOS\RestBundle\Util\Codes;
-use JMS\Serializer\SerializationContext;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ServerException;
 
+use Mautic\CoreBundle\Controller\FormController;
+
+use MauticPlugin\Idea2TrelloBundle\Openapi\Configuration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 
-class CardController extends Controller
+/**
+ * Setup a a form and send it to Trello to create a new card
+ */
+class CardController extends FormController
 {
+    /**
+     * Fallback
+     *
+     * @param integer $page
+     *
+     * @return void
+     */
     public function indexAction($page = 1)
     {
         return $this->delegateView(
@@ -96,10 +100,10 @@ class CardController extends Controller
         if (true !== $valid) {
             return $valid;
         }
-        
+        $api = $this->getApi();
         // ... perform some action, such as saving the task to the database
-        $card = $this->postTrelloCard($newCard);
-        $logger->warn('posted card')
+        $card = $api->addCard($newCard);
+        $logger->warn('posted card');
 
         // return $this->redirectToRoute('task_success');
     }
@@ -119,5 +123,26 @@ class CardController extends Controller
                 'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.twig',
             ]
         );
+    }
+    /**
+     * Return the Api for the Orders
+     *
+     * @return \GboOrder\Api\DefaultApi $api
+     */
+    protected function getApi()
+    {
+        $config = Configuration::getDefaultConfiguration()
+                    ->setHost('https://api.trello.com')
+                    ->setUsername('9ef17425c93fae626ad969e282ddb409')
+                    ->setPassword('eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6');
+
+        $api = new DefaultApi(
+            new HttpClient(),
+            $config,
+            null,
+            2
+        );
+
+        return $api;
     }
 }
