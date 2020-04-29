@@ -8,7 +8,7 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Form;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

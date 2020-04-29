@@ -61,18 +61,18 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = MauticPlugin\Idea2TrelloBundle\Openapi\Configuration::getDefaultConfiguration()
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()
               ->setUsername('YOUR_USERNAME')
               ->setPassword('YOUR_PASSWORD');
 
 
-$apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\Api\DefaultApi(
+$apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$new_card = new \MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard | Card to be added
+$new_card = new \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard | Card to be added
 
 try {
     $result = $apiInstance->addCard($new_card);

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**card** | [**\MauticPlugin\Idea2TrelloBundle\Openapi\Model\Card**](.md) |  | [optional] 
+**card** | [**\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card**](.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

@@ -9,13 +9,15 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Asset\Exception\InvalidArgumentException;
 
 use Mautic\CoreBundle\Controller\FormController;
 
 use MauticPlugin\Idea2TrelloBundle\Openapi\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 
 /**
@@ -23,6 +25,14 @@ use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
  */
 class CardController extends FormController
 {
+   /**
+     * Logger
+     *
+     * @var Monolog\Logger
+     */
+    protected $logger;
+
+
     /**
      * Fallback
      *
@@ -48,23 +58,23 @@ class CardController extends FormController
      */
     public function addAction($contactId = null)
     {
-        $logger = $this->get('monolog.logger.mautic');
+        $this->logger = $this->get('monolog.logger.mautic');
         $request = $this->get('request_stack')->getCurrentRequest();
 
-        $logger->warning('got request with id', [$contactId]);
-        // $logger->warning('request', );
+        $this->logger->warning('got request with id', [$contactId]);
+        // $this->logger->warning('request', );
 
         // creates a card and gives it some dummy data for this example
-        $this->getForm();
+        $form = $this->getForm();
 
         // process form data from HTTP variables
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->handleSubmitted();
+            $this->handleSubmitted($form);
         }
 
-        return $this->handleReturn();
+        return $this->handleReturn($form);
         // return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
         //     'form' => $form->createView(),
         // ]);
@@ -75,7 +85,7 @@ class CardController extends FormController
      *
      * @return Forms
      */
-    protected function getForm():Forms
+    protected function getForm(): Form
     {
         $card = new NewCard();
         $card->setName('Write a blog post');
@@ -90,20 +100,39 @@ class CardController extends FormController
      *
      * @return void
      */
-    protected function handleSubmitted(Forms $form)
+    protected function handleSubmitted(Form $form)
     {
-        // $form->getData() holds the submitted values
-        // but, the original `$task` variable has also been updated
+        $flashBag = $this->get('session')->getFlashBag();
         $newCard = $form->getData();
 
-        $valid = $this->validateRequestData($newCard);
-        if (true !== $valid) {
-            return $valid;
+        if (!$newCard->valid()) {
+            $invalid = current($newCard->listInvalidProperties());
+            $message = sprintf('New card data not valid: %s', $invalid);
+            // $this->addFlash($message, array(), 'error');
+            throw new InvalidArgumentException($message);
+
+            $this->logger->warning($message);
+
+            return false;
         }
+
         $api = $this->getApi();
+
         // ... perform some action, such as saving the task to the database
-        $card = $api->addCard($newCard);
-        $logger->warn('posted card');
+        try {
+            $card = $api->addCard($newCard);
+            $this->logger->warning('posted card', $newCard);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->warning($e->getMessage(), $e->getTrace());
+            $error = new Error();
+            $error->setCode('InvalidArgument');
+            $error->setMessage($e->getMessage());
+
+            return new WP_REST_Response(\Idea2\Plugin\to_json($error), 500);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
+        }
+        
 
         // return $this->redirectToRoute('task_success');
     }
@@ -113,7 +142,7 @@ class CardController extends FormController
      *
      * @return void
      */
-    protected function handleReturn()
+    protected function handleReturn(Form $form)
     {
         return $this->delegateView(
             [
