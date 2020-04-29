@@ -90,7 +90,7 @@ All URIs are relative to *http://localhost/api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**addCard**](docs/Api/DefaultApi.md#addcard) | **POST** /trello/card | 
+*DefaultApi* | [**addCard**](docs/Api/DefaultApi.md#addcard) | **POST** /card | 
 
 
 ## Documentation For Models
@@ -101,6 +101,7 @@ Class | Method | HTTP request | Description
  - [CardErrorData](docs/Model/CardErrorData.md)
  - [InlineResponse200](docs/Model/InlineResponse200.md)
  - [NewCard](docs/Model/NewCard.md)
+ - [TrelloList](docs/Model/TrelloList.md)
 
 
 ## Documentation For Authorization

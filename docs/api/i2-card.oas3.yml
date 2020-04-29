@@ -7,7 +7,7 @@ servers:
   - url: /api/v1
     description: Production server
 paths:
-  /trello/card:
+  /card:
     post:
       description: Creates a new Trello card
       operationId: addCard
@@ -98,6 +98,20 @@ components:
         keepFromSource:
           description: "If using idCardSource you can specify which properties to copy over."
           type: string
+    TrelloList:
+      type: object
+      required:
+        - id
+        - name
+        - post
+      properties:
+        id:
+          type: string
+        name: 
+          type: string
+        pos: 
+          type: integer
+          format: int16
     CardError:
       type: object
       required:
@@ -149,9 +163,3 @@ components:
         WWW_Authenticate:
           schema:
             type: string
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-security:
-  - basicAuth: []

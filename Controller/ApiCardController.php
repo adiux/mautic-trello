@@ -71,24 +71,6 @@ class ApiCardController extends AbstractController
         return $this->handleView($view);
     }
 
-    protected function getTrelloData(Lead $contact)
-    {
-        $desc = [$contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName()];
-
-        $stage = $contact->getStage();
-        if (empty($stage) || empty($stage->getName())) {
-            return null;
-        }
-
-        return [
-            'name' => $contact->getName(),
-            'desc' => implode('\\n', $desc),
-            'idList' => $this->getTrelloListId($stage->getName()),
-            'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
-            // 'idMembers' => ,
-        ];
-    }
-
     protected function postTrelloCard($data = null)
     {
         $config = $this->getConfig();
@@ -132,18 +114,6 @@ class ApiCardController extends AbstractController
         return null;
     }
 
-    protected function getTrelloListId($listName)
-    {
-        $lists = $this->getListsOnBoard();
-        foreach ($lists as $list) {
-            if ($list['name'] === $listName) {
-                return $list['id'];
-            }
-        }
-
-        throw new \InvalidArgumentException($listName.' is not a valid list name.');
-    }
-
     protected function getConfig()
     {
         $config['authorization_key'] = '9ef17425c93fae626ad969e282ddb409';
@@ -171,37 +141,6 @@ class ApiCardController extends AbstractController
     {
         return [
             // 'X-Forwarded-For' => $event->getSubmission()->getIpAddress()->getIpAddress(),
-        ];
-    }
-
-    protected function getListsOnBoard()
-    {
-        return [
-            [
-                'id' => '5e5c1f8f49c26f3ef8b6eba4',
-                'name' => '1. Lead',
-                'pos' => 65535,
-            ],
-            [
-                'id' => '5e5c1f9aa8fe55462a918ceb',
-                'name' => '2. Lead Magnet',
-                'pos' => 131071,
-            ],
-            [
-                'id' => '5e5c1f9e8ba0a9406069f3a8',
-                'name' => '3. Trip Wire',
-                'pos' => 196607,
-            ],
-            [
-                'id' => '5e5c1fa1c959c2221c1d9bc2',
-                'name' => '4. Core',
-                'pos' => 262143,
-            ],
-            [
-                'id' => '5e5c1fa6f8a36f344a4942fe',
-                'name' => '5. High Margin',
-                'pos' => 327679,
-            ],
         ];
     }
 

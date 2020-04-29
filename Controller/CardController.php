@@ -9,34 +9,33 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
+use GuzzleHttp\Client as HttpClient;
+use Mautic\CoreBundle\Controller\FormController;
+use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Asset\Exception\InvalidArgumentException;
-
-use Mautic\CoreBundle\Controller\FormController;
-
-use MauticPlugin\Idea2TrelloBundle\Openapi\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
-use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 
 /**
- * Setup a a form and send it to Trello to create a new card
+ * Setup a a form and send it to Trello to create a new card.
  */
 class CardController extends FormController
 {
-   /**
-     * Logger
+    /**
+     * Logger.
      *
      * @var Monolog\Logger
      */
     protected $logger;
 
-
     /**
-     * Fallback
+     * Fallback.
      *
-     * @param integer $page
+     * @param int $page
      *
      * @return void
      */
@@ -50,7 +49,7 @@ class CardController extends FormController
     }
 
     /**
-     * Build and Handle a new card
+     * Build and Handle a new card.
      *
      * @param [type] $contactId
      *
@@ -81,7 +80,7 @@ class CardController extends FormController
     }
 
     /**
-     * Build a form
+     * Build a form.
      *
      * @return Forms
      */
@@ -93,8 +92,9 @@ class CardController extends FormController
 
         return $form = $this->createForm(NewCardType::class, $card);
     }
+
     /**
-     * All the business logic for a submitted form
+     * All the business logic for a submitted form.
      *
      * @param Forms $form
      *
@@ -110,7 +110,6 @@ class CardController extends FormController
             $message = sprintf('New card data not valid: %s', $invalid);
             // $this->addFlash($message, array(), 'error');
             throw new InvalidArgumentException($message);
-
             $this->logger->warning($message);
 
             return false;
@@ -118,7 +117,17 @@ class CardController extends FormController
 
         $api = $this->getApi();
 
-        // ... perform some action, such as saving the task to the database
+        //merge data with auth
+        $cardArray = json_decode( $newCard->__toString(), true );
+        print '<pre>';
+        print '<h1>cardArray</h1>';
+        print_r( $cardArray );
+        print '</pre>'; 
+        $requestData = array_merge($cardArray, $this->getAuthParams());
+print '<pre>';
+print '<h1>requestData</h1>';
+print_r( $requestData );
+print '</pre>'; exit;
         try {
             $card = $api->addCard($newCard);
             $this->logger->warning('posted card', $newCard);
@@ -132,13 +141,12 @@ class CardController extends FormController
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
-        
 
         // return $this->redirectToRoute('task_success');
     }
 
     /**
-     * Return a view
+     * Return a view.
      *
      * @return void
      */
@@ -153,17 +161,46 @@ class CardController extends FormController
             ]
         );
     }
+
+    // protected function getTrelloData(Lead $contact)
+    // {
+    //     $desc = [$contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName()];
+
+    //     $stage = $contact->getStage();
+    //     if (empty($stage) || empty($stage->getName())) {
+    //         return null;
+    //     }
+
+    //     return [
+    //         'name' => $contact->getName(),
+    //         'desc' => implode('\\n', $desc),
+    //         'idList' => $this->getTrelloListId($stage->getName()),
+    //         'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
+    //         // 'idMembers' => ,
+    //     ];
+    // }
+
+    protected function getTrelloListId($listName)
+    {
+        $lists = $this->getListsOnBoard();
+        foreach ($lists as $list) {
+            if ($list['name'] === $listName) {
+                return $list['id'];
+            }
+        }
+
+        throw new \InvalidArgumentException($listName.' is not a valid list name.');
+    }
+
     /**
-     * Return the Api for the Orders
+     * Return the Api for the Orders.
      *
-     * @return \GboOrder\Api\DefaultApi $api
+     * @return \Openapi\lib\Api\DefaultApi $api
      */
     protected function getApi()
     {
         $config = Configuration::getDefaultConfiguration()
-                    ->setHost('https://api.trello.com')
-                    ->setUsername('9ef17425c93fae626ad969e282ddb409')
-                    ->setPassword('eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6');
+                    ->setHost('https://api.trello.com/1');
 
         $api = new DefaultApi(
             new HttpClient(),
@@ -173,5 +210,16 @@ class CardController extends FormController
         );
 
         return $api;
+    }
+    /**
+     * Get the user specific auth params of the Trello API to add to the post part
+     *
+     * @return void
+     */
+    protected function getAuthParams()
+    {
+        return array(
+        "key" => '9ef17425c93fae626ad969e282ddb409',
+        "token" => 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6', );
     }
 }

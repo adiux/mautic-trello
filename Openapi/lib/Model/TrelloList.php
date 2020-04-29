@@ -1,6 +1,6 @@
 <?php
 /**
- * CardAllOf.
+ * TrelloList.
  *
  * PHP version 5
  *
@@ -34,7 +34,7 @@ use ArrayAccess;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * CardAllOf Class Doc Comment.
+ * TrelloList Class Doc Comment.
  *
  * @category Class
  *
@@ -42,7 +42,7 @@ use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
  *
  * @see     https://openapi-generator.tech
  */
-class CardAllOf implements ModelInterface, ArrayAccess
+class TrelloList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $openAPIModelName = 'Card_allOf';
+    protected static $openAPIModelName = 'TrelloList';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -60,12 +60,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $openAPITypes = [
         'id' => 'string',
-        'labels' => 'object[]',
-        'url' => 'string',
-        'date_last_activity' => '\DateTime',
-        'due' => '\DateTime',
-        'id_members' => 'string',
-        'attachments' => 'object[]',
+        'name' => 'string',
+        'pos' => 'int',
     ];
 
     /**
@@ -75,12 +71,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $openAPIFormats = [
         'id' => null,
-        'labels' => null,
-        'url' => 'uri',
-        'date_last_activity' => 'date-time',
-        'due' => 'date-time',
-        'id_members' => null,
-        'attachments' => null,
+        'name' => null,
+        'pos' => 'int16',
     ];
 
     /**
@@ -111,12 +103,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'labels' => 'labels',
-        'url' => 'url',
-        'date_last_activity' => 'dateLastActivity',
-        'due' => 'due',
-        'id_members' => 'idMembers',
-        'attachments' => 'attachments',
+        'name' => 'name',
+        'pos' => 'pos',
     ];
 
     /**
@@ -126,12 +114,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'id' => 'setId',
-        'labels' => 'setLabels',
-        'url' => 'setUrl',
-        'date_last_activity' => 'setDateLastActivity',
-        'due' => 'setDue',
-        'id_members' => 'setIdMembers',
-        'attachments' => 'setAttachments',
+        'name' => 'setName',
+        'pos' => 'setPos',
     ];
 
     /**
@@ -141,12 +125,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'id' => 'getId',
-        'labels' => 'getLabels',
-        'url' => 'getUrl',
-        'date_last_activity' => 'getDateLastActivity',
-        'due' => 'getDue',
-        'id_members' => 'getIdMembers',
-        'attachments' => 'getAttachments',
+        'name' => 'getName',
+        'pos' => 'getPos',
     ];
 
     /**
@@ -206,12 +186,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['date_last_activity'] = isset($data['date_last_activity']) ? $data['date_last_activity'] : null;
-        $this->container['due'] = isset($data['due']) ? $data['due'] : null;
-        $this->container['id_members'] = isset($data['id_members']) ? $data['id_members'] : null;
-        $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
     }
 
     /**
@@ -226,8 +202,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
         if (null === $this->container['id']) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        if (null === $this->container['name']) {
+            $invalidProperties[] = "'name' can't be null";
         }
 
         return $invalidProperties;
@@ -263,155 +239,55 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     public function setId($id)
     {
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling CardAllOf., must be bigger than or equal to 1.');
-        }
-
         $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets labels.
+     * Gets name.
      *
-     * @return object[]|null
+     * @return string
      */
-    public function getLabels()
+    public function getName()
     {
-        return $this->container['labels'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets labels.
+     * Sets name.
      *
-     * @param object[]|null $labels labels
+     * @param string $name name
      *
      * @return $this
      */
-    public function setLabels($labels)
+    public function setName($name)
     {
-        $this->container['labels'] = $labels;
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets url.
+     * Gets pos.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getUrl()
+    public function getPos()
     {
-        return $this->container['url'];
+        return $this->container['pos'];
     }
 
     /**
-     * Sets url.
+     * Sets pos.
      *
-     * @param string|null $url url
+     * @param int|null $pos pos
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setPos($pos)
     {
-        $this->container['url'] = $url;
-
-        return $this;
-    }
-
-    /**
-     * Gets date_last_activity.
-     *
-     * @return \DateTime|null
-     */
-    public function getDateLastActivity()
-    {
-        return $this->container['date_last_activity'];
-    }
-
-    /**
-     * Sets date_last_activity.
-     *
-     * @param \DateTime|null $date_last_activity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
-     *
-     * @return $this
-     */
-    public function setDateLastActivity($date_last_activity)
-    {
-        $this->container['date_last_activity'] = $date_last_activity;
-
-        return $this;
-    }
-
-    /**
-     * Gets due.
-     *
-     * @return \DateTime|null
-     */
-    public function getDue()
-    {
-        return $this->container['due'];
-    }
-
-    /**
-     * Sets due.
-     *
-     * @param \DateTime|null $due full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
-     *
-     * @return $this
-     */
-    public function setDue($due)
-    {
-        $this->container['due'] = $due;
-
-        return $this;
-    }
-
-    /**
-     * Gets id_members.
-     *
-     * @return string|null
-     */
-    public function getIdMembers()
-    {
-        return $this->container['id_members'];
-    }
-
-    /**
-     * Sets id_members.
-     *
-     * @param string|null $id_members Comma-separated list of member IDs
-     *
-     * @return $this
-     */
-    public function setIdMembers($id_members)
-    {
-        $this->container['id_members'] = $id_members;
-
-        return $this;
-    }
-
-    /**
-     * Gets attachments.
-     *
-     * @return object[]|null
-     */
-    public function getAttachments()
-    {
-        return $this->container['attachments'];
-    }
-
-    /**
-     * Sets attachments.
-     *
-     * @param object[]|null $attachments attachments
-     *
-     * @return $this
-     */
-    public function setAttachments($attachments)
-    {
-        $this->container['attachments'] = $attachments;
+        $this->container['pos'] = $pos;
 
         return $this;
     }
