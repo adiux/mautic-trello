@@ -60,22 +60,15 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
-// Configure HTTP basic authorization: basicAuth
-$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()
-              ->setUsername('YOUR_USERNAME')
-              ->setPassword('YOUR_PASSWORD');
-
-
 $apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
+    new GuzzleHttp\Client()
 );
-$new_card = new \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard | Card to be added
+$newCard = new \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard | Card to be added
 
 try {
-    $result = $apiInstance->addCard($new_card);
+    $result = $apiInstance->addCard($newCard);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->addCard: ', $e->getMessage(), PHP_EOL;
@@ -91,6 +84,7 @@ All URIs are relative to *http://localhost/api/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**addCard**](docs/Api/DefaultApi.md#addcard) | **POST** /card | 
+*DefaultApi* | [**boardsBoardIdListsGet**](docs/Api/DefaultApi.md#boardsboardidlistsget) | **GET** /boards/{boardId}/lists | 
 
 
 ## Documentation For Models
@@ -106,13 +100,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-
-
-## basicAuth
-
-
-- **Type**: HTTP basic authentication
-
+All endpoints do not require authorization.
 
 ## Author
 

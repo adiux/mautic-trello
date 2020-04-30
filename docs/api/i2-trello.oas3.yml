@@ -27,6 +27,47 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "404":
           $ref: "#/components/responses/NotFound"
+  /boards/{boardId}/lists:
+    get:
+      description: Get all lists on a board
+      parameters:
+        - in: path
+          name: boardId
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: cards
+          schema:
+            type: string
+            enum:
+              - all
+              - closed
+              - none
+              - open
+        - in: query
+          name: filter
+          schema:
+            type: string
+            enum:
+              - all
+              - closed
+              - none
+              - open
+        - in: query
+          name: fields
+          schema:
+            type: string
+            description: Comma separated list of fields
+            example: id,name,pos
+      responses:
+        "200":
+          description: All lists on a board
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/TrelloList" }
 components:
   schemas:
     Card:
@@ -41,7 +82,7 @@ components:
               minLength: 1
             labels:
               type: array
-              items: 
+              items:
                 type: object
             url:
               type: string
@@ -62,7 +103,7 @@ components:
               description: Comma-separated list of member IDs
             attachments:
               type: array
-              items: 
+              items:
                 type: object
     NewCard:
       type: object
@@ -107,9 +148,9 @@ components:
       properties:
         id:
           type: string
-        name: 
+        name:
           type: string
-        pos: 
+        pos:
           type: integer
           format: int16
     CardError:
@@ -136,15 +177,15 @@ components:
               example: 404
   responses:
     Ok:
-        description: A Trello Card
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                card:
-                  type: object
-                  $ref: "#/components/schemas/Card"
+      description: A Trello Card
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              card:
+                type: object
+                $ref: "#/components/schemas/Card"
     BadRequest:
       description: Bad request
       content:

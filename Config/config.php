@@ -58,8 +58,6 @@ return [
             'mautic.idea2trello.trello_api_service' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
             ],
-            
         ],
-        
     ],
 ];

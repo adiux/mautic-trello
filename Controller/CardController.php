@@ -1,9 +1,9 @@
 <?php
+
 // declare(strict_types=1);
 
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -14,7 +14,6 @@ namespace MauticPlugin\Idea2TrelloBundle\Controller;
 use Mautic\CoreBundle\Controller\FormController;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
-
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
@@ -127,12 +126,11 @@ class CardController extends FormController
 
         $api = $this->apiService->getApi();
 
-        
         //merge data with auth
-        $cardArray = json_decode( $newCard->__toString(), true );
+        $cardArray = json_decode($newCard->__toString(), true);
         // get only id of list
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
-        
+
         $requestData = array_merge($cardArray, $this->apiService->getAuthParams());
 
         try {
