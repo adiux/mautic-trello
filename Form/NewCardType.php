@@ -30,13 +30,13 @@ class NewCardType extends AbstractType
                 'choices' => array(
                     new TrelloList([
                         'id' => '5e5c1f8f49c26f3ef8b6eba4',
-                        'name' => '1. Lead',
+                        'name' => '1. Interesting Lead',
                         'pos' => 65535,
                     ]),
                     new TrelloList([
-                        'id' => '5e5c1f8f49c26f3ef8b6eba4',
-                        'name' => '1. Lead',
-                        'pos' => 65535,
+                        'id' => '5e5c1f9aa8fe55462a918ceb',
+                        'name' => '2. Intro gesendet',
+                        'pos' => 65531,
                     ]),
                 ),
                 'choice_value' => 'id',

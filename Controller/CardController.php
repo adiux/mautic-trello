@@ -102,7 +102,7 @@ class CardController extends FormController
      */
     protected function handleSubmitted(Form $form)
     {
-        $flashBag = $this->get('session')->getFlashBag();
+        // $flashBag = $this->get('session')->getFlashBag();
         $newCard = $form->getData();
 
         if (!$newCard->valid()) {
@@ -117,20 +117,17 @@ class CardController extends FormController
 
         $api = $this->getApi();
 
+        
         //merge data with auth
         $cardArray = json_decode( $newCard->__toString(), true );
-        print '<pre>';
-        print '<h1>cardArray</h1>';
-        print_r( $cardArray );
-        print '</pre>'; 
+        // get only id of list
+        $cardArray['idList'] = $form->get('idList')->getData()->getId();
+        
         $requestData = array_merge($cardArray, $this->getAuthParams());
-print '<pre>';
-print '<h1>requestData</h1>';
-print_r( $requestData );
-print '</pre>'; exit;
+
         try {
-            $card = $api->addCard($newCard);
-            $this->logger->warning('posted card', $newCard);
+            $card = $api->addCard($requestData);
+            $this->logger->warning('posted card with data', $requestData);
         } catch (InvalidArgumentException $e) {
             $this->logger->warning($e->getMessage(), $e->getTrace());
             $error = new Error();
@@ -179,18 +176,6 @@ print '</pre>'; exit;
     //         // 'idMembers' => ,
     //     ];
     // }
-
-    protected function getTrelloListId($listName)
-    {
-        $lists = $this->getListsOnBoard();
-        foreach ($lists as $list) {
-            if ($list['name'] === $listName) {
-                return $list['id'];
-            }
-        }
-
-        throw new \InvalidArgumentException($listName.' is not a valid list name.');
-    }
 
     /**
      * Return the Api for the Orders.
