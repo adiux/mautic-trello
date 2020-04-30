@@ -1,4 +1,6 @@
 <?php
+// declare(strict_types=1);
+
 /**
  * @copyright   2020
  *
@@ -9,12 +11,10 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
-use GuzzleHttp\Client as HttpClient;
 use Mautic\CoreBundle\Controller\FormController;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
@@ -31,6 +31,11 @@ class CardController extends FormController
      * @var Monolog\Logger
      */
     protected $logger;
+
+    /**
+     * @var MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService
+     */
+    private $apiService;
 
     /**
      * Fallback.
@@ -55,10 +60,15 @@ class CardController extends FormController
      *
      * @return void
      */
-    public function addAction($contactId = null)
+    public function addAction(Request $request)
     {
         $this->logger = $this->get('monolog.logger.mautic');
-        $request = $this->get('request_stack')->getCurrentRequest();
+        $this->apiService = $this->get('mautic.idea2trello.trello_api_service');
+
+        // only works if your service is public
+        $contactId = 1;
+
+        // $request = $this->get('request_stack')->getCurrentRequest();
 
         $this->logger->warning('got request with id', [$contactId]);
         // $this->logger->warning('request', );
@@ -115,7 +125,7 @@ class CardController extends FormController
             return false;
         }
 
-        $api = $this->getApi();
+        $api = $this->apiService->getApi();
 
         
         //merge data with auth
@@ -123,7 +133,7 @@ class CardController extends FormController
         // get only id of list
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
         
-        $requestData = array_merge($cardArray, $this->getAuthParams());
+        $requestData = array_merge($cardArray, $this->apiService->getAuthParams());
 
         try {
             $card = $api->addCard($requestData);
@@ -176,35 +186,4 @@ class CardController extends FormController
     //         // 'idMembers' => ,
     //     ];
     // }
-
-    /**
-     * Return the Api for the Orders.
-     *
-     * @return \Openapi\lib\Api\DefaultApi $api
-     */
-    protected function getApi()
-    {
-        $config = Configuration::getDefaultConfiguration()
-                    ->setHost('https://api.trello.com/1');
-
-        $api = new DefaultApi(
-            new HttpClient(),
-            $config,
-            null,
-            2
-        );
-
-        return $api;
-    }
-    /**
-     * Get the user specific auth params of the Trello API to add to the post part
-     *
-     * @return void
-     */
-    protected function getAuthParams()
-    {
-        return array(
-        "key" => '9ef17425c93fae626ad969e282ddb409',
-        "token" => 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6', );
-    }
 }

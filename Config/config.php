@@ -4,7 +4,7 @@
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
- * @see        http://m.localhost/s/hello/mars
+ * @see        https://developer.mautic.org/#services
  */
 return [
     'name' => 'Mautic Trello',
@@ -23,7 +23,7 @@ return [
                 ],
             ],
             'plugin_create_cards' => [
-                'path' => '/trello/card/add/{contactId}',
+                'path' => '/trello/card/add',
                 'controller' => 'Idea2TrelloBundle:Card:add',
             ],
             'plugin_trello_card_add' => [
@@ -54,5 +54,12 @@ return [
                 ],
             ],
         ],
+        'others' => [
+            'mautic.idea2trello.trello_api_service' => [
+                'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
+            ],
+            
+        ],
+        
     ],
 ];
