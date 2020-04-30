@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -41,10 +42,16 @@ return [
         ],
     ],
     'services' => [
-        // 'forms' => [
-        //     'mautic.form.type.idea2trello.card' => [
-        //         'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\CardType',
-        //     ], ],
+        'forms' => [
+            'mautic.idea2trello.form.card' => [
+                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
+            ],
+            'mautic.idea2trello.form.config' => [
+                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
+                'arguments' => 'mautic.lead.model.field',
+            ],
+        ],
+
         'events' => [
             'mautic.channel.button.subscriber.trello' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,
@@ -53,11 +60,17 @@ return [
                     'translator',
                 ],
             ],
+            'mautic.idea2trello.event.config' => [
+                'class' => \MauticPlugin\Idea2TrelloBundle\Event\ConfigSubscriber::class,
+            ],
         ],
         'others' => [
-            'mautic.idea2trello.trello_api_service' => [
+            'mautic.idea2trello.service.trello_api' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
             ],
         ],
+    ],
+    'parameters' => [
+        'favorite_board' => '',
     ],
 ];
