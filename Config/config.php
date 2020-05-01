@@ -79,7 +79,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.trello' => [
-                'class'     => \MauticPlugin\MauticClearbitBundle\Integration\ClearbitIntegration::class,
+                'class'     => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
@@ -96,6 +96,7 @@ return [
                     'mautic.core.model.notification',
                     'mautic.lead.model.field',
                     'mautic.plugin.model.integration_entity',
+                    'mautic.lead.model.dnc',
                 ],
             ],
         ],
