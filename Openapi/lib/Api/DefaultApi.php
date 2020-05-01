@@ -397,6 +397,16 @@ class DefaultApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('token');
+        if ($apiKey !== null) {
+            $queryParams['token'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('key');
+        if ($apiKey !== null) {
+            $queryParams['key'] = $apiKey;
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -419,7 +429,7 @@ class DefaultApi
     }
 
     /**
-     * Operation boardsBoardIdListsGet
+     * Operation getLists
      *
      * @param  string $boardId boardId (required)
      * @param  string $cards cards (optional)
@@ -430,14 +440,14 @@ class DefaultApi
      * @throws \InvalidArgumentException
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]
      */
-    public function boardsBoardIdListsGet($boardId, $cards = null, $filter = null, $fields = null)
+    public function getLists($boardId, $cards = null, $filter = null, $fields = null)
     {
-        list($response) = $this->boardsBoardIdListsGetWithHttpInfo($boardId, $cards, $filter, $fields);
+        list($response) = $this->getListsWithHttpInfo($boardId, $cards, $filter, $fields);
         return $response;
     }
 
     /**
-     * Operation boardsBoardIdListsGetWithHttpInfo
+     * Operation getListsWithHttpInfo
      *
      * @param  string $boardId (required)
      * @param  string $cards (optional)
@@ -448,9 +458,9 @@ class DefaultApi
      * @throws \InvalidArgumentException
      * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[], HTTP status code, HTTP response headers (array of strings)
      */
-    public function boardsBoardIdListsGetWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
+    public function getListsWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
     {
-        $request = $this->boardsBoardIdListsGetRequest($boardId, $cards, $filter, $fields);
+        $request = $this->getListsRequest($boardId, $cards, $filter, $fields);
 
         try {
             $options = $this->createHttpClientOption();
@@ -526,7 +536,7 @@ class DefaultApi
     }
 
     /**
-     * Operation boardsBoardIdListsGetAsync
+     * Operation getListsAsync
      *
      * 
      *
@@ -538,9 +548,9 @@ class DefaultApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function boardsBoardIdListsGetAsync($boardId, $cards = null, $filter = null, $fields = null)
+    public function getListsAsync($boardId, $cards = null, $filter = null, $fields = null)
     {
-        return $this->boardsBoardIdListsGetAsyncWithHttpInfo($boardId, $cards, $filter, $fields)
+        return $this->getListsAsyncWithHttpInfo($boardId, $cards, $filter, $fields)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -549,7 +559,7 @@ class DefaultApi
     }
 
     /**
-     * Operation boardsBoardIdListsGetAsyncWithHttpInfo
+     * Operation getListsAsyncWithHttpInfo
      *
      * 
      *
@@ -561,10 +571,10 @@ class DefaultApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function boardsBoardIdListsGetAsyncWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
+    public function getListsAsyncWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
     {
         $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
-        $request = $this->boardsBoardIdListsGetRequest($boardId, $cards, $filter, $fields);
+        $request = $this->getListsRequest($boardId, $cards, $filter, $fields);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -601,7 +611,7 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'boardsBoardIdListsGet'
+     * Create request for operation 'getLists'
      *
      * @param  string $boardId (required)
      * @param  string $cards (optional)
@@ -611,12 +621,12 @@ class DefaultApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function boardsBoardIdListsGetRequest($boardId, $cards = null, $filter = null, $fields = null)
+    protected function getListsRequest($boardId, $cards = null, $filter = null, $fields = null)
     {
         // verify the required parameter 'boardId' is set
         if ($boardId === null || (is_array($boardId) && count($boardId) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $boardId when calling boardsBoardIdListsGet'
+                'Missing the required parameter $boardId when calling getLists'
             );
         }
 
@@ -692,6 +702,16 @@ class DefaultApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('token');
+        if ($apiKey !== null) {
+            $queryParams['token'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('key');
+        if ($apiKey !== null) {
+            $queryParams['key'] = $apiKey;
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {

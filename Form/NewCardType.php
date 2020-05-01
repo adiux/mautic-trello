@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -10,6 +11,7 @@ namespace MauticPlugin\Idea2TrelloBundle\Form;
 
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,14 +19,39 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Monolog\Logger;
 
 class NewCardType extends AbstractType
 {
    /**
-     * @var MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService
+     * @var TrelloApiService
      */
     private $apiService;
+    /**
+     * @var Logger
+     */
+    protected $logger;
 
+    /**
+     * Setup NewCard Form
+     *
+     * @param TrelloApiService $trelloApiService
+     * @param Logger           $logger
+     */
+    public function __construct(TrelloApiService $trelloApiService, Logger $logger)
+    {
+        $this->apiService  = $trelloApiService;
+        $this->logger      = $logger;
+    }
+
+    /**
+     * Define fields to display
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -48,27 +75,27 @@ class NewCardType extends AbstractType
 
     protected function getListsOnBoard()
     {
-        // $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
-        // $api = $this->apiService->getApi();
+        $api = $this->apiService->getApi();
+        $boardId = "5e5c1f7d35b240381adccdcb"; // string |
+
+        try {
+            return $api->getLists($boardId, $cards, $filter, $fields);
+        } catch (Exception $e) {
+            echo 'Exception when calling DefaultApi->getLists: ', $e->getMessage(), PHP_EOL;
+        }
 
 
-        
-        // // @todo how to handle the Auth params??
-
-
-
-        // $api->boardsBoardIdListsGet();
-        return [
-            new TrelloList([
-                'id' => '5e5c1f8f49c26f3ef8b6eba4',
-                'name' => '1. Lead',
-                'pos' => 65535,
-            ]),
-            new TrelloList([
-                'id' => '5e5c1f9aa8fe55462a918ceb',
-                'name' => '2. Lead Magnet',
-                'pos' => 131071,
-            ]),
-        ];
+        // return [
+        //     new TrelloList([
+        //         'id' => '5e5c1f8f49c26f3ef8b6eba4',
+        //         'name' => '1. Lead',
+        //         'pos' => 65535,
+        //     ]),
+        //     new TrelloList([
+        //         'id' => '5e5c1f9aa8fe55462a918ceb',
+        //         'name' => '2. Lead Magnet',
+        //         'pos' => 131071,
+        //     ]),
+        // ];
     }
 }

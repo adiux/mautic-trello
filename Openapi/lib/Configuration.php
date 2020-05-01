@@ -81,7 +81,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'http://localhost/api/v1';
+    protected $host = 'https://api.trello.com/1';
 
     /**
      * User agent of the HTTP request, set to "OpenAPI-Generator/{version}/PHP" by default
@@ -436,8 +436,8 @@ class Configuration
     {
         return array(
           array(
-            "url" => "/api/v1",
-            "description" => "Production server",
+            "url" => "https://api.trello.com/1",
+            "description" => "Production Trello server",
           )
         );
     }

@@ -4,13 +4,13 @@ info:
   description: Create or update a card via the Trello API
   version: 0.1.1
 servers:
-  - url: /api/v1
-    description: Production server
+  - url: https://api.trello.com/1
+    description: Production Trello server
 paths:
   /card:
     post:
-      description: Creates a new Trello card
       operationId: addCard
+      description: Creates a new Trello card
       requestBody:
         description: Card to be added
         required: true
@@ -29,6 +29,7 @@ paths:
           $ref: "#/components/responses/NotFound"
   /boards/{boardId}/lists:
     get:
+      operationId: getLists
       description: Get all lists on a board
       parameters:
         - in: path
@@ -36,6 +37,7 @@ paths:
           schema:
             type: string
           required: true
+          example: "5e5c1f7d35b240381adccdcb"
         - in: query
           name: cards
           schema:
@@ -45,6 +47,7 @@ paths:
               - closed
               - none
               - open
+            example: "none"
         - in: query
           name: filter
           schema:
@@ -54,12 +57,13 @@ paths:
               - closed
               - none
               - open
+          example: "open"
         - in: query
           name: fields
           schema:
             type: string
             description: Comma separated list of fields
-            example: id,name,pos
+          example: "id,name,pos"
       responses:
         "200":
           description: All lists on a board
@@ -204,3 +208,15 @@ components:
         WWW_Authenticate:
           schema:
             type: string
+  securitySchemes:
+    appKey:
+      type: apiKey
+      in: query
+      name: key
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+security:
+  - appKey: []
+    apiToken:  []

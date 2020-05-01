@@ -60,10 +60,22 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
+// Configure API key authorization: apiToken
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('token', 'Bearer');
+
+// Configure API key authorization: appKey
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('key', 'Bearer');
+
+
 $apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $newCard = new \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard | Card to be added
 
@@ -79,12 +91,12 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://api.trello.com/1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**addCard**](docs/Api/DefaultApi.md#addcard) | **POST** /card | 
-*DefaultApi* | [**boardsBoardIdListsGet**](docs/Api/DefaultApi.md#boardsboardidlistsget) | **GET** /boards/{boardId}/lists | 
+*DefaultApi* | [**getLists**](docs/Api/DefaultApi.md#getlists) | **GET** /boards/{boardId}/lists | 
 
 
 ## Documentation For Models
@@ -100,7 +112,26 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-All endpoints do not require authorization.
+
+
+## apiToken
+
+
+- **Type**: API key
+- **API key parameter name**: token
+- **Location**: URL query string
+
+
+
+
+## appKey
+
+
+- **Type**: API key
+- **API key parameter name**: key
+- **Location**: URL query string
+
+
 
 ## Author
 

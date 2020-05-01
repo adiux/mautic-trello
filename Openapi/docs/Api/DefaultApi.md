@@ -1,11 +1,11 @@
 # MauticPlugin\Idea2TrelloBundle\Openapi\lib\DefaultApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to *https://api.trello.com/1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addCard**](DefaultApi.md#addCard) | **POST** /card | 
-[**boardsBoardIdListsGet**](DefaultApi.md#boardsBoardIdListsGet) | **GET** /boards/{boardId}/lists | 
+[**getLists**](DefaultApi.md#getLists) | **GET** /boards/{boardId}/lists | 
 
 
 
@@ -24,10 +24,22 @@ Creates a new Trello card
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiToken
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('token', 'Bearer');
+
+// Configure API key authorization: appKey
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('key', 'Bearer');
+
+
 $apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $newCard = new \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard(); // \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard | Card to be added
 
@@ -53,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiToken](../../README.md#apiToken), [appKey](../../README.md#appKey)
 
 ### HTTP request headers
 
@@ -65,9 +77,9 @@ No authorization required
 [[Back to README]](../../README.md)
 
 
-## boardsBoardIdListsGet
+## getLists
 
-> \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[] boardsBoardIdListsGet($boardId, $cards, $filter, $fields)
+> \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[] getLists($boardId, $cards, $filter, $fields)
 
 
 
@@ -80,21 +92,33 @@ Get all lists on a board
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiToken
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('token', 'Bearer');
+
+// Configure API key authorization: appKey
+$config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('key', 'Bearer');
+
+
 $apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$boardId = 'boardId_example'; // string | 
-$cards = 'cards_example'; // string | 
-$filter = 'filter_example'; // string | 
+$boardId = 5e5c1f7d35b240381adccdcb; // string | 
+$cards = none; // string | 
+$filter = open; // string | 
 $fields = id,name,pos; // string | 
 
 try {
-    $result = $apiInstance->boardsBoardIdListsGet($boardId, $cards, $filter, $fields);
+    $result = $apiInstance->getLists($boardId, $cards, $filter, $fields);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->boardsBoardIdListsGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->getLists: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -115,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiToken](../../README.md#apiToken), [appKey](../../README.md#appKey)
 
 ### HTTP request headers
 

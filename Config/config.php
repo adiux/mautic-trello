@@ -54,6 +54,10 @@ return [
         'forms' => [
             'mautic.idea2trello.form.card' => [
                 'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
+                'arguments' => [
+                    'mautic.idea2trello.service.trello_api',
+                    'monolog.logger.mautic',
+                ],
             ],
             'mautic.idea2trello.form.config' => [
                 'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',

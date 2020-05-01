@@ -40,17 +40,28 @@ class TrelloApiService
      */
     public function getApi()
     {
-        $config = Configuration::getDefaultConfiguration()
-                    ->setHost('https://api.trello.com/1');
 
-        $api = new DefaultApi(
+        // setup auth
+        $auth = $this->getAuthParams();
+        $config = Configuration::getDefaultConfiguration()->setApiKey('key', $auth['key']);
+        $config = Configuration::getDefaultConfiguration()->setApiKey('token', $auth['token']);
+
+        return new DefaultApi(
             new HttpClient(),
-            $config,
-            null,
-            2
+            $config
         );
 
-        return $api;
+        // $config = Configuration::getDefaultConfiguration()
+        //             ->setHost('https://api.trello.com/1');
+
+        // $api = new DefaultApi(
+        //     new HttpClient(),
+        //     $config,
+        //     null,
+        //     2
+        // );
+
+        // return $api;
     }
 
     /**
@@ -60,11 +71,11 @@ class TrelloApiService
      */
     public function getAuthParams()
     {
-        $keys = $this->getKeys();
-        print '<pre>';
-        print '<h1>keys</h1>';
-        print_r( $keys );
-        print '</pre>'; exit;
+        // $keys = $this->getKeys();
+        // print '<pre>';
+        // print '<h1>keys</h1>';
+        // print_r( $keys );
+        // print '</pre>'; exit;
         return [
         'key' => '9ef17425c93fae626ad969e282ddb409',
         'token' => 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6', ];
