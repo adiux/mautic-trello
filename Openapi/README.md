@@ -96,6 +96,7 @@ All URIs are relative to *https://api.trello.com/1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**addCard**](docs/Api/DefaultApi.md#addcard) | **POST** /card | 
+*DefaultApi* | [**getBoards**](docs/Api/DefaultApi.md#getboards) | **GET** /members/me/boards | 
 *DefaultApi* | [**getLists**](docs/Api/DefaultApi.md#getlists) | **GET** /boards/{boardId}/lists | 
 
 
@@ -106,6 +107,7 @@ Class | Method | HTTP request | Description
  - [CardError](docs/Model/CardError.md)
  - [CardErrorData](docs/Model/CardErrorData.md)
  - [NewCard](docs/Model/NewCard.md)
+ - [TrelloBoard](docs/Model/TrelloBoard.md)
  - [TrelloList](docs/Model/TrelloList.md)
 
 

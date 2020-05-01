@@ -61,7 +61,10 @@ return [
             ],
             'mautic.idea2trello.form.config' => [
                 'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
-                'arguments' => 'mautic.lead.model.field',
+                'arguments' => array(
+                    'mautic.lead.model.field',
+                    'mautic.idea2trello.service.trello_api',
+                    ),
             ],
         ],
         'events' => [

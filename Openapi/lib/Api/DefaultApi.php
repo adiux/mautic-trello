@@ -429,6 +429,303 @@ class DefaultApi
     }
 
     /**
+     * Operation getBoards
+     *
+     * @param  string $fields fields (required)
+     * @param  string $filter filter (required)
+     *
+     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]
+     */
+    public function getBoards($fields, $filter)
+    {
+        list($response) = $this->getBoardsWithHttpInfo($fields, $filter);
+        return $response;
+    }
+
+    /**
+     * Operation getBoardsWithHttpInfo
+     *
+     * @param  string $fields (required)
+     * @param  string $filter (required)
+     *
+     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[], HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBoardsWithHttpInfo($fields, $filter)
+    {
+        $request = $this->getBoardsRequest($fields, $filter);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            switch($statusCode) {
+                case 200:
+                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBoardsAsync
+     *
+     * 
+     *
+     * @param  string $fields (required)
+     * @param  string $filter (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBoardsAsync($fields, $filter)
+    {
+        return $this->getBoardsAsyncWithHttpInfo($fields, $filter)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBoardsAsyncWithHttpInfo
+     *
+     * 
+     *
+     * @param  string $fields (required)
+     * @param  string $filter (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBoardsAsyncWithHttpInfo($fields, $filter)
+    {
+        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
+        $request = $this->getBoardsRequest($fields, $filter);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBoards'
+     *
+     * @param  string $fields (required)
+     * @param  string $filter (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getBoardsRequest($fields, $filter)
+    {
+        // verify the required parameter 'fields' is set
+        if ($fields === null || (is_array($fields) && count($fields) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $fields when calling getBoards'
+            );
+        }
+        // verify the required parameter 'filter' is set
+        if ($filter === null || (is_array($filter) && count($filter) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $filter when calling getBoards'
+            );
+        }
+
+        $resourcePath = '/members/me/boards';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($fields !== null) {
+            $resourcePath = str_replace(
+                '{' . 'fields' . '}',
+                ObjectSerializer::toPathValue($fields),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($filter !== null) {
+            $resourcePath = str_replace(
+                '{' . 'filter' . '}',
+                ObjectSerializer::toPathValue($filter),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
+            } else {
+                $httpBody = $_tempBody;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('token');
+        if ($apiKey !== null) {
+            $queryParams['token'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('key');
+        if ($apiKey !== null) {
+            $queryParams['key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getLists
      *
      * @param  string $boardId boardId (required)

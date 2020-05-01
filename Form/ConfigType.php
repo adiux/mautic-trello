@@ -13,19 +13,33 @@ namespace MauticPlugin\Idea2TrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+
+/**
+ * Configure Trello integration in main Mautic Configiguration
+ */
 class ConfigType extends AbstractType
 {
+   /**
+     * @var TrelloApiService
+     */
+    private $apiService;
+
     protected $fieldModel;
 
     /**
      * ConfigType constructor.
+     *
+     * @param FieldModel       $fieldModel
+     * @param TrelloApiService $trelloApiService
      */
-    public function __construct(FieldModel $fieldModel)
+    public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService)
     {
         $this->fieldModel = $fieldModel;
+        $this->apiService  = $trelloApiService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,7 +48,12 @@ class ConfigType extends AbstractType
 
         $builder->add(
             'favorite_board',
-            TextType::class
+            ChoiceType::class,
+            array(
+                'choices' => $this->getBoards(),
+                'choice_value' => 'id',
+                'choice_label' => 'name',
+            )
         );
     }
 
@@ -44,5 +63,20 @@ class ConfigType extends AbstractType
     public function getBlockPrefix()
     {
         return 'trello_config';
+    }
+
+    /**
+     * Get all Trello boards
+     *
+     * @return void
+     */
+    protected function getBoards()
+    {
+        $api = $this->apiService->getApi();
+        try {
+            return $api->getBoards($fields = 'id,name', $filter = 'open');
+        } catch (Exception $e) {
+            echo 'Exception when calling DefaultApi->getBoards: ', $e->getMessage(), PHP_EOL;
+        }
     }
 }
