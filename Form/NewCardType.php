@@ -48,16 +48,16 @@ class NewCardType extends AbstractType
 
     protected function getListsOnBoard()
     {
-        $this->apiService = $this->get('mautic.idea2trello.trello_api_service');
-        $api = $this->apiService->getApi();
+        // $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
+        // $api = $this->apiService->getApi();
 
 
         
-        // @todo how to handle the Auth params??
+        // // @todo how to handle the Auth params??
 
 
 
-        $api->boardsBoardIdListsGet();
+        // $api->boardsBoardIdListsGet();
         return [
             new TrelloList([
                 'id' => '5e5c1f8f49c26f3ef8b6eba4',

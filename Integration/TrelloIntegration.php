@@ -61,6 +61,40 @@ class TrelloIntegration extends AbstractIntegration
         ];
     }
 
+    /**
+     * The "username"
+     * @return string
+     */
+    public function getClientIdKey()
+    {
+        return 'apikey';
+    }
+
+    /**
+     * The "password"
+     *
+     * {@inheritdoc}
+     *
+     * @return array
+     */
+    public function getSecretKeys()
+    {
+        return [
+            'apitoken',
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public function isAuthorized()
+    {
+        $keys = $this->getKeys();
+        
+        return $keys;
+    }
 
     /**
      * @return array
@@ -68,7 +102,7 @@ class TrelloIntegration extends AbstractIntegration
     public function getFormSettings()
     {
         return [
-            'requires_callback'      => true,
+            'requires_callback'      => false,
             'requires_authorization' => true,
         ];
     }

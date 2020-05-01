@@ -3,11 +3,36 @@
 namespace MauticPlugin\Idea2TrelloBundle\Service;
 
 use GuzzleHttp\Client as HttpClient;
+use Mautic\PluginBundle\Helper\IntegrationHelper;
+
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use Monolog\Logger;
 
 class TrelloApiService
 {
+    /**
+     * @var bool|TrelloIntegration
+     */
+    protected $integration;
+    /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
+     * Setup Service
+     *
+     * @param IntegrationHelper $integrationHelper
+     * @param Logger            $logger
+     */
+    public function __construct(IntegrationHelper $integrationHelper, Logger $logger)
+    {
+        $this->integration  = $integrationHelper->getIntegrationObject('Trello');
+        $this->logger       = $logger;
+    }
+
     /**
      * Return the Api for the Orders.
      *
@@ -35,8 +60,23 @@ class TrelloApiService
      */
     public function getAuthParams()
     {
+        $keys = $this->getKeys();
+        print '<pre>';
+        print '<h1>keys</h1>';
+        print_r( $keys );
+        print '</pre>'; exit;
         return [
         'key' => '9ef17425c93fae626ad969e282ddb409',
         'token' => 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6', ];
+    }
+
+    protected function getKeys()
+    {
+        if (!$this->integration || !$this->integration->getIntegrationSettings()->getIsPublished()) {
+            return false;
+        }
+
+        // get api_key from plugin settings
+        return $this->integration->getDecryptedApiKeys();
     }
 }

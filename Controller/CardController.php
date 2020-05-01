@@ -62,7 +62,7 @@ class CardController extends FormController
     public function addAction(Request $request)
     {
         $this->logger = $this->get('monolog.logger.mautic');
-        $this->apiService = $this->get('mautic.idea2trello.trello_api_service');
+        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
 
         // only works if your service is public
         $contactId = 1;

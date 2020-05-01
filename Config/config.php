@@ -75,6 +75,10 @@ return [
         'others' => [
             'mautic.idea2trello.service.trello_api' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
+                'arguments' => [
+                    'mautic.helper.integration',
+                    'monolog.logger.mautic',
+                ],
             ],
         ],
         'integrations' => [
