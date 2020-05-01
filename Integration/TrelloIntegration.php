@@ -50,36 +50,33 @@ class TrelloIntegration extends AbstractIntegration
      */
     public function getRequiredKeyFields()
     {
-        // return [
-        //     'apikey' => 'mautic.integration.clearbit.apikey',
-        // ];
+        // Do not rename field. clearbit.js depends on it
         return [
-            'apikey' => 'mautic.integration.trello.appkey',
-            'apitoken' => 'mautic.integration.trello.apitoken',
+            'apikey' => 'mautic.integration.trello.apikey',
         ];
     }
 
-    // /**
-    //  * @param FormBuilder|Form $builder
-    //  * @param array            $data
-    //  * @param string           $formArea
-    //  */
-    // public function appendToForm(&$builder, $data, $formArea)
-    // {
-    //     if ('keys' === $formArea) {
-    //         $builder->add(
-    //             'auto_update',
-    //             YesNoButtonGroupType::class,
-    //             [
-    //                 'label' => 'mautic.plugin.clearbit.auto_update',
-    //                 'data'  => (isset($data['auto_update'])) ? (bool) $data['auto_update'] : false,
-    //                 'attr'  => [
-    //                     'tooltip' => 'mautic.plugin.clearbit.auto_update.tooltip',
-    //                 ],
-    //             ]
-    //         );
-    //     }
-    // }
+    /**
+     * @param FormBuilder|Form $builder
+     * @param array            $data
+     * @param string           $formArea
+     */
+    public function appendToForm(&$builder, $data, $formArea)
+    {
+        if ('keys' === $formArea) {
+            $builder->add(
+                'auto_update',
+                YesNoButtonGroupType::class,
+                [
+                    'label' => 'mautic.plugin.clearbit.auto_update',
+                    'data'  => (isset($data['auto_update'])) ? (bool) $data['auto_update'] : false,
+                    'attr'  => [
+                        'tooltip' => 'mautic.plugin.clearbit.auto_update.tooltip',
+                    ],
+                ]
+            );
+        }
+    }
 
 
     // public function shouldAutoUpdate()
@@ -96,19 +93,21 @@ class TrelloIntegration extends AbstractIntegration
      *
      * @return string|array
      */
-    // public function getFormNotes($section)
-    // {
-    //     if ('custom' === $section) {
-    //         return [
-    //             'template'   => 'Idea2TrelloBundle:Integration:form.html.php',
-    //             'parameters' => [
-    //                 'mauticUrl' => $this->router->generate(
-    //                     'mautic_plugin_clearbit_index', [], UrlGeneratorInterface::ABSOLUTE_URL
-    //                 ),
-    //             ],
-    //         ];
-    //     }
+    public function getFormNotes($section)
+    {
+        if ('custom' === $section) {
+            return [
+                'template'   => 'Idea2TrelloBundle:Integration:form.html.php',
+                'parameters' => [
+                    'mauticUrl' => $this->router->generate(
+                        'mautic_plugin_clearbit_index',
+                        [],
+                        UrlGeneratorInterface::ABSOLUTE_URL
+                    ),
+                ],
+            ];
+        }
 
-    //     return parent::getFormNotes($section);
-    // }
+        return parent::getFormNotes($section);
+    }
 }

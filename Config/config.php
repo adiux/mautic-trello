@@ -12,6 +12,12 @@ return [
     'description' => 'Add Mautic Contacts to Trello',
     'version' => '0.2.1',
     'routes' => [
+        // 'public' => [
+        //     'mautic_plugin_trello_index' => [
+        //         'path'       => '/trello/callback',
+        //         'controller' => 'MauticClearbitBundle:Public:callback',
+        //     ],
+        // ],
         'main' => [
             'plugin_helloworld_world' => [
                 'path' => '/hello/{world}',
@@ -73,7 +79,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.trello' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
+                'class'     => \MauticPlugin\MauticClearbitBundle\Integration\ClearbitIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
