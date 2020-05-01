@@ -9,8 +9,8 @@
  */
 return [
     'name' => 'Mautic Trello',
-    'description' => 'Add Mautic Contacts to Trello.',
-    'version' => '0.1.0',
+    'description' => 'Add Mautic Contacts to Trello',
+    'version' => '0.2.1',
     'routes' => [
         'main' => [
             'plugin_helloworld_world' => [
@@ -41,6 +41,9 @@ return [
             ],
         ],
     ],
+    'parameters' => [
+        'favorite_board' => '',
+    ],
     'services' => [
         'forms' => [
             'mautic.idea2trello.form.card' => [
@@ -51,7 +54,6 @@ return [
                 'arguments' => 'mautic.lead.model.field',
             ],
         ],
-
         'events' => [
             'mautic.channel.button.subscriber.trello' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,
@@ -69,8 +71,27 @@ return [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
             ],
         ],
-    ],
-    'parameters' => [
-        'favorite_board' => '',
+        'integrations' => [
+            'mautic.integration.trello' => [
+                'class'     => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
+                'arguments' => [
+                    'event_dispatcher',
+                    'mautic.helper.cache_storage',
+                    'doctrine.orm.entity_manager',
+                    'session',
+                    'request_stack',
+                    'router',
+                    'translator',
+                    'logger',
+                    'mautic.helper.encryption',
+                    'mautic.lead.model.lead',
+                    'mautic.lead.model.company',
+                    'mautic.helper.paths',
+                    'mautic.core.model.notification',
+                    'mautic.lead.model.field',
+                    'mautic.plugin.model.integration_entity',
+                ],
+            ],
+        ],
     ],
 ];
