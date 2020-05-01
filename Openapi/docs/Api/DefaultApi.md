@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## addCard
 
-> \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200 addCard($newCard)
+> \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card addCard($newCard)
 
 
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200**](../Model/InlineResponse200.md)
+[**\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card**](../Model/Card.md)
 
 ### Authorization
 

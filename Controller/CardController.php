@@ -4,6 +4,7 @@
 
 /**
  * @copyright   2020
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -131,11 +132,9 @@ class CardController extends FormController
         // get only id of list
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
 
-        $requestData = array_merge($cardArray, $this->apiService->getAuthParams());
-
         try {
-            $card = $api->addCard($requestData);
-            $this->logger->warning('posted card with data', $requestData);
+            $card = $api->addCard($cardArray);
+            $this->logger->warning('Successfully posted card to Trello', array($card->getId(), $card->getName()));
         } catch (InvalidArgumentException $e) {
             $this->logger->warning($e->getMessage(), $e->getTrace());
             $error = new Error();

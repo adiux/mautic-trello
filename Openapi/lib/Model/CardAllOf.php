@@ -59,6 +59,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     protected static $openAPITypes = [
         'id' => 'string',
         'labels' => 'object[]',
+        'pos' => 'float',
         'url' => 'string',
         'dateLastActivity' => '\DateTime',
         'due' => '\DateTime',
@@ -74,6 +75,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     protected static $openAPIFormats = [
         'id' => null,
         'labels' => null,
+        'pos' => null,
         'url' => 'uri',
         'dateLastActivity' => 'date-time',
         'due' => 'date-time',
@@ -110,6 +112,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'id' => 'id',
         'labels' => 'labels',
+        'pos' => 'pos',
         'url' => 'url',
         'dateLastActivity' => 'dateLastActivity',
         'due' => 'due',
@@ -125,6 +128,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     protected static $setters = [
         'id' => 'setId',
         'labels' => 'setLabels',
+        'pos' => 'setPos',
         'url' => 'setUrl',
         'dateLastActivity' => 'setDateLastActivity',
         'due' => 'setDue',
@@ -140,6 +144,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     protected static $getters = [
         'id' => 'getId',
         'labels' => 'getLabels',
+        'pos' => 'getPos',
         'url' => 'getUrl',
         'dateLastActivity' => 'getDateLastActivity',
         'due' => 'getDue',
@@ -209,6 +214,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
+        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
         $this->container['due'] = isset($data['due']) ? $data['due'] : null;
@@ -296,6 +302,30 @@ class CardAllOf implements ModelInterface, ArrayAccess
     public function setLabels($labels)
     {
         $this->container['labels'] = $labels;
+
+        return $this;
+    }
+
+    /**
+     * Gets pos
+     *
+     * @return float|null
+     */
+    public function getPos()
+    {
+        return $this->container['pos'];
+    }
+
+    /**
+     * Sets pos
+     *
+     * @param float|null $pos pos
+     *
+     * @return $this
+     */
+    public function setPos($pos)
+    {
+        $this->container['pos'] = $pos;
 
         return $this;
     }

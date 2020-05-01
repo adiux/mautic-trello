@@ -83,8 +83,6 @@ class NewCardType extends AbstractType
         } catch (Exception $e) {
             echo 'Exception when calling DefaultApi->getLists: ', $e->getMessage(), PHP_EOL;
         }
-
-
         // return [
         //     new TrelloList([
         //         'id' => '5e5c1f8f49c26f3ef8b6eba4',

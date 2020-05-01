@@ -88,6 +88,8 @@ components:
               type: array
               items:
                 type: object
+            pos:
+              type: number
             url:
               type: string
               format: uri
@@ -185,11 +187,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              card:
-                type: object
-                $ref: "#/components/schemas/Card"
+            $ref: "#/components/schemas/Card"
     BadRequest:
       description: Bad request
       content:

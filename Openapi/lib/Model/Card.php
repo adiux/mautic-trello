@@ -60,7 +60,7 @@ class Card implements ModelInterface, ArrayAccess
         'name' => 'string',
         'idList' => 'string',
         'desc' => 'string',
-        'pos' => 'string',
+        'pos' => 'float',
         'due' => '\DateTime',
         'urlSource' => 'string',
         'keepFromSource' => 'string',
@@ -218,23 +218,8 @@ class Card implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    const POS_TOP = 'top';
-    const POS_BOTTOM = 'bottom';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getPosAllowableValues()
-    {
-        return [
-            self::POS_TOP,
-            self::POS_BOTTOM,
-        ];
-    }
     
 
     /**
@@ -288,14 +273,6 @@ class Card implements ModelInterface, ArrayAccess
         }
         if ((mb_strlen($this->container['idList']) < 1)) {
             $invalidProperties[] = "invalid value for 'idList', the character length must be bigger than or equal to 1.";
-        }
-
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($this->container['pos']) && !in_array($this->container['pos'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'pos', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
         }
 
         if ($this->container['id'] === null) {
@@ -405,7 +382,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Gets pos
      *
-     * @return string|null
+     * @return float|null
      */
     public function getPos()
     {
@@ -415,21 +392,12 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Sets pos
      *
-     * @param string|null $pos pos
+     * @param float|null $pos pos
      *
      * @return $this
      */
     public function setPos($pos)
     {
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($pos) && !in_array($pos, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'pos', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['pos'] = $pos;
 
         return $this;

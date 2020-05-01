@@ -105,7 +105,6 @@ Class | Method | HTTP request | Description
  - [CardAllOf](docs/Model/CardAllOf.md)
  - [CardError](docs/Model/CardError.md)
  - [CardErrorData](docs/Model/CardErrorData.md)
- - [InlineResponse200](docs/Model/InlineResponse200.md)
  - [NewCard](docs/Model/NewCard.md)
  - [TrelloList](docs/Model/TrelloList.md)
 

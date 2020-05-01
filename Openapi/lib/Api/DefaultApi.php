@@ -122,7 +122,7 @@ class DefaultApi
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError
+     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError
      */
     public function addCard($newCard)
     {
@@ -137,7 +137,7 @@ class DefaultApi
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError, HTTP status code, HTTP response headers (array of strings)
      */
     public function addCardWithHttpInfo($newCard)
     {
@@ -174,14 +174,14 @@ class DefaultApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200' === '\SplFileObject') {
+                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -211,7 +211,7 @@ class DefaultApi
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200';
+            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -230,7 +230,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200',
+                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -288,7 +288,7 @@ class DefaultApi
      */
     public function addCardAsyncWithHttpInfo($newCard)
     {
-        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\InlineResponse200';
+        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
         $request = $this->addCardRequest($newCard);
 
         return $this->client
