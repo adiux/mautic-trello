@@ -76,7 +76,8 @@ paths:
               - closed
               - none
               - open
-            example: "none"
+          required: false
+          example: "none"
         - in: query
           name: filter
           schema:
@@ -86,12 +87,14 @@ paths:
               - closed
               - none
               - open
+          required: false
           example: "open"
         - in: query
           name: fields
           schema:
             type: string
             description: Comma separated list of fields
+          required: false
           example: "id,name,pos"
       responses:
         "200":
