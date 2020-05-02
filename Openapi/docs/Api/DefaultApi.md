@@ -127,8 +127,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **fields** | **string**|  |
- **filter** | **string**|  |
+ **fields** | **string**|  | [optional]
+ **filter** | **string**|  | [optional]
 
 ### Return type
 

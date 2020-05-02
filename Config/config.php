@@ -77,6 +77,9 @@ return [
             ],
             'mautic.idea2trello.event.config' => [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Event\ConfigSubscriber::class,
+                'arguments' => [
+                    'monolog.logger.mautic',
+                ],
             ],
         ],
         'others' => [
@@ -84,6 +87,7 @@ return [
                 'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
                 'arguments' => [
                     'mautic.helper.integration',
+                    'mautic.helper.core_parameters',
                     'monolog.logger.mautic',
                 ],
             ],

@@ -73,9 +73,18 @@ class NewCardType extends AbstractType
         ]);
     }
 
-    protected function getListsOnBoard($boardId = "5e5c1f7d35b240381adccdcb")
+    protected function getListsOnBoard($boardId = null)
     {
         $api = $this->apiService->getApi();
+
+        if (empty($boardId)) {
+            $boardId = $this->apiService->getFavouriteBoard();
+            if (empty($boardId)) {
+                $this->logger->warning('no board configured');
+
+                return array();
+            }
+        }
 
         try {
             return $api->getLists($boardId, $cards, $filter, $fields);

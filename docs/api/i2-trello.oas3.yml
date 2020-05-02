@@ -32,15 +32,15 @@ paths:
       operationId: getBoards
       description: Get all boards the user has access to
       parameters:
-        - in: path
+        - in: query
           name: fields
-          required: true
+          required: false
           schema:
             type: string
           example: id,name
-        - in: path
+        - in: query
           name: filter
-          required: true
+          required: false
           schema:
             type: string
             enum:

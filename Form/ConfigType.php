@@ -50,11 +50,22 @@ class ConfigType extends AbstractType
             'favorite_board',
             ChoiceType::class,
             array(
-                'choices' => $this->getBoards(),
-                'choice_value' => 'id',
-                'choice_label' => 'name',
+                'choices'           => $this->getBoards(),
+                'required'          => false,
+                'label_attr'        => ['class' => 'control-label'],
+                'attr'              => ['class' => 'form-control'],
             )
         );
+
+        // $builder->add(
+        //     '',
+        //     ChoiceType::class,
+        //     array(
+        //         'choices' => ,
+        //         'choice_value' => 'id',
+        //         'choice_label' => 'name',
+        //     )
+        // );
     }
 
     /**
@@ -74,7 +85,15 @@ class ConfigType extends AbstractType
     {
         $api = $this->apiService->getApi();
         try {
-            return $api->getBoards($fields = 'id,name', $filter = 'open');
+            $fields = 'id,name';
+            $filter = 'open';
+            $boards = $api->getBoards($fields, $filter);
+            $boardsArray = [];
+            foreach ($boards as $board) {
+                $boardsArray[$board->getName()] = $board->getId();
+            }
+         
+            return $boardsArray;
         } catch (Exception $e) {
             echo 'Exception when calling DefaultApi->getBoards: ', $e->getMessage(), PHP_EOL;
         }

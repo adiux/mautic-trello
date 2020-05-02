@@ -431,14 +431,14 @@ class DefaultApi
     /**
      * Operation getBoards
      *
-     * @param  string $fields fields (required)
-     * @param  string $filter filter (required)
+     * @param  string $fields fields (optional)
+     * @param  string $filter filter (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]
      */
-    public function getBoards($fields, $filter)
+    public function getBoards($fields = null, $filter = null)
     {
         list($response) = $this->getBoardsWithHttpInfo($fields, $filter);
         return $response;
@@ -447,14 +447,14 @@ class DefaultApi
     /**
      * Operation getBoardsWithHttpInfo
      *
-     * @param  string $fields (required)
-     * @param  string $filter (required)
+     * @param  string $fields (optional)
+     * @param  string $filter (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[], HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBoardsWithHttpInfo($fields, $filter)
+    public function getBoardsWithHttpInfo($fields = null, $filter = null)
     {
         $request = $this->getBoardsRequest($fields, $filter);
 
@@ -536,13 +536,13 @@ class DefaultApi
      *
      * 
      *
-     * @param  string $fields (required)
-     * @param  string $filter (required)
+     * @param  string $fields (optional)
+     * @param  string $filter (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBoardsAsync($fields, $filter)
+    public function getBoardsAsync($fields = null, $filter = null)
     {
         return $this->getBoardsAsyncWithHttpInfo($fields, $filter)
             ->then(
@@ -557,13 +557,13 @@ class DefaultApi
      *
      * 
      *
-     * @param  string $fields (required)
-     * @param  string $filter (required)
+     * @param  string $fields (optional)
+     * @param  string $filter (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBoardsAsyncWithHttpInfo($fields, $filter)
+    public function getBoardsAsyncWithHttpInfo($fields = null, $filter = null)
     {
         $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
         $request = $this->getBoardsRequest($fields, $filter);
@@ -605,26 +605,14 @@ class DefaultApi
     /**
      * Create request for operation 'getBoards'
      *
-     * @param  string $fields (required)
-     * @param  string $filter (required)
+     * @param  string $fields (optional)
+     * @param  string $filter (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBoardsRequest($fields, $filter)
+    protected function getBoardsRequest($fields = null, $filter = null)
     {
-        // verify the required parameter 'fields' is set
-        if ($fields === null || (is_array($fields) && count($fields) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $fields when calling getBoards'
-            );
-        }
-        // verify the required parameter 'filter' is set
-        if ($filter === null || (is_array($filter) && count($filter) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $filter when calling getBoards'
-            );
-        }
 
         $resourcePath = '/members/me/boards';
         $formParams = [];
@@ -633,23 +621,15 @@ class DefaultApi
         $httpBody = '';
         $multipart = false;
 
-
-        // path params
+        // query params
         if ($fields !== null) {
-            $resourcePath = str_replace(
-                '{' . 'fields' . '}',
-                ObjectSerializer::toPathValue($fields),
-                $resourcePath
-            );
+            $queryParams['fields'] = ObjectSerializer::toQueryValue($fields);
         }
-        // path params
+        // query params
         if ($filter !== null) {
-            $resourcePath = str_replace(
-                '{' . 'filter' . '}',
-                ObjectSerializer::toPathValue($filter),
-                $resourcePath
-            );
+            $queryParams['filter'] = ObjectSerializer::toQueryValue($filter);
         }
+
 
         // body params
         $_tempBody = null;
