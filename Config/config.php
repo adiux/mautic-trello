@@ -28,14 +28,14 @@ return [
                     'world' => 'earth|mars',
                 ],
             ],
-            'plugin_create_cards' => [
-                'path' => '/trello/card/add',
-                'controller' => 'Idea2TrelloBundle:Card:add',
+            'plugin_create_cards_show_new' => [
+                'path' => '/trello/card/show-new/{contactId}',
+                'controller' => 'Idea2TrelloBundle:Card:showNewCard',
             ],
             'plugin_trello_card_add' => [
-                'path' => '/api/v1/trello/card',
+                'path' => '/trello/card',
                 'method' => 'POST',
-                'controller' => 'Idea2TrelloBundle:ApiCard:add',
+                'controller' => 'Idea2TrelloBundle:Card:add',
             ],
         ],
         'api' => [

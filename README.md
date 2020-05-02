@@ -15,5 +15,8 @@ And all should be well. If you are ever not sure what the actual namespace prefi
 bin/console debug:twig
 ```
 
+# Requirements
+Min PHP 7.0.0
+
 # Inspiration
 - https://github.com/cdaguerre/php-trello-api

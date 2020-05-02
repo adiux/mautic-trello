@@ -48,26 +48,6 @@ class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event)
     {
-        // // mautic.view_inject_custom_buttons
-        // print_r(CoreEvents::VIEW_INJECT_CUSTOM_BUTTONS);
-
-        // Injects a button into the toolbar area for any page with a high priority (displays closer to first)
-        // $event->addButton(
-        //     [
-        //         'attr'      => [
-        //             'class'       => 'btn btn-default btn-sm btn-nospin',
-        //             'data-toggle' => 'ajaxmodal',
-        //             'data-target' => '#MauticSharedModal',
-        //             'href'        => $this->router->generate('plugin_create_cards', ['objectAction' => 'doSomething']),
-        //             'data-header' => 'Extra Button',
-        //         ],
-        //         'tooltip'   => $this->translator->trans('mautic.world.dosomething.btn.tooltip'),
-        //         'iconClass' => 'fa fa-star',
-        //         'priority'  => 255,
-        //     ],
-        //     ButtonHelper::LOCATION_TOOLBAR_ACTIONS
-        // );
-
         if ($lead = $event->getItem()) {
             if ($lead instanceof Lead) {
                 $addToTrelloBtn = [
@@ -78,7 +58,7 @@ class ButtonSubscriber implements EventSubscriberInterface
                             'plugin.idea2trello.add_card_to_trello'
                         ),
                         'href' => $this->router->generate(
-                            'plugin_create_cards',
+                            'plugin_create_cards_show_new',
                             ['contactId' => $lead->getId()]
                         ),
                     ],

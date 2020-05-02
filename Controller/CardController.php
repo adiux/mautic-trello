@@ -4,6 +4,7 @@
 
 /**
  * @copyright   2020
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -14,10 +15,13 @@ namespace MauticPlugin\Idea2TrelloBundle\Controller;
 use Mautic\CoreBundle\Controller\FormController;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Setup a a form and send it to Trello to create a new card.
@@ -53,39 +57,81 @@ class CardController extends FormController
     }
 
     /**
-     * Build and Handle a new card.
+     * Show a new Trello card form with prefilled information from the Contact.
      *
-     * @param [type] $contactId
+     * @param int $contactId
      *
-     * @return void
+     * @return Response
      */
-    public function addAction(Request $request)
+    public function showNewCardAction(int $contactId)
     {
         $this->logger = $this->get('monolog.logger.mautic');
-        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
-
-        // only works if your service is public
-        $contactId = 1;
-
-        // $request = $this->get('request_stack')->getCurrentRequest();
 
         $this->logger->warning('got request with id', [$contactId]);
-        // $this->logger->warning('request', );
 
-        // creates a card and gives it some dummy data for this example
+        // build the form
         $form = $this->getForm();
 
-        // process form data from HTTP variables
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->handleSubmitted($form);
-        }
-
-        return $this->handleReturn($form);
+        // display empty form
+        return $this->delegateView(
+            [
+                'viewParameters' => [
+                    'form'        => $form->createView(),
+                ],
+                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.twig',
+            ]
+        );
         // return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
         //     'form' => $form->createView(),
         // ]);
+    }
+
+    /**
+     * Add a new card by POST
+     *
+     * @return void
+     */
+    public function addAction()
+    {
+        $this->logger = $this->get('monolog.logger.mautic');
+        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
+        // @todo
+        // $lead = $this->checkLeadAccess($contactId, 'view');
+        // if ($lead instanceof Response) {
+        //     return $lead;
+        // }
+
+         // Check for a submitted form and process it
+         $this->logger->warning('getMethod: '.$this->request->getMethod());
+
+        // build the form
+        $form = $this->getForm();
+
+        if ($this->isFormCancelled($form)) {
+            $this->logger->warning('form cancelled');
+
+            return $this->closeModal();
+        }
+
+        // process form data from HTTP variables
+        $form->handleRequest($this->request);
+        $newCard = $form->getData();
+
+        if (!$newCard->valid()) {
+            $invalid = current($newCard->listInvalidProperties());
+            $message = sprintf('New card data not valid: %s', $invalid);
+            // $this->addFlash($message, array(), 'error');
+            $this->logger->warning($message);
+            throw new InvalidArgumentException($message);
+        }
+
+        // create an Array from the object (workaround)
+        $cardArray = json_decode($newCard->__toString(), true);
+        // remove other values from array, only leave id
+        $cardArray['idList'] = $form->get('idList')->getData()->getId();
+        $this->logger->warning('cardArray', $cardArray);
+
+        return $this->postNewCard($cardArray);
     }
 
     /**
@@ -99,7 +145,16 @@ class CardController extends FormController
         $card->setName('Write a blog post');
         $card->setDue(new \DateTime('tomorrow'));
 
-        return $form = $this->createForm(NewCardType::class, $card);
+        $action = $this->generateUrl(
+            'plugin_trello_card_add',
+            // [
+            //     'objectAction' => 'new',
+            //     'leadId'       => $leadId,
+            // ]
+        );
+        $this->logger->warning('action', array($action));
+
+        return $form = $this->createForm(NewCardType::class, $card, ['action' => $action]);
     }
 
     /**
@@ -109,62 +164,53 @@ class CardController extends FormController
      *
      * @return void
      */
-    protected function handleSubmitted(Form $form)
+    protected function postNewCard(array $card)
     {
-        // $flashBag = $this->get('session')->getFlashBag();
-        $newCard = $form->getData();
-
-        if (!$newCard->valid()) {
-            $invalid = current($newCard->listInvalidProperties());
-            $message = sprintf('New card data not valid: %s', $invalid);
-            // $this->addFlash($message, array(), 'error');
-            throw new InvalidArgumentException($message);
-            $this->logger->warning($message);
-
-            return false;
-        }
-
         $api = $this->apiService->getApi();
-
-        //merge data with auth
-        $cardArray = json_decode($newCard->__toString(), true);
-        // get only id of list
-        $cardArray['idList'] = $form->get('idList')->getData()->getId();
+        $this->logger->warning('writing valid card to api', $card);
 
         try {
-            $card = $api->addCard($cardArray);
+            $card = $api->addCard($card);
             $this->logger->warning('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
+
+            return $this->closeModal($card);
         } catch (InvalidArgumentException $e) {
             $this->logger->warning($e->getMessage(), $e->getTrace());
             $error = new Error();
             $error->setCode('InvalidArgument');
             $error->setMessage($e->getMessage());
 
-            return new WP_REST_Response(\Idea2\Plugin\to_json($error), 500);
+            return new Exception($error);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
+
+            return new Exception($e);
         }
 
         // return $this->redirectToRoute('task_success');
     }
 
     /**
-     * Return a view.
+     * Just close the modal and return parameters
      *
-     * @return void
+     * @return JsonResponse
      */
-    protected function handleReturn(Form $form)
+    protected function closeModal(Card $card = null)
     {
-        return $this->delegateView(
-            [
-                'viewParameters' => [
-                    'form' => $form->createView(),
-                ],
-                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.twig',
-            ]
-        );
-    }
+         $passthroughVars['closeModal'] = 1;
 
+        if (!empty($card) && $card->valid()) {
+            // $passthroughVars['noteHtml'] = $this->renderView(
+            //     'Idea2TrelloBundle:Card:test.html.php',
+            // );
+            $passthroughVars['cardId'] = $card->getId();
+            $passthroughVars['cardUrl'] = $card->getUrl();
+        }
+
+         $passthroughVars['mauticContent'] = 'trelloCardAdded';
+
+         return new JsonResponse($passthroughVars);
+    }
     // protected function getTrelloData(Lead $contact)
     // {
     //     $desc = [$contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName()];
