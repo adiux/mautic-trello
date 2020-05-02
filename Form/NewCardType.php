@@ -1,8 +1,8 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -13,6 +13,7 @@ namespace MauticPlugin\Idea2TrelloBundle\Form;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,11 +21,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Monolog\Logger;
 
 class NewCardType extends AbstractType
 {
-   /**
+    /**
      * @var TrelloApiService
      */
     private $apiService;
@@ -34,22 +34,16 @@ class NewCardType extends AbstractType
     protected $logger;
 
     /**
-     * Setup NewCard Form
-     *
-     * @param TrelloApiService $trelloApiService
-     * @param Logger           $logger
+     * Setup NewCard Form.
      */
     public function __construct(TrelloApiService $trelloApiService, Logger $logger)
     {
-        $this->apiService  = $trelloApiService;
-        $this->logger      = $logger;
+        $this->apiService = $trelloApiService;
+        $this->logger = $logger;
     }
 
     /**
-     * Define fields to display
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * Define fields to display.
      *
      * @return void
      */
@@ -83,12 +77,12 @@ class NewCardType extends AbstractType
             if (empty($boardId)) {
                 $this->logger->warning('no board configured');
 
-                return array();
+                return [];
             }
         }
 
         try {
-            return $api->getLists($boardId, $cards, $filter, $fields);
+            return $api->getLists($boardId);
         } catch (Exception $e) {
             echo 'Exception when calling DefaultApi->getLists: ', $e->getMessage(), PHP_EOL;
         }

@@ -4,7 +4,6 @@
 
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -134,7 +133,7 @@ class CardController extends FormController
 
         try {
             $card = $api->addCard($cardArray);
-            $this->logger->warning('Successfully posted card to Trello', array($card->getId(), $card->getName()));
+            $this->logger->warning('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
         } catch (InvalidArgumentException $e) {
             $this->logger->warning($e->getMessage(), $e->getTrace());
             $error = new Error();

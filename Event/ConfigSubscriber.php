@@ -1,12 +1,13 @@
 <?php
+
 namespace MauticPlugin\Idea2TrelloBundle\Event;
 
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
 use Mautic\ConfigBundle\Event\ConfigEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use MauticPlugin\Idea2TrelloBundle\Form\ConfigType;
 use Monolog\Logger;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigSubscriber implements EventSubscriberInterface
 {
@@ -16,13 +17,11 @@ class ConfigSubscriber implements EventSubscriberInterface
     protected $logger;
 
     /**
-     * Setup Trello Configuration Subscriber
-     *
-     * @param Logger $logger
+     * Setup Trello Configuration Subscriber.
      */
     public function __construct(Logger $logger)
     {
-        $this->logger       = $logger;
+        $this->logger = $logger;
     }
 
     /**
@@ -32,7 +31,7 @@ class ConfigSubscriber implements EventSubscriberInterface
     {
         return [
             ConfigEvents::CONFIG_ON_GENERATE => ['onConfigGenerate', 0],
-            ConfigEvents::CONFIG_PRE_SAVE    => ['onConfigSave', 0],
+            ConfigEvents::CONFIG_PRE_SAVE => ['onConfigSave', 0],
         ];
     }
 
@@ -40,18 +39,17 @@ class ConfigSubscriber implements EventSubscriberInterface
     {
         $event->addForm(
             [
-                'formAlias'  => 'trello_config', // same as in the View filename
-                'formTheme'  => 'Idea2TrelloBundle:FormTheme\Config',
-                'formType'   => ConfigType::class,
+                'formAlias' => 'trello_config', // same as in the View filename
+                'formTheme' => 'Idea2TrelloBundle:FormTheme\Config',
+                'formType' => ConfigType::class,
                 'parameters' => $event->getParametersFromConfig('Idea2TrelloBundle'),
             ]
         );
     }
 
     /**
-     * Prepare values before conig is saved to file
+     * Prepare values before conig is saved to file.
      *
-     * @param ConfigEvent $event
      * @return void
      */
     public function onConfigSave(ConfigEvent $event)

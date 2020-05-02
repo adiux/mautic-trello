@@ -1,7 +1,6 @@
 <?php
 /**
  * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -53,18 +52,18 @@ return [
     'services' => [
         'forms' => [
             'mautic.idea2trello.form.card' => [
-                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
+                'class' => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
                 'arguments' => [
                     'mautic.idea2trello.service.trello_api',
                     'monolog.logger.mautic',
                 ],
             ],
             'mautic.idea2trello.form.config' => [
-                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
-                'arguments' => array(
+                'class' => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
+                'arguments' => [
                     'mautic.lead.model.field',
                     'mautic.idea2trello.service.trello_api',
-                    ),
+                    ],
             ],
         ],
         'events' => [
@@ -94,7 +93,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.trello' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
+                'class' => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',

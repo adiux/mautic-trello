@@ -1,18 +1,30 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+/**
+ * @copyright   2020 Mautic Contributors. All rights reserved
+ *
+ * @author      Mautic
+ *
+ * @see        http://mautic.org
+ *
+ * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 namespace MauticPlugin\Idea2TrelloBundle\Service;
 
+use Exception;
 use GuzzleHttp\Client as HttpClient;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
-
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use Mautic\PluginBundle\Helper\IntegrationHelper;
 use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
-
 use Monolog\Logger;
 
+/**
+ * Provide the auto generated Trello API to the Idea2TrelloBundle.
+ */
 class TrelloApiService
 {
     /**
@@ -21,7 +33,6 @@ class TrelloApiService
     protected $integration;
 
     /**
-     *
      * @var CoreParametersHelper
      */
     protected $coreParametersHelper;
@@ -32,16 +43,13 @@ class TrelloApiService
     protected $logger;
 
     /**
-     * Setup Service
-     *
-     * @param IntegrationHelper $integrationHelper
-     * @param Logger            $logger
+     * Setup Service.
      */
     public function __construct(IntegrationHelper $integrationHelper, CoreParametersHelper $coreParametersHelper, Logger $logger)
     {
-        $this->integration  = $integrationHelper->getIntegrationObject('Trello');
+        $this->integration = $integrationHelper->getIntegrationObject('Trello');
         $this->coreParametersHelper = $coreParametersHelper;
-        $this->logger       = $logger;
+        $this->logger = $logger;
     }
 
     /**
@@ -51,7 +59,6 @@ class TrelloApiService
      */
     public function getApi()
     {
-
         // setup auth
         $auth = $this->getAuthParams();
         $config = Configuration::getDefaultConfiguration()->setApiKey('key', $auth['key']);
@@ -61,22 +68,10 @@ class TrelloApiService
             new HttpClient(),
             $config
         );
-
-        // $config = Configuration::getDefaultConfiguration()
-        //             ->setHost('https://api.trello.com/1');
-
-        // $api = new DefaultApi(
-        //     new HttpClient(),
-        //     $config,
-        //     null,
-        //     2
-        // );
-
-        // return $api;
     }
 
     /**
-     * Get the users favourite board from Settings
+     * Get the users favourite board from Settings.
      *
      * @return void
      */
@@ -92,23 +87,14 @@ class TrelloApiService
      */
     public function getAuthParams()
     {
-        // $keys = $this->getKeys();
-        // print '<pre>';
-        // print '<h1>keys</h1>';
-        // print_r( $keys );
-        // print '</pre>'; exit;
-        return [
-        'key' => '9ef17425c93fae626ad969e282ddb409',
-        'token' => 'eff37dda8691f4f9a96de5d4bf6283e42ebc3870a6fce6c181ebf94ce74303a6', ];
-    }
-
-    protected function getKeys()
-    {
         if (!$this->integration || !$this->integration->getIntegrationSettings()->getIsPublished()) {
-            return false;
+            throw new Exception('Trello Plugin not published, or no integration provided');
         }
+        $settings = $this->integration->getIntegrationSettings()->getFeatureSettings();
 
-        // get api_key from plugin settings
-        return $this->integration->getDecryptedApiKeys();
+        return [
+            'key' => $settings['appkey'],
+            'token' => $settings['apitoken'],
+        ];
     }
 }

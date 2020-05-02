@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 /*
  * @copyright   2014 Mautic Contributors. All rights reserved
  * @author      Mautic
@@ -31,6 +32,7 @@ class TrelloIntegration extends AbstractIntegration
     {
         return 'none';
     }
+
     /**
      * Returns the name of the social integration that must match the name of the file.
      *
@@ -47,7 +49,7 @@ class TrelloIntegration extends AbstractIntegration
     public function getFormSettings()
     {
         return [
-            'requires_callback'      => true,
+            'requires_callback' => true,
             'requires_authorization' => false,
         ];
     }
@@ -60,12 +62,12 @@ class TrelloIntegration extends AbstractIntegration
     public function appendToForm(&$builder, $data, $formArea)
     {
         // if ('keys' === $formArea) {
-            $builder->add(
+        $builder->add(
                 'appkey',
                 TextType::class,
                 [
-                    'label'    => 'mautic.integration.trello.appkey',
-                    'attr'     => ['class'   => 'form-control'],
+                    'label' => 'mautic.integration.trello.appkey',
+                    'attr' => ['class' => 'form-control'],
                     // 'data'     => empty($data['appkey']) ? '9aekadsf...' : $data['appkey'],
                     'required' => true,
                 ]
@@ -73,8 +75,8 @@ class TrelloIntegration extends AbstractIntegration
                 'apitoken',
                 TextType::class,
                 [
-                    'label'    => 'mautic.integration.trello.apitoken',
-                    'attr'     => ['class'   => 'form-control'],
+                    'label' => 'mautic.integration.trello.apitoken',
+                    'attr' => ['class' => 'form-control'],
                     // 'data'     => empty($data['apitoken']) ? '9aekadsf...' : $data['apitoken'],
                     'required' => true,
                 ]

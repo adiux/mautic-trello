@@ -12,18 +12,17 @@
 namespace MauticPlugin\Idea2TrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
-
 /**
- * Configure Trello integration in main Mautic Configiguration
+ * Configure Trello integration in main Mautic Configiguration.
  */
 class ConfigType extends AbstractType
 {
-   /**
+    /**
      * @var TrelloApiService
      */
     private $apiService;
@@ -32,14 +31,11 @@ class ConfigType extends AbstractType
 
     /**
      * ConfigType constructor.
-     *
-     * @param FieldModel       $fieldModel
-     * @param TrelloApiService $trelloApiService
      */
     public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService)
     {
         $this->fieldModel = $fieldModel;
-        $this->apiService  = $trelloApiService;
+        $this->apiService = $trelloApiService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -49,12 +45,12 @@ class ConfigType extends AbstractType
         $builder->add(
             'favorite_board',
             ChoiceType::class,
-            array(
-                'choices'           => $this->getBoards(),
-                'required'          => false,
-                'label_attr'        => ['class' => 'control-label'],
-                'attr'              => ['class' => 'form-control'],
-            )
+            [
+                'choices' => $this->getBoards(),
+                'required' => false,
+                'label_attr' => ['class' => 'control-label'],
+                'attr' => ['class' => 'form-control'],
+            ]
         );
 
         // $builder->add(
@@ -77,7 +73,7 @@ class ConfigType extends AbstractType
     }
 
     /**
-     * Get all Trello boards
+     * Get all Trello boards.
      *
      * @return void
      */
@@ -92,7 +88,7 @@ class ConfigType extends AbstractType
             foreach ($boards as $board) {
                 $boardsArray[$board->getName()] = $board->getId();
             }
-         
+
             return $boardsArray;
         } catch (Exception $e) {
             echo 'Exception when calling DefaultApi->getBoards: ', $e->getMessage(), PHP_EOL;
