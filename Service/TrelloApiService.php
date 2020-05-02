@@ -73,11 +73,40 @@ class TrelloApiService
     /**
      * Get the users favourite board from Settings.
      *
-     * @return void
+     * @return string
      */
     public function getFavouriteBoard()
     {
         return $this->coreParametersHelper->get('favorite_board', '');
+    }
+
+    /**
+     * Get all the lists on the Trello board
+     *
+     * @param int $boardId
+     *
+     * @return array
+     */
+    public function getListsOnBoard(int $boardId = null)
+    {
+        $api = $this->getApi();
+
+        if (empty($boardId)) {
+            $boardId = $this->getFavouriteBoard();
+            if (empty($boardId)) {
+                $this->logger->warning('no board configured');
+
+                return [];
+            }
+        }
+
+        try {
+            return $api->getLists($boardId);
+        } catch (Exception $e) {
+            $this->logger-warning('Exception when calling DefaultApi->getLists: ', $e->getMessage());
+
+            return array();
+        }
     }
 
     /**

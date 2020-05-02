@@ -16,6 +16,7 @@ use Mautic\CoreBundle\Controller\FormController;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use Mautic\LeadBundle\Entity\Lead;
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
@@ -66,11 +67,12 @@ class CardController extends FormController
     public function showNewCardAction(int $contactId)
     {
         $this->logger = $this->get('monolog.logger.mautic');
+        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
 
         $this->logger->warning('got request with id', [$contactId]);
 
         // build the form
-        $form = $this->getForm();
+        $form = $this->getForm($contactId);
 
         // display empty form
         return $this->delegateView(
@@ -139,11 +141,19 @@ class CardController extends FormController
      *
      * @return Forms
      */
-    protected function getForm(): Form
+    protected function getForm(int $contactId = null): Form
     {
         $card = new NewCard();
-        $card->setName('Write a blog post');
-        $card->setDue(new \DateTime('tomorrow'));
+
+        if (!empty($contactId)) {
+            $contact = $this->getExistingContact($contactId);
+            if (empty($contact)) {
+                $this->logger->warning('no contact found for id', array($contactId));
+
+                return null;
+            }
+            $card = $this->getTrelloData($contact);
+        }
 
         $action = $this->generateUrl(
             'plugin_trello_card_add',
@@ -211,21 +221,64 @@ class CardController extends FormController
 
          return new JsonResponse($passthroughVars);
     }
-    // protected function getTrelloData(Lead $contact)
-    // {
-    //     $desc = [$contact->getEmail(), $contact->getPhone(), $contact->getMobile(), $contact->getOwner()->getName()];
+    /**
+     * Get existing contact.
+     *
+     * @param int $contactId
+     *
+     * @return Lead|null
+     */
+    protected function getExistingContact($contactId)
+    {
+        // maybe use Use $model->checkForDuplicateContact directly instead
+        $leadModel = $this->getModel('lead');
 
-    //     $stage = $contact->getStage();
-    //     if (empty($stage) || empty($stage->getName())) {
-    //         return null;
-    //     }
+        return $leadModel->getEntity($contactId);
+    }
+    /**
+     * Undocumented function
+     *
+     * @param Lead $contact
+     *
+     * @return NewCard
+     */
+    protected function getTrelloData(Lead $contact)
+    {
+        $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
 
-    //     return [
-    //         'name' => $contact->getName(),
-    //         'desc' => implode('\\n', $desc),
-    //         'idList' => $this->getTrelloListId($stage->getName()),
-    //         'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
-    //         // 'idMembers' => ,
-    //     ];
-    // }
+        return new NewCard(
+            array(
+                'name' => $contact->getName(),
+                'desc' => implode(', ', $desc),
+                'idList' => $this->getListForContact($contact),
+                'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
+                'due' => new \DateTime('tomorrow'),
+            )
+        );
+    }
+
+    /**
+     * Get the current list name the contact is on based on the stage name
+     *
+     * @param Lead $contact
+     *
+     * @return string | null
+     */
+    protected function getListForContact(Lead $contact)
+    {
+        $stage = $contact->getStage();
+        $lists = $this->apiService->getListsOnBoard();
+        if (!empty($stage) && is_array($lists)) {
+            foreach ($lists as $list) {
+                if ($list->getName() === $stage->getName()) {
+                    $this->logger->warning('contact is on list', array($list->getName()));
+
+                    return $list->getName();
+                }
+            }
+        }
+        $this->logger->warning('stage is not a list', array($stage));
+
+        return null;
+    }
 }
