@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 /*
  * @copyright   2014 Mautic Contributors. All rights reserved
  * @author      Mautic
@@ -11,8 +11,9 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Integration;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+// use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Mautic\PluginBundle\Integration\AbstractIntegration;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class TrelloIntegration.
@@ -41,69 +42,43 @@ class TrelloIntegration extends AbstractIntegration
     }
 
     /**
-     * @return string
-     */
-    public function getDisplayName()
-    {
-        return 'Trello';
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return array
-     */
-    public function getRequiredKeyFields()
-    {
-        return [
-            'apikey'       => 'mautic.integration.trello.apikey',
-            'apitoken'  => 'mautic.integration.trello.apitoken',
-        ];
-    }
-
-    /**
-     * The "username"
-     * @return string
-     */
-    public function getClientIdKey()
-    {
-        return 'apikey';
-    }
-
-    /**
-     * The "password"
-     *
-     * {@inheritdoc}
-     *
-     * @return array
-     */
-    public function getSecretKeys()
-    {
-        return [
-            'apitoken',
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return bool
-     */
-    public function isAuthorized()
-    {
-        $keys = $this->getKeys();
-        
-        return $keys;
-    }
-
-    /**
      * @return array
      */
     public function getFormSettings()
     {
         return [
-            'requires_callback'      => false,
-            'requires_authorization' => true,
+            'requires_callback'      => true,
+            'requires_authorization' => false,
         ];
+    }
+
+    /**
+     * @param Form|FormBuilder $builder
+     * @param array            $data
+     * @param string           $formArea
+     */
+    public function appendToForm(&$builder, $data, $formArea)
+    {
+        // if ('keys' === $formArea) {
+            $builder->add(
+                'appkey',
+                TextType::class,
+                [
+                    'label'    => 'mautic.integration.trello.appkey',
+                    'attr'     => ['class'   => 'form-control'],
+                    // 'data'     => empty($data['appkey']) ? '9aekadsf...' : $data['appkey'],
+                    'required' => true,
+                ]
+            )->add(
+                'apitoken',
+                TextType::class,
+                [
+                    'label'    => 'mautic.integration.trello.apitoken',
+                    'attr'     => ['class'   => 'form-control'],
+                    // 'data'     => empty($data['apitoken']) ? '9aekadsf...' : $data['apitoken'],
+                    'required' => true,
+                ]
+            );
+        // }
     }
 }
