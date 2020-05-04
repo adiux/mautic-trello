@@ -57,7 +57,7 @@ class NewCardType extends AbstractType
 
         $builder
             ->add('name', TextType::class, array(
-                'label'      => 'mautic.core.title',
+                'label'      => 'mautic.idea2trello.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ))

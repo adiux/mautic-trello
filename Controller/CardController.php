@@ -80,12 +80,9 @@ class CardController extends FormController
                 'viewParameters' => [
                     'form'        => $form->createView(),
                 ],
-                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.twig',
+                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.php',
             ]
         );
-        // return $this->render('Idea2TrelloBundle:Card:new.html.twig', [
-        //     'form' => $form->createView(),
-        // ]);
     }
 
     /**
@@ -124,7 +121,8 @@ class CardController extends FormController
             $message = sprintf('New card data not valid: %s', $invalid);
             // $this->addFlash($message, array(), 'error');
             $this->logger->warning($message);
-            throw new InvalidArgumentException($message);
+
+            return new JsonResponse(array( 'error' => $message));
         }
 
         // create an Array from the object (workaround)
