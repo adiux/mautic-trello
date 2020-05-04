@@ -64,8 +64,6 @@ class ButtonSubscriber implements EventSubscriberInterface
                     ],
                     'btnText' => 'Add to Trello',
                     'iconClass' => 'fa fa-trello',
-                    'primary' => true,
-                    'priority' => 255,
                 ];
 
                 // Inject a button into the page actions for the specified route (in this case /s/contacts/view/{contactId})
