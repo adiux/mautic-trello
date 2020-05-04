@@ -252,7 +252,7 @@ class CardController extends FormController
                 'desc' => implode(', ', $desc),
                 'idList' => $this->getListForContact($contact),
                 'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
-                'due' => new \DateTime('tomorrow'),
+                // 'due' => new \DateTime('next week'),
             )
         );
     }

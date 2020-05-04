@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -51,6 +52,9 @@ class NewCardType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // $builder->addEventSubscriber(new CleanFormSubscriber(['text' => 'html']));
+        // $builder->addEventSubscriber(new FormExitSubscriber('lead.note', $options));
+
         $builder
             ->add('name', TextType::class, array(
                 'label'      => 'mautic.core.title',
@@ -95,10 +99,12 @@ class NewCardType extends AbstractType
                     // 'data'   => $data,
                 ]
             )
-            ->add('buttons', FormButtonsType::class, [
-                'apply_text' => false,
-                'save_text'  => 'mautic.core.form.save',
-            ]);
+            ->add('urlSource', HiddenType::class);
+
+        $builder->add('buttons', FormButtonsType::class, [
+            'apply_text' => false,
+            'save_text'  => 'mautic.core.form.save',
+        ]);
         if (!empty($options['action'])) {
             $builder->setAction($options['action']);
         }
