@@ -29,5 +29,5 @@ $view['slots']->set('headerTitle', $header);
         <input type="submit" class="btn btn-primary" value="Create Contact">
 
     </form>
-    <a href="<?php echo $view['router']->generate('plugin_helloworld_world', ['world' => 'mars']); ?>" data-toggle="ajax" />Mars</a>
+    
 </div>
