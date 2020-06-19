@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -9,25 +10,9 @@
 return [
     'name' => 'Mautic Trello',
     'description' => 'Add Mautic Contacts to Trello',
-    'version' => '0.2.1',
+    'version' => '1.0.0',
     'routes' => [
-        // 'public' => [
-        //     'mautic_plugin_trello_index' => [
-        //         'path'       => '/trello/callback',
-        //         'controller' => 'MauticClearbitBundle:Public:callback',
-        //     ],
-        // ],
         'main' => [
-            'plugin_helloworld_world' => [
-                'path' => '/hello/{world}',
-                'controller' => 'Idea2TrelloBundle:Default:world',
-                'defaults' => [
-                    'world' => 'earth',
-                ],
-                'requirements' => [
-                    'world' => 'earth|mars',
-                ],
-            ],
             'plugin_create_cards_show_new' => [
                 'path' => '/trello/card/show-new/{contactId}',
                 'controller' => 'Idea2TrelloBundle:Card:showNewCard',
@@ -36,13 +21,6 @@ return [
                 'path' => '/trello/card',
                 'method' => 'POST',
                 'controller' => 'Idea2TrelloBundle:Card:add',
-            ],
-        ],
-        'api' => [
-            'plugin_api_trello_card_add' => [
-                'path' => '/v1/trello/card',
-                'method' => 'POST',
-                'controller' => 'Idea2TrelloBundle:ApiCard:add',
             ],
         ],
     ],
