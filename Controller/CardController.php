@@ -101,9 +101,7 @@ class CardController extends FormController
         // }
 
          // Check for a submitted form and process it
-         $this->logger->warning('getMethod: '.$this->request->getMethod());
 
-        // build the form
         $form = $this->getForm();
 
         if ($this->isFormCancelled($form)) {
@@ -135,7 +133,9 @@ class CardController extends FormController
     }
 
     /**
-     * Build a form.
+     * Build the form.
+     *
+     * @param int $contactId
      *
      * @return Forms
      */
@@ -168,7 +168,7 @@ class CardController extends FormController
     /**
      * All the business logic for a submitted form.
      *
-     * @param Forms $form
+     * @param array $card
      *
      * @return void
      */
@@ -234,7 +234,7 @@ class CardController extends FormController
         return $leadModel->getEntity($contactId);
     }
     /**
-     * Undocumented function
+     * Set the default values for the new card.
      *
      * @param Lead $contact
      *
@@ -242,12 +242,12 @@ class CardController extends FormController
      */
     protected function getTrelloData(Lead $contact)
     {
-        $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
+        // $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
 
         return new NewCard(
             array(
                 'name' => $contact->getName(),
-                'desc' => implode(', ', $desc),
+                'desc' => null,
                 'idList' => $this->getListForContact($contact),
                 'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
                 // 'due' => new \DateTime('next week'),
@@ -269,13 +269,13 @@ class CardController extends FormController
         if (!empty($stage) && is_array($lists)) {
             foreach ($lists as $list) {
                 if ($list->getName() === $stage->getName()) {
-                    $this->logger->warning('contact is on list', array($list->getName()));
+                    $this->logger->debug('contact is on list', array($list->getName()));
 
                     return $list->getName();
                 }
             }
         }
-        $this->logger->warning('stage is not a list', array($stage));
+        $this->logger->debug('stage is not a list', array($stage));
 
         return null;
     }

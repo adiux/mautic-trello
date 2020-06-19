@@ -15,7 +15,7 @@ $header = $view['translator']->trans('plugin.idea2trello.add_card_to_trello');
 $view['slots']->set('headerTitle', $header);
 ?>
 
-<div class="helloworld-content">
+<div class="add-card-content">
     <?php
 
     echo $this->render('Idea2TrelloBundle:Card:new.html.twig', [

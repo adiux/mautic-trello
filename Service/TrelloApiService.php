@@ -103,7 +103,7 @@ class TrelloApiService
         try {
             return $api->getLists($boardId);
         } catch (Exception $e) {
-            $this->logger-warning('Exception when calling DefaultApi->getLists: ', $e->getMessage());
+            $this->logger->warning('Exception when calling DefaultApi->getLists: ', array($e->getMessage()));
 
             return array();
         }
