@@ -42,22 +42,6 @@ class CardController extends FormController
     private $apiService;
 
     /**
-     * Fallback.
-     *
-     * @param int $page
-     *
-     * @return void
-     */
-    public function indexAction($page = 1)
-    {
-        return $this->delegateView(
-            [
-                'contentTemplate' => 'Idea2TrelloBundle:Hello:index.html.php',
-            ]
-        );
-    }
-
-    /**
      * Show a new Trello card form with prefilled information from the Contact.
      *
      * @param int $contactId
@@ -68,8 +52,6 @@ class CardController extends FormController
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
-
-        $this->logger->warning('got request with id', [$contactId]);
 
         // build the form
         $form = $this->getForm($contactId);

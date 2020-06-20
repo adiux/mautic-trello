@@ -62,7 +62,7 @@ class ButtonSubscriber implements EventSubscriberInterface
                             ['contactId' => $lead->getId()]
                         ),
                     ],
-                    'btnText' => 'Add to Trello',
+                    'btnText' => 'Create Trello Card',
                     'iconClass' => 'fa fa-trello',
                 ];
 
