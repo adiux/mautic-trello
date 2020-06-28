@@ -4,6 +4,7 @@
 
 /**
  * @copyright   2020
+ *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -104,11 +105,15 @@ class CardController extends FormController
         if ($card instanceof Card) {
             // successfully added
             $this->addFlash(
-                sprintf($this->translator->trans('plugin.idea2trello.card_added'), $card->getName()),
-                [],
+                'plugin.idea2trello.card_added',
+                ['%title%' => $card->getName()],
                 // 'error'
             );
         } else {
+             // successfully added
+            $this->addFlash(
+                'plugin.idea2trello.card_not_added'
+            );
         }
 
         return $this->closeModal($card);
