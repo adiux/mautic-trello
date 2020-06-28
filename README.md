@@ -6,6 +6,11 @@ next step:
 1. Call Mautic to add security and create card from Frontend (uses Mautic Frontend Auth /s)
 2. Actually create card with Trello API (use the Trello Auth)
 
+# Run Tests
+```
+bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter Idea2TrelloBundle
+```
+
 # Urls
 http://mautic.ddev.site/s/trello/card/add/1
 
