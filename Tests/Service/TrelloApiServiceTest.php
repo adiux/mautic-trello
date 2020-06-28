@@ -13,6 +13,8 @@ namespace MauticPlugin\Idea2TrelloBundle\Tests\Service;
 
 use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
@@ -21,17 +23,27 @@ use Mautic\PluginBundle\Entity\Plugin;
 
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Client as HttpClient;
 
 class TrellApiServiceTest extends TestCase
 {
-    public function testGetListsOnBoard()
+    const MOCK_API_HOST     = 'http://127.0.0.1:4010';
+    const MOCK_API_KEY      = 'KEY';
+    const MOCK_API_TOKEN    = 'TOKEN';
+    const MOCK_FAV_BOARD    = 'testboard';
+
+    /**
+     * @var TrelloApiService
+     */
+    protected $apiService;
+
+    protected function setUp() :void
     {
+        parent::setUp();
 
         $monolog = new Logger('test');
-        $monolog->info("test");
-        $apiService = $this->getMockBuilder(TrelloApiService::class)
-            ->setMethods(['getAuthParams'])
-            // ->disableOriginalConstructor()
+        $this->apiService = $this->getMockBuilder(TrelloApiService::class)
+            ->setMethods(['getApi', 'getFavouriteBoard'])
             ->setConstructorArgs([
                 $this->createMock(IntegrationHelper::class),
                 $this->createMock(CoreParametersHelper::class),
@@ -39,40 +51,30 @@ class TrellApiServiceTest extends TestCase
             ])
             ->getMock();
 
-        $apiService->method('getAuthParams')
-            ->willReturn(array(
-                'key' => 'test',
-                'token' => 'test',
+        $config = new Configuration();
+        $config->setHost(self::MOCK_API_HOST);
+        $config->setApiKey('key', self::MOCK_API_KEY);
+        $config->setApiKey('token', self::MOCK_API_TOKEN);
+
+        $this->apiService->method('getApi')
+            ->willReturn(new DefaultApi(
+                new HttpClient(),
+                $config
             ));
-
-
-        $api = $apiService->getApi();
-        $this->assertInstanceOf(DefaultApi::class, $api);
+        $this->apiService->method('getFavouriteBoard')
+            ->willReturn(self::MOCK_FAV_BOARD);
     }
-    // protected function setupIntegration()
-    // {
-    //     $plugin = new Plugin();
-    //     $plugin->setName('Trello');
-    //     $plugin->setDescription('Get Trello');
-    //     $plugin->setBundle('Idea2TrelloBundle');
-    //     $plugin->setVersion('1.0');
-    //     $plugin->setAuthor('Mautic');
 
-    //     $integration = new Integration();
-    //     $integration->setName('Trello');
-    //     $integration->setIsPublished(true);
-    //     // $settings = array_merge(
-    //     //     [
-    //     //         'import' => [
-    //     //             'enabled',
-    //     //         ],
-    //     //     ],
-    //     //     $settings
-    //     // );
-    //     // $integration->setFeatureSettings($settings);
-    //     // $integration->setSupportedFeatures($features);
-    //     $integration->setPlugin($plugin);
-
-    //     return $integration;
-    // }
+    /**
+     * Get valid Trello lists from mocked API
+     */
+    public function testGetListsOnBoard() :void
+    {
+        $lists = $this->apiService->getListsOnBoard();
+        $this->assertGreaterThan(0, count($lists));
+        foreach ($lists as $list) {
+            $this->assertInstanceOf(TrelloList::class, $list);
+            $this->assertTrue($list->valid());
+        }
+    }
 }
