@@ -56,7 +56,7 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 ```php
 <?php
-require_once(__DIR__ . '/vendor/autoload.php');
+require_once __DIR__.'/vendor/autoload.php';
 
 
 
@@ -69,7 +69,6 @@ $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultCo
 $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKey('key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration::getDefaultConfiguration()->setApiKeyPrefix('key', 'Bearer');
-
 
 $apiInstance = new MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.

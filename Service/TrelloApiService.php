@@ -81,13 +81,11 @@ class TrelloApiService
     }
 
     /**
-     * Get all the lists on the Trello board
+     * Get all the lists on the Trello board.
      *
      * @param int $boardId
-     *
-     * @return array
      */
-    public function getListsOnBoard(int $boardId = null)
+    public function getListsOnBoard(int $boardId = null): array
     {
         $api = $this->getApi();
 
@@ -103,9 +101,9 @@ class TrelloApiService
         try {
             return $api->getLists($boardId);
         } catch (Exception $e) {
-            $this->logger->warning('Exception when calling DefaultApi->getLists: ', array($e->getMessage()));
+            $this->logger->warning('Exception when calling DefaultApi->getLists: ', [$e->getMessage()]);
 
-            return array();
+            return [];
         }
     }
 

@@ -13,14 +13,13 @@
 namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
 use Mautic\CoreBundle\Controller\FormController;
-use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use Mautic\LeadBundle\Entity\Lead;
+use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,8 +43,6 @@ class CardController extends FormController
     /**
      * Show a new Trello card form with prefilled information from the Contact.
      *
-     * @param int $contactId
-     *
      * @return Response
      */
     public function showNewCardAction(int $contactId)
@@ -60,7 +57,7 @@ class CardController extends FormController
         return $this->delegateView(
             [
                 'viewParameters' => [
-                    'form'        => $form->createView(),
+                    'form' => $form->createView(),
                 ],
                 'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.php',
             ]
@@ -68,7 +65,7 @@ class CardController extends FormController
     }
 
     /**
-     * Add a new card by POST
+     * Add a new card by POST.
      *
      * @return void
      */
@@ -82,13 +79,11 @@ class CardController extends FormController
         //     return $lead;
         // }
 
-         // Check for a submitted form and process it
+        // Check for a submitted form and process it
 
         $form = $this->getForm();
 
         if ($this->isFormCancelled($form)) {
-            $this->logger->warning('form cancelled');
-
             return $this->closeModal();
         }
 
@@ -100,16 +95,14 @@ class CardController extends FormController
             $invalid = current($newCard->listInvalidProperties());
             $message = sprintf('New card data not valid: %s', $invalid);
             // $this->addFlash($message, array(), 'error');
-            $this->logger->warning($message);
 
-            return new JsonResponse(array( 'error' => $message));
+            return new JsonResponse(['error' => $message]);
         }
 
         // create an Array from the object (workaround)
         $cardArray = json_decode($newCard->__toString(), true);
         // remove other values from array, only leave id
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
-        $this->logger->warning('cardArray', $cardArray);
 
         return $this->postNewCard($cardArray);
     }
@@ -128,7 +121,7 @@ class CardController extends FormController
         if (!empty($contactId)) {
             $contact = $this->getExistingContact($contactId);
             if (empty($contact)) {
-                $this->logger->warning('no contact found for id', array($contactId));
+                $this->logger->warning('no contact found for id', [$contactId]);
 
                 return null;
             }
@@ -142,7 +135,6 @@ class CardController extends FormController
             //     'leadId'       => $leadId,
             // ]
         );
-        $this->logger->warning('action', array($action));
 
         return $form = $this->createForm(NewCardType::class, $card, ['action' => $action]);
     }
@@ -150,18 +142,16 @@ class CardController extends FormController
     /**
      * All the business logic for a submitted form.
      *
-     * @param array $card
-     *
      * @return void
      */
     protected function postNewCard(array $card)
     {
         $api = $this->apiService->getApi();
-        $this->logger->warning('writing valid card to api', $card);
+        $this->logger->debug('writing valid card to api', $card);
 
         try {
             $card = $api->addCard($card);
-            $this->logger->warning('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
+            $this->logger->debug('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
 
             return $this->closeModal($card);
         } catch (InvalidArgumentException $e) {
@@ -181,13 +171,13 @@ class CardController extends FormController
     }
 
     /**
-     * Just close the modal and return parameters
+     * Just close the modal and return parameters.
      *
      * @return JsonResponse
      */
     protected function closeModal(Card $card = null)
     {
-         $passthroughVars['closeModal'] = 1;
+        $passthroughVars['closeModal'] = 1;
 
         if (!empty($card) && $card->valid()) {
             // $passthroughVars['noteHtml'] = $this->renderView(
@@ -197,10 +187,11 @@ class CardController extends FormController
             $passthroughVars['cardUrl'] = $card->getUrl();
         }
 
-         $passthroughVars['mauticContent'] = 'trelloCardAdded';
+        $passthroughVars['mauticContent'] = 'trelloCardAdded';
 
-         return new JsonResponse($passthroughVars);
+        return new JsonResponse($passthroughVars);
     }
+
     /**
      * Get existing contact.
      *
@@ -215,32 +206,27 @@ class CardController extends FormController
 
         return $leadModel->getEntity($contactId);
     }
+
     /**
      * Set the default values for the new card.
-     *
-     * @param Lead $contact
-     *
-     * @return NewCard
      */
-    protected function getTrelloData(Lead $contact)
+    protected function getTrelloData(Lead $contact): NewCard
     {
         // $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
 
         return new NewCard(
-            array(
+            [
                 'name' => $contact->getName(),
                 'desc' => null,
                 'idList' => $this->getListForContact($contact),
                 'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
                 // 'due' => new \DateTime('next week'),
-            )
+            ]
         );
     }
 
     /**
-     * Get the current list name the contact is on based on the stage name
-     *
-     * @param Lead $contact
+     * Get the current list name the contact is on based on the stage name.
      *
      * @return string | null
      */
@@ -251,13 +237,13 @@ class CardController extends FormController
         if (!empty($stage) && is_array($lists)) {
             foreach ($lists as $list) {
                 if ($list->getName() === $stage->getName()) {
-                    $this->logger->debug('contact is on list', array($list->getName()));
+                    $this->logger->debug('contact is on list', [$list->getName()]);
 
                     return $list->getName();
                 }
             }
         }
-        $this->logger->debug('stage is not a list', array($stage));
+        $this->logger->debug('stage is not a list', [$stage]);
 
         return null;
     }
