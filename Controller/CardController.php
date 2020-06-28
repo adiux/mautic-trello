@@ -91,8 +91,8 @@ class CardController extends FormController
 
         if (!$newCard->valid()) {
             $invalid = current($newCard->listInvalidProperties());
-            $message = sprintf('New card data not valid: %s', $invalid);
-            // $this->addFlash($message, array(), 'error');
+            $message = sprintf($this->translator->trans('mautic.idea2trello.card_data_not_valid'), $invalid);
+            $this->addFlash($message, array(), 'error');
 
             return new JsonResponse(['error' => $message]);
         }
