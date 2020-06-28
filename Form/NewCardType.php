@@ -3,7 +3,6 @@
 declare(strict_types=1);
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch

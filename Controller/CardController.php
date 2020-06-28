@@ -4,7 +4,6 @@
 
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -17,7 +16,6 @@ use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
-use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -80,7 +78,6 @@ class CardController extends FormController
         // }
 
         // Check for a submitted form and process it
-
         $form = $this->getForm();
 
         if ($this->isFormCancelled($form)) {
@@ -103,8 +100,18 @@ class CardController extends FormController
         $cardArray = json_decode($newCard->__toString(), true);
         // remove other values from array, only leave id
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
+        $card = $this->apiService->addNewCard($cardArray);
+        if ($card instanceof Card) {
+            // successfully added
+            $this->addFlash(
+                sprintf($this->translator->trans('plugin.idea2trello.card_added'), $card->getName()),
+                [],
+                // 'error'
+            );
+        } else {
+        }
 
-        return $this->postNewCard($cardArray);
+        return $this->closeModal($card);
     }
 
     /**
@@ -140,42 +147,9 @@ class CardController extends FormController
     }
 
     /**
-     * All the business logic for a submitted form.
-     *
-     * @return void
-     */
-    protected function postNewCard(array $card)
-    {
-        $api = $this->apiService->getApi();
-        $this->logger->debug('writing valid card to api', $card);
-
-        try {
-            $card = $api->addCard($card);
-            $this->logger->debug('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
-
-            return $this->closeModal($card);
-        } catch (InvalidArgumentException $e) {
-            $this->logger->warning($e->getMessage(), $e->getTrace());
-            $error = new Error();
-            $error->setCode('InvalidArgument');
-            $error->setMessage($e->getMessage());
-
-            return new Exception($error);
-        } catch (Exception $e) {
-            $this->logger->error($e->getMessage(), $e->getTrace());
-
-            return new Exception($e);
-        }
-
-        // return $this->redirectToRoute('task_success');
-    }
-
-    /**
      * Just close the modal and return parameters.
-     *
-     * @return JsonResponse
      */
-    protected function closeModal(Card $card = null)
+    protected function closeModal(Card $card = null): JsonResponse
     {
         $passthroughVars['closeModal'] = 1;
 

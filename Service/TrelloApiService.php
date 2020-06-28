@@ -3,7 +3,6 @@
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
- *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -20,6 +19,7 @@ use Mautic\PluginBundle\Helper\IntegrationHelper;
 use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use Monolog\Logger;
 
 /**
@@ -123,5 +123,36 @@ class TrelloApiService
             'key' => $settings['appkey'],
             'token' => $settings['apitoken'],
         ];
+    }
+
+    /**
+     * All the business logic for a submitted form.
+     *
+     * @return bool
+     */
+    public function addNewCard(array $card): Card
+    {
+        $api = $this->getApi();
+        $this->logger->debug('writing valid card to api', $card);
+
+        try {
+            $card = $api->addCard($card);
+            $this->logger->debug('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
+
+            return $card;
+        } catch (InvalidArgumentException $e) {
+            $this->logger->warning($e->getMessage(), $e->getTrace());
+            $error = new Error();
+            $error->setCode('InvalidArgument');
+            $error->setMessage($e->getMessage());
+
+            return new Exception($error);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
+
+            return new Exception($e);
+        }
+
+        // return $this->redirectToRoute('task_success');
     }
 }

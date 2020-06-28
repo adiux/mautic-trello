@@ -1,7 +1,6 @@
 <?php
 /**
  * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
