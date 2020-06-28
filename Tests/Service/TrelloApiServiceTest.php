@@ -15,6 +15,7 @@ use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
@@ -41,13 +42,12 @@ class TrellApiServiceTest extends TestCase
     {
         parent::setUp();
 
-        $monolog = new Logger('test');
         $this->apiService = $this->getMockBuilder(TrelloApiService::class)
             ->setMethods(['getApi', 'getFavouriteBoard'])
             ->setConstructorArgs([
                 $this->createMock(IntegrationHelper::class),
                 $this->createMock(CoreParametersHelper::class),
-                $monolog,
+                $this->createMock(Logger::class),
             ])
             ->getMock();
 
@@ -76,5 +76,24 @@ class TrellApiServiceTest extends TestCase
             $this->assertInstanceOf(TrelloList::class, $list);
             $this->assertTrue($list->valid());
         }
+    }
+    /**
+     * Get valid Trello lists from mocked API
+     */
+    public function testAddNewCard() :void
+    {
+        $newCard = array(
+            "name" => "this is a card name",
+            "desc" => "sample description with some special chars: %'ä.$&",
+            "pos" => "top",
+            "due" => "2020-06-28T11:14:12.523Z",
+            "urlSource" => "https://www.mautic.org",
+            "keepFromSource" => "all",
+            "idList" => "5e5c1f8f12326fasd8b6qba6",
+        );
+
+        $card = $this->apiService->addNewCard($newCard);
+        $this->assertInstanceOf(Card::class, $card);
+        $this->assertTrue($card->valid());
     }
 }
