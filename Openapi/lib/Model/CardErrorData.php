@@ -68,7 +68,7 @@ class CardErrorData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'status' => 'int32',
+        'status' => null,
     ];
 
     /**
@@ -187,6 +187,14 @@ class CardErrorData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['status']) && ($this->container['status'] > 600)) {
+            $invalidProperties[] = "invalid value for 'status', must be smaller than or equal to 600.";
+        }
+
+        if (!is_null($this->container['status']) && ($this->container['status'] < 299)) {
+            $invalidProperties[] = "invalid value for 'status', must be bigger than or equal to 299.";
+        }
+
         return $invalidProperties;
     }
 
@@ -220,6 +228,13 @@ class CardErrorData implements ModelInterface, ArrayAccess
      */
     public function setStatus($status)
     {
+        if (!is_null($status) && ($status > 600)) {
+            throw new \InvalidArgumentException('invalid value for $status when calling CardErrorData., must be smaller than or equal to 600.');
+        }
+        if (!is_null($status) && ($status < 299)) {
+            throw new \InvalidArgumentException('invalid value for $status when calling CardErrorData., must be bigger than or equal to 299.');
+        }
+
         $this->container['status'] = $status;
 
         return $this;

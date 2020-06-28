@@ -116,29 +116,29 @@ components:
             id:
               type: string
               minLength: 1
-            labels:
-              type: array
-              items:
-                type: object
-            pos:
-              type: number
-            url:
-              type: string
-              format: uri
-              example: "https://trello.com/c/aJidRx3k/9-123"
             dateLastActivity:
               type: string
               format: date-time
               description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
               example: "2019-09-21T00:00:00Z"
+            labels:
+              type: array
+              items:
+                type: object
             due:
               type: string
               format: date-time
               description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
               example: "2019-09-21T00:00:00Z"
-            idMembers:
+            url:
               type: string
-              description: Comma-separated list of member IDs
+              format: uri
+              example: "https://trello.com/c/aJidRx3k/9-123"
+            idMembers:
+              type: array
+              description: Array of memebr ids as strings
+              items:
+                type: string
             attachments:
               type: array
               items:
@@ -146,8 +146,6 @@ components:
     NewCard:
       type: object
       required:
-        - key
-        - token
         - name
         - idList
       properties:
@@ -164,7 +162,7 @@ components:
           description: Card Description
         pos:
           type: string
-          enum: [top, bottom]
+          example: top
         due:
           type: string
           format: date-time
@@ -214,7 +212,6 @@ components:
           type: string
         pos:
           type: integer
-          format: int16
     CardError:
       type: object
       required:
@@ -234,7 +231,8 @@ components:
           properties:
             status:
               type: integer
-              format: int32
+              minimum: 299
+              maximum: 600
               description: http error code
               example: 404
   responses:

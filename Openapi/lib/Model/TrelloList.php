@@ -72,7 +72,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     protected static $openAPIFormats = [
         'id' => null,
         'name' => null,
-        'pos' => 'int16',
+        'pos' => null,
     ];
 
     /**

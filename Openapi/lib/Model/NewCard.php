@@ -190,22 +190,6 @@ class NewCard implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    const POS_TOP = 'top';
-    const POS_BOTTOM = 'bottom';
-
-    /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public function getPosAllowableValues()
-    {
-        return [
-            self::POS_TOP,
-            self::POS_BOTTOM,
-        ];
-    }
-
     /**
      * Associative array for storing property values.
      *
@@ -251,14 +235,6 @@ class NewCard implements ModelInterface, ArrayAccess
         }
         if ((mb_strlen($this->container['idList']) < 1)) {
             $invalidProperties[] = "invalid value for 'idList', the character length must be bigger than or equal to 1.";
-        }
-
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($this->container['pos']) && !in_array($this->container['pos'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'pos', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
         }
 
         return $invalidProperties;
@@ -374,10 +350,6 @@ class NewCard implements ModelInterface, ArrayAccess
      */
     public function setPos($pos)
     {
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($pos) && !in_array($pos, $allowedValues, true)) {
-            throw new \InvalidArgumentException(sprintf("Invalid value for 'pos', must be one of '%s'", implode("', '", $allowedValues)));
-        }
         $this->container['pos'] = $pos;
 
         return $this;

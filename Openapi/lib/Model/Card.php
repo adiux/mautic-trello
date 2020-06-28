@@ -62,15 +62,15 @@ class Card implements ModelInterface, ArrayAccess
         'name' => 'string',
         'idList' => 'string',
         'desc' => 'string',
-        'pos' => 'float',
+        'pos' => 'string',
         'due' => '\DateTime',
         'urlSource' => 'string',
         'keepFromSource' => 'string',
         'id' => 'string',
+        'dateLastActivity' => '\DateTime',
         'labels' => 'object[]',
         'url' => 'string',
-        'dateLastActivity' => '\DateTime',
-        'idMembers' => 'string',
+        'idMembers' => 'string[]',
         'attachments' => 'object[]',
     ];
 
@@ -88,9 +88,9 @@ class Card implements ModelInterface, ArrayAccess
         'urlSource' => 'uri',
         'keepFromSource' => null,
         'id' => null,
+        'dateLastActivity' => 'date-time',
         'labels' => null,
         'url' => 'uri',
-        'dateLastActivity' => 'date-time',
         'idMembers' => null,
         'attachments' => null,
     ];
@@ -130,9 +130,9 @@ class Card implements ModelInterface, ArrayAccess
         'urlSource' => 'urlSource',
         'keepFromSource' => 'keepFromSource',
         'id' => 'id',
+        'dateLastActivity' => 'dateLastActivity',
         'labels' => 'labels',
         'url' => 'url',
-        'dateLastActivity' => 'dateLastActivity',
         'idMembers' => 'idMembers',
         'attachments' => 'attachments',
     ];
@@ -151,9 +151,9 @@ class Card implements ModelInterface, ArrayAccess
         'urlSource' => 'setUrlSource',
         'keepFromSource' => 'setKeepFromSource',
         'id' => 'setId',
+        'dateLastActivity' => 'setDateLastActivity',
         'labels' => 'setLabels',
         'url' => 'setUrl',
-        'dateLastActivity' => 'setDateLastActivity',
         'idMembers' => 'setIdMembers',
         'attachments' => 'setAttachments',
     ];
@@ -172,9 +172,9 @@ class Card implements ModelInterface, ArrayAccess
         'urlSource' => 'getUrlSource',
         'keepFromSource' => 'getKeepFromSource',
         'id' => 'getId',
+        'dateLastActivity' => 'getDateLastActivity',
         'labels' => 'getLabels',
         'url' => 'getUrl',
-        'dateLastActivity' => 'getDateLastActivity',
         'idMembers' => 'getIdMembers',
         'attachments' => 'getAttachments',
     ];
@@ -243,9 +243,9 @@ class Card implements ModelInterface, ArrayAccess
         $this->container['urlSource'] = isset($data['urlSource']) ? $data['urlSource'] : null;
         $this->container['keepFromSource'] = isset($data['keepFromSource']) ? $data['keepFromSource'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
         $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
         $this->container['idMembers'] = isset($data['idMembers']) ? $data['idMembers'] : null;
         $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
     }
@@ -377,7 +377,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Gets pos.
      *
-     * @return float|null
+     * @return string|null
      */
     public function getPos()
     {
@@ -387,7 +387,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Sets pos.
      *
-     * @param float|null $pos pos
+     * @param string|null $pos pos
      *
      * @return $this
      */
@@ -499,6 +499,30 @@ class Card implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets dateLastActivity.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateLastActivity()
+    {
+        return $this->container['dateLastActivity'];
+    }
+
+    /**
+     * Sets dateLastActivity.
+     *
+     * @param \DateTime|null $dateLastActivity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
+     *
+     * @return $this
+     */
+    public function setDateLastActivity($dateLastActivity)
+    {
+        $this->container['dateLastActivity'] = $dateLastActivity;
+
+        return $this;
+    }
+
+    /**
      * Gets labels.
      *
      * @return object[]|null
@@ -547,33 +571,9 @@ class Card implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets dateLastActivity.
-     *
-     * @return \DateTime|null
-     */
-    public function getDateLastActivity()
-    {
-        return $this->container['dateLastActivity'];
-    }
-
-    /**
-     * Sets dateLastActivity.
-     *
-     * @param \DateTime|null $dateLastActivity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
-     *
-     * @return $this
-     */
-    public function setDateLastActivity($dateLastActivity)
-    {
-        $this->container['dateLastActivity'] = $dateLastActivity;
-
-        return $this;
-    }
-
-    /**
      * Gets idMembers.
      *
-     * @return string|null
+     * @return string[]|null
      */
     public function getIdMembers()
     {
@@ -583,7 +583,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Sets idMembers.
      *
-     * @param string|null $idMembers Comma-separated list of member IDs
+     * @param string[]|null $idMembers Array of memebr ids as strings
      *
      * @return $this
      */

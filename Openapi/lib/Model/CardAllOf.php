@@ -60,12 +60,11 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $openAPITypes = [
         'id' => 'string',
-        'labels' => 'object[]',
-        'pos' => 'float',
-        'url' => 'string',
         'dateLastActivity' => '\DateTime',
+        'labels' => 'object[]',
         'due' => '\DateTime',
-        'idMembers' => 'string',
+        'url' => 'string',
+        'idMembers' => 'string[]',
         'attachments' => 'object[]',
     ];
 
@@ -76,11 +75,10 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $openAPIFormats = [
         'id' => null,
-        'labels' => null,
-        'pos' => null,
-        'url' => 'uri',
         'dateLastActivity' => 'date-time',
+        'labels' => null,
         'due' => 'date-time',
+        'url' => 'uri',
         'idMembers' => null,
         'attachments' => null,
     ];
@@ -113,11 +111,10 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'labels' => 'labels',
-        'pos' => 'pos',
-        'url' => 'url',
         'dateLastActivity' => 'dateLastActivity',
+        'labels' => 'labels',
         'due' => 'due',
+        'url' => 'url',
         'idMembers' => 'idMembers',
         'attachments' => 'attachments',
     ];
@@ -129,11 +126,10 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'id' => 'setId',
-        'labels' => 'setLabels',
-        'pos' => 'setPos',
-        'url' => 'setUrl',
         'dateLastActivity' => 'setDateLastActivity',
+        'labels' => 'setLabels',
         'due' => 'setDue',
+        'url' => 'setUrl',
         'idMembers' => 'setIdMembers',
         'attachments' => 'setAttachments',
     ];
@@ -145,11 +141,10 @@ class CardAllOf implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'id' => 'getId',
-        'labels' => 'getLabels',
-        'pos' => 'getPos',
-        'url' => 'getUrl',
         'dateLastActivity' => 'getDateLastActivity',
+        'labels' => 'getLabels',
         'due' => 'getDue',
+        'url' => 'getUrl',
         'idMembers' => 'getIdMembers',
         'attachments' => 'getAttachments',
     ];
@@ -211,11 +206,10 @@ class CardAllOf implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
+        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
         $this->container['due'] = isset($data['due']) ? $data['due'] : null;
+        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['idMembers'] = isset($data['idMembers']) ? $data['idMembers'] : null;
         $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
     }
@@ -279,78 +273,6 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets labels.
-     *
-     * @return object[]|null
-     */
-    public function getLabels()
-    {
-        return $this->container['labels'];
-    }
-
-    /**
-     * Sets labels.
-     *
-     * @param object[]|null $labels labels
-     *
-     * @return $this
-     */
-    public function setLabels($labels)
-    {
-        $this->container['labels'] = $labels;
-
-        return $this;
-    }
-
-    /**
-     * Gets pos.
-     *
-     * @return float|null
-     */
-    public function getPos()
-    {
-        return $this->container['pos'];
-    }
-
-    /**
-     * Sets pos.
-     *
-     * @param float|null $pos pos
-     *
-     * @return $this
-     */
-    public function setPos($pos)
-    {
-        $this->container['pos'] = $pos;
-
-        return $this;
-    }
-
-    /**
-     * Gets url.
-     *
-     * @return string|null
-     */
-    public function getUrl()
-    {
-        return $this->container['url'];
-    }
-
-    /**
-     * Sets url.
-     *
-     * @param string|null $url url
-     *
-     * @return $this
-     */
-    public function setUrl($url)
-    {
-        $this->container['url'] = $url;
-
-        return $this;
-    }
-
-    /**
      * Gets dateLastActivity.
      *
      * @return \DateTime|null
@@ -370,6 +292,30 @@ class CardAllOf implements ModelInterface, ArrayAccess
     public function setDateLastActivity($dateLastActivity)
     {
         $this->container['dateLastActivity'] = $dateLastActivity;
+
+        return $this;
+    }
+
+    /**
+     * Gets labels.
+     *
+     * @return object[]|null
+     */
+    public function getLabels()
+    {
+        return $this->container['labels'];
+    }
+
+    /**
+     * Sets labels.
+     *
+     * @param object[]|null $labels labels
+     *
+     * @return $this
+     */
+    public function setLabels($labels)
+    {
+        $this->container['labels'] = $labels;
 
         return $this;
     }
@@ -399,9 +345,33 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets idMembers.
+     * Gets url.
      *
      * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url.
+     *
+     * @param string|null $url url
+     *
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets idMembers.
+     *
+     * @return string[]|null
      */
     public function getIdMembers()
     {
@@ -411,7 +381,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     /**
      * Sets idMembers.
      *
-     * @param string|null $idMembers Comma-separated list of member IDs
+     * @param string[]|null $idMembers Array of memebr ids as strings
      *
      * @return $this
      */
