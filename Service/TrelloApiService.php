@@ -3,7 +3,6 @@
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
- *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -134,11 +133,10 @@ class TrelloApiService
     public function addNewCard(array $card): Card
     {
         $api = $this->getApi();
-        $this->logger->debug('writing valid card to api', $card);
 
         try {
             $card = $api->addCard($card);
-            $this->logger->debug('Successfully posted card to Trello', [$card->getId(), $card->getName()]);
+            $this->logger->debug('Successfully added card to Trello', [$card->getIdList(), $card->getId(), $card->getName()]);
 
             return $card;
         } catch (InvalidArgumentException $e) {

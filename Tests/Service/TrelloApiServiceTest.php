@@ -1,44 +1,41 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
- *
  * @author      Mautic
  *
  * @see        http://mautic.org
  *
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
+
 namespace MauticPlugin\Idea2TrelloBundle\Tests\Service;
 
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
-
+use GuzzleHttp\Client as HttpClient;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\Plugin;
-
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Client as HttpClient;
 
 class TrellApiServiceTest extends TestCase
 {
-    const MOCK_API_HOST     = 'http://127.0.0.1:4010';
-    const MOCK_API_KEY      = 'KEY';
-    const MOCK_API_TOKEN    = 'TOKEN';
-    const MOCK_FAV_BOARD    = 'testboard';
+    const MOCK_API_HOST = 'http://127.0.0.1:4010';
+    const MOCK_API_KEY = 'KEY';
+    const MOCK_API_TOKEN = 'TOKEN';
+    const MOCK_FAV_BOARD = 'testboard';
 
     /**
      * @var TrelloApiService
      */
     protected $apiService;
 
-    protected function setUp() :void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -66,9 +63,9 @@ class TrellApiServiceTest extends TestCase
     }
 
     /**
-     * Get valid Trello lists from mocked API
+     * Get valid Trello lists from mocked API.
      */
-    public function testGetListsOnBoard() :void
+    public function testGetListsOnBoard(): void
     {
         $lists = $this->apiService->getListsOnBoard();
         $this->assertGreaterThan(0, count($lists));
@@ -77,20 +74,21 @@ class TrellApiServiceTest extends TestCase
             $this->assertTrue($list->valid());
         }
     }
+
     /**
-     * Get valid Trello lists from mocked API
+     * Get valid Trello lists from mocked API.
      */
-    public function testAddNewCard() :void
+    public function testAddNewCard(): void
     {
-        $newCard = array(
-            "name" => "this is a card name",
-            "desc" => "sample description with some special chars: %'ä.$&",
-            "pos" => "top",
-            "due" => "2020-06-28T11:14:12.523Z",
-            "urlSource" => "https://www.mautic.org",
-            "keepFromSource" => "all",
-            "idList" => "5e5c1f8f12326fasd8b6qba6",
-        );
+        $newCard = [
+            'name' => 'this is a card name',
+            'desc' => "sample description with some special chars: %'ä.$&",
+            'pos' => 'top',
+            'due' => '2020-06-28T11:14:12.523Z',
+            'urlSource' => 'https://www.mautic.org',
+            'keepFromSource' => 'all',
+            'idList' => '5e5c1f8f12326fasd8b6qba6',
+        ];
 
         $card = $this->apiService->addNewCard($newCard);
         $this->assertInstanceOf(Card::class, $card);

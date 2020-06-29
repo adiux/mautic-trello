@@ -4,7 +4,6 @@
 
 /**
  * @copyright   2020
- *
  * @author      Idea2
  *
  * @see        https://www.idea2.ch
@@ -41,10 +40,8 @@ class CardController extends FormController
 
     /**
      * Show a new Trello card form with prefilled information from the Contact.
-     *
-     * @return Response
      */
-    public function showNewCardAction(int $contactId)
+    public function showNewCardAction(int $contactId): Response
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
@@ -65,10 +62,8 @@ class CardController extends FormController
 
     /**
      * Add a new card by POST.
-     *
-     * @return void
      */
-    public function addAction()
+    public function addAction(): JsonResponse
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
@@ -92,7 +87,7 @@ class CardController extends FormController
         if (!$newCard->valid()) {
             $invalid = current($newCard->listInvalidProperties());
             $message = sprintf($this->translator->trans('mautic.idea2trello.card_data_not_valid'), $invalid);
-            $this->addFlash($message, array(), 'error');
+            $this->addFlash($message, [], 'error');
 
             return new JsonResponse(['error' => $message]);
         }
@@ -110,7 +105,7 @@ class CardController extends FormController
                 // 'error'
             );
         } else {
-             // successfully added
+            // successfully added
             $this->addFlash(
                 'plugin.idea2trello.card_not_added'
             );
@@ -137,7 +132,7 @@ class CardController extends FormController
 
                 return null;
             }
-            $card = $this->getTrelloData($contact);
+            $card = $this->contactToCard($contact);
         }
 
         $action = $this->generateUrl(
@@ -153,6 +148,8 @@ class CardController extends FormController
 
     /**
      * Just close the modal and return parameters.
+     *
+     * @param Card $card
      */
     protected function closeModal(Card $card = null): JsonResponse
     {
@@ -189,7 +186,7 @@ class CardController extends FormController
     /**
      * Set the default values for the new card.
      */
-    protected function getTrelloData(Lead $contact): NewCard
+    protected function contactToCard(Lead $contact): NewCard
     {
         // $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
 
@@ -207,9 +204,9 @@ class CardController extends FormController
     /**
      * Get the current list name the contact is on based on the stage name.
      *
-     * @return string | null
+     * @param Lead $contact Mautic Lead (aka Contact)
      */
-    protected function getListForContact(Lead $contact)
+    protected function getListForContact(Lead $contact): string
     {
         $stage = $contact->getStage();
         $lists = $this->apiService->getListsOnBoard();
