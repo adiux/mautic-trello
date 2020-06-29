@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class TrelloIntegration.
+ *
+ * Handles the authorization process, integration configuration, etc.
  */
 class TrelloIntegration extends AbstractIntegration
 {

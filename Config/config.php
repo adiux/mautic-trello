@@ -9,7 +9,7 @@
  */
 return [
     'name' => 'Mautic Trello',
-    'description' => 'Add Mautic Contacts to Trello',
+    'description' => 'Create Trello cards from Mautic contacts',
     'version' => '1.0.0',
     'routes' => [
         'main' => [

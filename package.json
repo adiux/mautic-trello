@@ -1,8 +1,7 @@
 {
-  "name": "gbo-rest-email",
-  "version": "0.1.0",
-  "main": "Gruntfile.js",
-  "author": "Idea-2",
+  "name": "mautic-trello",
+  "version": "1.0.0",
+  "author": "Mautic",
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "0.0.19-4.1.2"
   },
