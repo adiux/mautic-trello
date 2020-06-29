@@ -3,6 +3,7 @@
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
+ *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -54,6 +55,12 @@ class NewCardType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $lists = $this->apiService->getListsOnBoard();
+        if (count($lists) > 0) {
+            $label = 'mautic.trello.list';
+        } else {
+            $label = 'plugin.trello.config_favourite_board';
+        }
         $builder
             ->add('name', TextType::class, [
                 'label' => 'mautic.trello.name',
@@ -73,8 +80,8 @@ class NewCardType extends AbstractType
                 'idList',
                 ChoiceType::class,
                 [
-                    'label' => 'mautic.trello.list',
-                    'choices' => $this->apiService->getListsOnBoard(),
+                    'label' => $label,
+                    'choices' => $lists,
                     'choice_value' => 'id',
                     'choice_label' => 'name',
                     'label_attr' => ['class' => 'control-label'],
@@ -93,6 +100,7 @@ class NewCardType extends AbstractType
                         'class' => 'form-control',
                         'data-toggle' => 'datetime',
                         'preaddon' => 'fa fa-calendar',
+                        'help' => 'My Help Message',
                     ],
                     'format' => 'yyyy-MM-dd HH:mm',
                     // 'data'   => $data,
@@ -104,6 +112,7 @@ class NewCardType extends AbstractType
             'apply_text' => false,
             'save_text' => 'mautic.core.form.save',
         ]);
+
         if (!empty($options['action'])) {
             $builder->setAction($options['action']);
         }

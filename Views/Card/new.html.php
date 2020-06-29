@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @copyright   2014 Mautic Contributors. All rights reserved
+ * @copyright   2020 Mautic Contributors. All rights reserved
  * @author      Mautic
  *
  * @link        http://mautic.org
@@ -23,10 +23,10 @@
 </div>
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $view['form']->widget($form['idList']); ?>
+        <?php echo $view['form']->row($form['idList']); ?>
     </div>
     <div class="col-xs-6">
-        <?php echo $view['form']->widget($form['due']); ?>
+        <?php echo $view['form']->row($form['due']); ?>
     </div>
 </div>
 
