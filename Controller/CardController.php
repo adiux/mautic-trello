@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
+ *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -103,8 +104,7 @@ class CardController extends FormController
             // successfully added
             $this->addFlash(
                 'plugin.trello.card_added',
-                ['%title%' => $card->getName()],
-                // 'error'
+                ['%title%' => $card->getName()]
             );
         } else {
             // successfully added
@@ -137,13 +137,7 @@ class CardController extends FormController
             $card = $this->contactToCard($contact);
         }
 
-        $action = $this->generateUrl(
-            'plugin_trello_card_add',
-            // [
-            //     'objectAction' => 'new',
-            //     'leadId'       => $leadId,
-            // ]
-        );
+        $action = $this->generateUrl('plugin_trello_card_add');
 
         return $form = $this->createForm(NewCardType::class, $card, ['action' => $action]);
     }
@@ -223,6 +217,6 @@ class CardController extends FormController
         }
         $this->logger->debug('stage is not a list', [$stage]);
 
-        return null;
+        return "";
     }
 }
