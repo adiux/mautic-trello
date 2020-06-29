@@ -2,17 +2,19 @@
 
 declare(strict_types=1);
 /**
- * @copyright   2020
- * @author      Idea2
+ * @copyright   2020 Mautic Contributors. All rights reserved
+ * @author      Mautic
  *
- * @see        https://www.idea2.ch
+ * @see        http://mautic.org
+ *
+ * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Form;
+namespace MauticPlugin\MauticTrelloBundle\Form;
 
 use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,7 +56,7 @@ class NewCardType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'mautic.idea2trello.name',
+                'label' => 'mautic.trello.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr' => ['class' => 'form-control'],
             ])
@@ -62,7 +64,7 @@ class NewCardType extends AbstractType
                 'desc',
                 TextareaType::class,
                 [
-                    'label' => 'mautic.idea2trello.description',
+                    'label' => 'mautic.trello.description',
                     'label_attr' => ['class' => 'control-label sr-only'],
                     'attr' => ['class' => 'form-control', 'rows' => 5],
                 ]
@@ -71,7 +73,7 @@ class NewCardType extends AbstractType
                 'idList',
                 ChoiceType::class,
                 [
-                    'label' => 'mautic.idea2trello.list',
+                    'label' => 'mautic.trello.list',
                     'choices' => $this->apiService->getListsOnBoard(),
                     'choice_value' => 'id',
                     'choice_label' => 'name',
@@ -83,7 +85,7 @@ class NewCardType extends AbstractType
                 'due',
                 DateTimeType::class,
                 [
-                    'label' => 'mautic.idea2trello.duedate',
+                    'label' => 'mautic.trello.duedate',
                     'label_attr' => ['class' => 'control-label'],
                     'widget' => 'single_text',
                     'required' => false,

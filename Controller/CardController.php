@@ -1,21 +1,23 @@
 <?php
 
-// declare(strict_types=1);
+declare(strict_types=1);
 
 /**
- * @copyright   2020
- * @author      Idea2
+ * @copyright   2020 Mautic Contributors. All rights reserved
+ * @author      Mautic
  *
- * @see        https://www.idea2.ch
+ * @see        http://mautic.org
+ *
+ * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Controller;
+namespace MauticPlugin\MauticTrelloBundle\Controller;
 
 use Mautic\CoreBundle\Controller\FormController;
 use Mautic\LeadBundle\Entity\Lead;
-use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\MauticTrelloBundle\Form\NewCardType;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +36,7 @@ class CardController extends FormController
     protected $logger;
 
     /**
-     * @var MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService
+     * @var MauticPlugin\MauticTrelloBundle\Service\TrelloApiService
      */
     private $apiService;
 
@@ -44,7 +46,7 @@ class CardController extends FormController
     public function showNewCardAction(int $contactId): Response
     {
         $this->logger = $this->get('monolog.logger.mautic');
-        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
+        $this->apiService = $this->get('mautic.trello.service.trello_api');
 
         // build the form
         $form = $this->getForm($contactId);
@@ -55,7 +57,7 @@ class CardController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.php',
+                'contentTemplate' => 'MauticTrelloBundle:Card:new.html.php',
             ]
         );
     }
@@ -66,7 +68,7 @@ class CardController extends FormController
     public function addAction(): JsonResponse
     {
         $this->logger = $this->get('monolog.logger.mautic');
-        $this->apiService = $this->get('mautic.idea2trello.service.trello_api');
+        $this->apiService = $this->get('mautic.trello.service.trello_api');
         // @todo
         // $lead = $this->checkLeadAccess($contactId, 'view');
         // if ($lead instanceof Response) {
@@ -86,7 +88,7 @@ class CardController extends FormController
 
         if (!$newCard->valid()) {
             $invalid = current($newCard->listInvalidProperties());
-            $message = sprintf($this->translator->trans('mautic.idea2trello.card_data_not_valid'), $invalid);
+            $message = sprintf($this->translator->trans('mautic.trello.card_data_not_valid'), $invalid);
             $this->addFlash($message, [], 'error');
 
             return new JsonResponse(['error' => $message]);
@@ -100,14 +102,14 @@ class CardController extends FormController
         if ($card instanceof Card) {
             // successfully added
             $this->addFlash(
-                'plugin.idea2trello.card_added',
+                'plugin.trello.card_added',
                 ['%title%' => $card->getName()],
                 // 'error'
             );
         } else {
             // successfully added
             $this->addFlash(
-                'plugin.idea2trello.card_not_added'
+                'plugin.trello.card_not_added'
             );
         }
 
@@ -157,7 +159,7 @@ class CardController extends FormController
 
         if (!empty($card) && $card->valid()) {
             // $passthroughVars['noteHtml'] = $this->renderView(
-            //     'Idea2TrelloBundle:Card:test.html.php',
+            //     'MauticTrelloBundle:Card:test.html.php',
             // );
             $passthroughVars['cardId'] = $card->getId();
             $passthroughVars['cardUrl'] = $card->getUrl();

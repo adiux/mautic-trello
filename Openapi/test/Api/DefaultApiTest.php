@@ -11,7 +11,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -27,7 +27,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
 use PHPUnit\Framework\TestCase;
 
@@ -76,6 +76,24 @@ class DefaultApiTest extends TestCase
      * .
      */
     public function testAddCard()
+    {
+    }
+
+    /**
+     * Test case for getBoards.
+     *
+     * .
+     */
+    public function testGetBoards()
+    {
+    }
+
+    /**
+     * Test case for getLists.
+     *
+     * .
+     */
+    public function testGetLists()
     {
     }
 }

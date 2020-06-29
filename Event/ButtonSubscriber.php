@@ -1,8 +1,8 @@
 <?php
 
-// plugins/Idea2TrelloBundle/Event/ButtonSubscriber.php
+// plugins/MauticTrelloBundle/Event/ButtonSubscriber.php
 
-namespace MauticPlugin\Idea2TrelloBundle\Event;
+namespace MauticPlugin\MauticTrelloBundle\Event;
 
 use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\Event\CustomButtonEvent;
@@ -55,7 +55,7 @@ class ButtonSubscriber implements EventSubscriberInterface
                         'data-toggle' => 'ajaxmodal',
                         'data-target' => '#MauticSharedModal',
                         'data-header' => $this->translator->trans(
-                            'plugin.idea2trello.add_card_to_trello'
+                            'plugin.trello.add_card_to_trello'
                         ),
                         'href' => $this->router->generate(
                             'plugin_create_cards_show_new',
@@ -63,7 +63,7 @@ class ButtonSubscriber implements EventSubscriberInterface
                         ),
                     ],
                     'btnText' => $this->translator->trans(
-                        'plugin.idea2trello.add_card_to_trello'
+                        'plugin.trello.add_card_to_trello'
                     ),
                     'iconClass' => 'fa fa-trello',
                 ];

@@ -1,11 +1,11 @@
 <?php
 
-namespace MauticPlugin\Idea2TrelloBundle\Event;
+namespace MauticPlugin\MauticTrelloBundle\Event;
 
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
 use Mautic\ConfigBundle\Event\ConfigEvent;
-use MauticPlugin\Idea2TrelloBundle\Form\ConfigType;
+use MauticPlugin\MauticTrelloBundle\Form\ConfigType;
 use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -40,9 +40,9 @@ class ConfigSubscriber implements EventSubscriberInterface
         $event->addForm(
             [
                 'formAlias' => 'trello_config', // same as in the View filename
-                'formTheme' => 'Idea2TrelloBundle:FormTheme\Config',
+                'formTheme' => 'MauticTrelloBundle:FormTheme\Config',
                 'formType' => ConfigType::class,
-                'parameters' => $event->getParametersFromConfig('Idea2TrelloBundle'),
+                'parameters' => $event->getParametersFromConfig('MauticTrelloBundle'),
             ]
         );
     }

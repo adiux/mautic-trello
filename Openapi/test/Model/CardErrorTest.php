@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,7 +28,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
 use PHPUnit\Framework\TestCase;
 

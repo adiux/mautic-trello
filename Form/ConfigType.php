@@ -9,10 +9,10 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Form;
+namespace MauticPlugin\MauticTrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

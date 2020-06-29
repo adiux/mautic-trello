@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Idea2 Trello API
+  title: Mautic Trello API
   description: Create or update a card via the Trello API
   version: 0.1.1
 servers:

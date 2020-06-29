@@ -11,26 +11,26 @@ declare(strict_types=1);
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Tests;
+namespace MauticPlugin\MauticTrelloBundle\Tests;
 
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use MauticPlugin\Idea2TrelloBundle\Controller\CardController;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Controller\CardController;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test the Service providing the auto generated Trello API to the Idea2TrelloBundle.
+ * Test the Service providing the auto generated Trello API to the MauticTrelloBundle.
  */
 class CardControllerTest extends TestCase
 {
     /**
      * The Api to Trello.
      *
-     * @var MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi
+     * @var MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi
      */
     private $api;
 

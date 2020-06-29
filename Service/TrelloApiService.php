@@ -10,20 +10,20 @@ declare(strict_types=1);
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Service;
+namespace MauticPlugin\MauticTrelloBundle\Service;
 
 use Exception;
 use GuzzleHttp\Client as HttpClient;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
 use Monolog\Logger;
 
 /**
- * Provide the auto generated Trello API to the Idea2TrelloBundle.
+ * Provide the auto generated Trello API to the MauticTrelloBundle.
  */
 class TrelloApiService
 {

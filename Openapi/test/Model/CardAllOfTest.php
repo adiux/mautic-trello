@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,7 +28,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
 use PHPUnit\Framework\TestCase;
 
@@ -87,23 +87,16 @@ class CardAllOfTest extends TestCase
     }
 
     /**
+     * Test attribute "dateLastActivity".
+     */
+    public function testPropertyDateLastActivity()
+    {
+    }
+
+    /**
      * Test attribute "labels".
      */
     public function testPropertyLabels()
-    {
-    }
-
-    /**
-     * Test attribute "url".
-     */
-    public function testPropertyUrl()
-    {
-    }
-
-    /**
-     * Test attribute "date_last_activity".
-     */
-    public function testPropertyDateLastActivity()
     {
     }
 
@@ -115,7 +108,14 @@ class CardAllOfTest extends TestCase
     }
 
     /**
-     * Test attribute "id_members".
+     * Test attribute "url".
+     */
+    public function testPropertyUrl()
+    {
+    }
+
+    /**
+     * Test attribute "idMembers".
      */
     public function testPropertyIdMembers()
     {

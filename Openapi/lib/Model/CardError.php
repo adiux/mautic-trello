@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * CardError Class Doc Comment.
@@ -61,7 +61,7 @@ class CardError implements ModelInterface, ArrayAccess
     protected static $openAPITypes = [
         'code' => 'string',
         'message' => 'string',
-        'data' => '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData',
+        'data' => '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData',
     ];
 
     /**
@@ -271,7 +271,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Gets data.
      *
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null
+     * @return \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData|null
      */
     public function getData()
     {
@@ -281,7 +281,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Sets data.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null $data data
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData|null $data data
      *
      * @return $this
      */
