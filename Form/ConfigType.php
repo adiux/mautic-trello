@@ -80,6 +80,10 @@ class ConfigType extends AbstractType
     protected function getBoards()
     {
         $api = $this->apiService->getApi();
+        if ( !$api ){
+            return [];
+        }
+
         try {
             $fields = 'id,name';
             $filter = 'open';
