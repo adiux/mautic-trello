@@ -1,27 +1,37 @@
-next step: 
+# Mautic Trello Integration
+Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts.
 
-1. 
+# Unit Testing
+test
 
-# Apis
-1. Call Mautic to add security and create card from Frontend (uses Mautic Frontend Auth /s)
-2. Actually create card with Trello API (use the Trello Auth)
+## Mock Server
 
-# Run Tests
+Uses [prism](https://github.com/stoplightio/prism) to automatically create a mock server based on the OpenAPI specification.
+
+### Start mock server
+
+```
+prism mock -d docs/api/i2-trello.oas3.yml
+```
+
+### Run tests
 ```
 bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter MauticTrelloBundle
 ```
 
-# Urls
-http://mautic.ddev.site/s/trello/card/add/1
 
 # Hints
-And all should be well. If you are ever not sure what the actual namespace prefix is then run:
+
+## Symfony Namespace
+If you are ever not sure what the actual namespace prefix is then run:
 ```
 bin/console debug:twig
 ```
+## Urls 
+http://mautic.ddev.site/s/trello/card/add/1
 
 # Requirements
-Min PHP 7.0.0
+Mautic v3
 
 # Inspiration
 - https://github.com/cdaguerre/php-trello-api
