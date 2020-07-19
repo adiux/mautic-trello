@@ -3,6 +3,7 @@
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
+ *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -20,6 +21,7 @@ use MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
 use Monolog\Logger;
 
 /**
@@ -61,7 +63,7 @@ class TrelloApiService
     {
         // setup auth
         $auth = $this->getAuthParams();
-        if ( empty($auth['key'])){
+        if (empty($auth['key'])) {
             return false;
         }
         $config = Configuration::getDefaultConfiguration()->setApiKey('key', $auth['key']);
@@ -71,6 +73,36 @@ class TrelloApiService
             new HttpClient(),
             $config
         );
+    }
+
+    /**
+     * Get all Trello boards as an array (id => name).
+     *
+     * @param string $filter
+     *
+     * @return array
+     */
+    public function getBoardsArray($filter = 'open') :array
+    {
+        try {
+            $api = $this->getApi();
+            if (!$api) {
+                return [];
+            }
+
+            $fields = 'id,name';
+            $boards = $api->getBoards($fields, $filter);
+            $boardsArray = [];
+            foreach ($boards as $board) {
+                $boardsArray[$board->getId()] = $board->getName();
+            }
+
+            return $boardsArray;
+        } catch (ApiException $e) {
+            $this->logger->warning('API Exception when calling DefaultApi->getBoards(): ', [$e->getMessage()]);
+
+            return [];
+        }
     }
 
     /**
@@ -91,7 +123,7 @@ class TrelloApiService
     public function getListsOnBoard(int $boardId = null): array
     {
         $api = $this->getApi();
-        if ( !$api ){
+        if (!$api) {
             return [];
         }
 
@@ -106,8 +138,12 @@ class TrelloApiService
 
         try {
             return $api->getLists($boardId);
+        } catch (ApiException $e) {
+            $this->logger->warning('API Exception when calling DefaultApi->getLists(): ', [$e->getMessage()]);
+
+            return [];
         } catch (Exception $e) {
-            $this->logger->warning('Exception when calling DefaultApi->getLists: ', [$e->getMessage()]);
+            $this->logger->warning('Exception when calling DefaultApi->getLists(): ', [$e->getMessage()]);
 
             return [];
         }
@@ -129,7 +165,6 @@ class TrelloApiService
             'key' => $settings['appkey'],
             'token' => $settings['apitoken'],
         );
-
     }
 
     /**
@@ -140,7 +175,7 @@ class TrelloApiService
     public function addNewCard(array $card): Card
     {
         $api = $this->getApi();
-        if ( !$api ){
+        if (!$api) {
             return new Card();
         }
 

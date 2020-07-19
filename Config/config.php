@@ -41,7 +41,8 @@ return [
                 'arguments' => [
                     'mautic.lead.model.field',
                     'mautic.trello.service.trello_api',
-                    ],
+                    'monolog.logger.mautic',
+                ],
             ],
         ],
         'events' => [

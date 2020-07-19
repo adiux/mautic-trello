@@ -85,7 +85,14 @@ class CardController extends FormController
 
         // process form data from HTTP variables
         $form->handleRequest($this->request);
+        
+        // MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
         $newCard = $form->getData();
+        print '<pre>';
+        print '<h1>$newCard</h1>';
+        var_dump($newCard->getDue());
+        print '</pre>';
+        exit;
 
         if (!$newCard->valid()) {
             $invalid = current($newCard->listInvalidProperties());
@@ -100,6 +107,7 @@ class CardController extends FormController
         // remove other values from array, only leave id
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
         $card = $this->apiService->addNewCard($cardArray);
+
         if ($card instanceof Card) {
             // successfully added
             $this->addFlash(

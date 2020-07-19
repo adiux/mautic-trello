@@ -13,9 +13,11 @@ namespace MauticPlugin\MauticTrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
 use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Monolog\Logger;
 
 /**
  * Configure Trello integration in main Mautic Configiguration.
@@ -30,12 +32,18 @@ class ConfigType extends AbstractType
     protected $fieldModel;
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * ConfigType constructor.
      */
-    public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService)
+    public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService, Logger $logger)
     {
         $this->fieldModel = $fieldModel;
         $this->apiService = $trelloApiService;
+        $this->logger = $logger;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -79,23 +87,6 @@ class ConfigType extends AbstractType
      */
     protected function getBoards()
     {
-        $api = $this->apiService->getApi();
-        if ( !$api ){
-            return [];
-        }
-
-        try {
-            $fields = 'id,name';
-            $filter = 'open';
-            $boards = $api->getBoards($fields, $filter);
-            $boardsArray = [];
-            foreach ($boards as $board) {
-                $boardsArray[$board->getName()] = $board->getId();
-            }
-
-            return $boardsArray;
-        } catch (Exception $e) {
-            echo 'Exception when calling DefaultApi->getBoards: ', $e->getMessage(), PHP_EOL;
-        }
+        return array_flip($this->apiService->getBoardsArray());
     }
 }
