@@ -159,12 +159,20 @@ class TrelloApiService
         if (!$this->integration || !$this->integration->getIntegrationSettings()->getIsPublished()) {
             return [];
         }
-        $settings = $this->integration->getIntegrationSettings()->getFeatureSettings();
+        $keys = $this->integration->getIntegrationSettings()->getApiKeys();
 
-        return array(
-            'key' => $settings['appkey'],
-            'token' => $settings['apitoken'],
+        if (empty($keys['appkey']) || empty($keys['apitoken'])) {
+            $this->logger->warning('No valid Trello api keys');
+        }
+
+        $encryptedKeys = array(
+            'key' => isset($keys['appkey']) ? $keys['appkey'] : '',
+            'token' => isset($keys['apitoken']) ? $keys['apitoken'] : '',
         );
+
+        $keys = $this->integration->decryptApiKeys($encryptedKeys);
+
+        return $keys;
     }
 
     /**

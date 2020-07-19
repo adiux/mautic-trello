@@ -88,11 +88,6 @@ class CardController extends FormController
         
         // MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
         $newCard = $form->getData();
-        print '<pre>';
-        print '<h1>$newCard</h1>';
-        var_dump($newCard->getDue());
-        print '</pre>';
-        exit;
 
         if (!$newCard->valid()) {
             $invalid = current($newCard->listInvalidProperties());

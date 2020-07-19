@@ -51,38 +51,28 @@ class TrelloIntegration extends AbstractIntegration
     public function getFormSettings()
     {
         return [
-            'requires_callback' => true,
+            'requires_callback' => false,
             'requires_authorization' => false,
         ];
     }
 
-    /**
-     * @param Form|FormBuilder $builder
-     * @param array            $data
-     * @param string           $formArea
+        /**
+     * {@inheritdoc}
+     *
+     * @return array
      */
-    public function appendToForm(&$builder, $data, $formArea)
+    public function getRequiredKeyFields()
     {
-        // if ('keys' === $formArea) {
-        $builder->add(
-                'appkey',
-                TextType::class,
-                [
-                    'label' => 'mautic.integration.trello.appkey',
-                    'attr' => ['class' => 'form-control'],
-                    // 'data'     => empty($data['appkey']) ? '9aekadsf...' : $data['appkey'],
-                    'required' => true,
-                ]
-            )->add(
-                'apitoken',
-                TextType::class,
-                [
-                    'label' => 'mautic.integration.trello.apitoken',
-                    'attr' => ['class' => 'form-control'],
-                    // 'data'     => empty($data['apitoken']) ? '9aekadsf...' : $data['apitoken'],
-                    'required' => true,
-                ]
-            );
-        // }
+        return [
+            'appkey'      => 'mautic.trello.integration.appkey',
+            'apitoken'    => 'mautic.trello.integration.apitoken',
+        ];
+    }
+
+    public function getSecretKeys()
+    {
+        return [
+            'apitoken',
+        ];
     }
 }
