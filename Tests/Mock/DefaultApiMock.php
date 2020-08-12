@@ -12,36 +12,91 @@ declare(strict_types=1);
  */
 
 namespace MauticPlugin\MauticTrelloBundle\Tests\Mock;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
 
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
+
+/**
+ * Return static mock data for the Trello API
+ */
 class DefaultApiMock
 {
-    public function getBoards()
+    /**
+     * Get an array of TrelloBoards
+     *
+     * @return array
+     */
+    public function getBoards(): array
     {
-        
-        $boards = file_get_contents($this->get('kernel')->getRootDir() . '/../web/assets/api/scientific-posters.json');
-        // $boards = file_get_contents('/../Data/boards.json');
-        $json = json_decode($boards, true);
+        $boards = array();
+        $json = $this->getMockData('boards.json');
+       
+        foreach ($json as $board) {
+            $boards[] = new TrelloBoard($board);
+        }
 
-        return $json;
+        return $boards;
     }
-    public function getLists()
+    /**
+     * Get a static array of TrelloLists
+     *
+     * @return array
+     */
+    public function getLists(): array
     {
         $lists = array();
-        $file = dirname(__DIR__).'/Data/boards.json';
-        $boards = file_get_contents($file, true);
-        $json = json_decode($boards, true);
-        foreach ($json as $list ){
+        $json = $this->getMockData('lists.json');
+        foreach ($json as $list) {
             $lists[] = new TrelloList($list);
         }
 
         return $lists;
     }
-    public function addCard()
+    /**
+     * Simulate the response for adding a new card to Trello
+     *
+     * @param array $data using the format of NewCard
+     *
+     * @return Card
+     */
+    public function addCard($data): Card
     {
-        // $boards = file_get_contents($this->get('kernel')->getRootDir() . '/../web/assets/api/scientific-posters.json');
-        $boards = file_get_contents('/../Data/boards.json');
-        $json = json_decode($boards, true);
+        $newCard = new NewCard($data);
+        if (!$newCard->valid()) {
+            echo 'WARNING: no valid new card data';
+
+            return new Card();
+        }
+        $json = $this->getMockData('card-200.json');
+        $card = new Card($json);
+
+        return $card;
+    }
+
+    /**
+     * Load the static data from a json file in the ./Tests/Data/ folder
+     *
+     * @param string $filename
+     *
+     * @return array
+     */
+    protected function getMockData(string $filename): array
+    {
+        $file = \sprintf('%s/Data/%s', dirname(__DIR__), $filename);
+        if (!file_exists($file)) {
+            printf('%s WARNING: %s not found', PHP_EOL, $filename);
+
+            return [];
+        }
+
+        $data = file_get_contents($file, true);
+        $json = json_decode($data, true);
+
+        if (empty($json) || !\is_array($json)) {
+            printf('%s WARNING: %s is empty', PHP_EOL, $filename);
+        }
 
         return $json;
     }

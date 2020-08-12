@@ -45,7 +45,11 @@ class TrelloApiService
     protected $logger;
 
     /**
-     * Setup Service.
+     * Set up the Trello Service.
+     *
+     * @param IntegrationHelper    $integrationHelper
+     * @param CoreParametersHelper $coreParametersHelper
+     * @param Logger               $logger
      */
     public function __construct(IntegrationHelper $integrationHelper, CoreParametersHelper $coreParametersHelper, Logger $logger)
     {
@@ -118,7 +122,9 @@ class TrelloApiService
     /**
      * Get all the lists on the Trello board.
      *
-     * @param int $boardId
+     * @param integer $boardId Trello Board id
+     *
+     * @return array
      */
     public function getListsOnBoard(int $boardId = null): array
     {
@@ -176,7 +182,9 @@ class TrelloApiService
     }
 
     /**
-     * All the business logic for a submitted form.
+     * * All the business logic for a submitted form.
+     *
+     * @param array $card
      *
      * @return Card | Exception
      */

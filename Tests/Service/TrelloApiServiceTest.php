@@ -26,18 +26,26 @@ use MauticPlugin\MauticTrelloBundle\Tests\Mock\DefaultApiMock;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Test the Mautic Trello API Services
+ */
 class TrellApiServiceTest extends TestCase
 {
     const MOCK_API_HOST = 'http://127.0.0.1:4010';
     const MOCK_API_KEY = 'KEY';
     const MOCK_API_TOKEN = 'TOKEN';
-    const MOCK_FAV_BOARD = 'testboard';
+    const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
 
     /**
      * @var TrelloApiService
      */
     protected $apiService;
 
+    /**
+     * Set up tests to ether use static json files or the Prism mock server
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -81,6 +89,24 @@ class TrellApiServiceTest extends TestCase
         foreach ($lists as $list) {
             $this->assertInstanceOf(TrelloList::class, $list);
             $this->assertTrue($list->valid());
+        }
+    }
+
+    /**
+     * Get a list of Trello boards from mocked API
+     *
+     * @return void
+     */
+    public function testGetBoardsArray(): void
+    {
+        $boards = $this->apiService->getBoardsArray();
+        $this->assertGreaterThan(0, count($boards));
+
+        foreach ($boards as $id => $name) {
+            $this->assertIsString($id);
+            $this->assertIsString($name);
+            $this->assertNotEmpty($id);
+            $this->assertNotEmpty($name);
         }
     }
 

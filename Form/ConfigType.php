@@ -38,6 +38,10 @@ class ConfigType extends AbstractType
 
     /**
      * ConfigType constructor.
+     *
+     * @param FieldModel       $fieldModel
+     * @param TrelloApiService $trelloApiService
+     * @param Logger           $logger
      */
     public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService, Logger $logger)
     {
@@ -46,7 +50,15 @@ class ConfigType extends AbstractType
         $this->logger = $logger;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * Creates the Settings section for Trello
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     *
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $leadFields = $this->fieldModel->getFieldList(false, false);
 
@@ -60,16 +72,6 @@ class ConfigType extends AbstractType
                 'attr' => ['class' => 'form-control'],
             ]
         );
-
-        // $builder->add(
-        //     '',
-        //     ChoiceType::class,
-        //     array(
-        //         'choices' => ,
-        //         'choice_value' => 'id',
-        //         'choice_label' => 'name',
-        //     )
-        // );
     }
 
     /**
