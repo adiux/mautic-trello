@@ -75,4 +75,26 @@ class TrelloIntegration extends AbstractIntegration
             'apitoken',
         ];
     }
+
+     /**
+     * {@inheritdoc}
+     *
+     * @param $section
+     *
+     * @return string
+     */
+    public function getFormNotes($section)
+    {
+        $router     = $this->router;
+        $translator = $this->getTranslator();
+
+        if ('authorization' == $section) {
+            return [
+                $translator->trans('mautic.trello.integration.info'),
+                'info',
+            ];
+        }
+
+        return parent::getFormNotes($section);
+    }
 }

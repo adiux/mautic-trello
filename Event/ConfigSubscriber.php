@@ -63,7 +63,8 @@ class ConfigSubscriber implements EventSubscriberInterface
         //     $config['favorite_board'] = $board->getId();
         //     // htmlspecialchars($values['trello_config']['favorite_board']->getId());
         // }
-        $this->logger->warning('values', $config);
+        // $this->logger->warning('values config subscriber', $config);
+        
         // Set updated values
         $event->setConfig($config, 'trello_config');
     }
