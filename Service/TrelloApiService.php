@@ -178,9 +178,9 @@ class TrelloApiService
     /**
      * All the business logic for a submitted form.
      *
-     * @return bool
+     * @return Card | Exception
      */
-    public function addNewCard(array $card): Card
+    public function addNewCard(array $card)
     {
         $api = $this->getApi();
         if (!$api) {
@@ -202,7 +202,7 @@ class TrelloApiService
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
 
-            return new Exception($e);
+            return new Exception($e->getMessage());
         }
 
         // return $this->redirectToRoute('task_success');

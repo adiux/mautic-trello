@@ -3,6 +3,7 @@
 declare(strict_types=1);
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
+ *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -20,6 +21,8 @@ use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
 use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Tests\Mock\DefaultApiMock;
+
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
@@ -48,16 +51,22 @@ class TrellApiServiceTest extends TestCase
             ])
             ->getMock();
 
-        $config = new Configuration();
-        $config->setHost(self::MOCK_API_HOST);
-        $config->setApiKey('key', self::MOCK_API_KEY);
-        $config->setApiKey('token', self::MOCK_API_TOKEN);
+        // use with Prism mock server
+        // $config = new Configuration();
+        // $config->setHost(self::MOCK_API_HOST);
+        // $config->setApiKey('key', self::MOCK_API_KEY);
+        // $config->setApiKey('token', self::MOCK_API_TOKEN);
+
+        // $this->apiService->method('getApi')
+        //     ->willReturn(new DefaultApi(
+        //         new HttpClient(),
+        //         $config
+        //     ));
 
         $this->apiService->method('getApi')
-            ->willReturn(new DefaultApi(
-                new HttpClient(),
-                $config
-            ));
+            ->willReturn(new DefaultApiMock());
+
+        // valid for both variants
         $this->apiService->method('getFavouriteBoard')
             ->willReturn(self::MOCK_FAV_BOARD);
     }
