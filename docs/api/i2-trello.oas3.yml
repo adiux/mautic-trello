@@ -171,7 +171,11 @@ components:
         urlSource:
           type: string
           format: uri
-          example: https://www.mautic.org
+          example: https://www.example.com
+        contactId:
+          type: integer
+          minimum: 0
+          description: "The ID of the Mautic contact (Lead)."
         keepFromSource:
           description: "If using idCardSource you can specify which properties to copy over."
           type: string

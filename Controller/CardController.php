@@ -70,6 +70,13 @@ class CardController extends FormController
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.trello.service.trello_api');
+
+        $contactId =  0;
+        $this->logger->warn('session', $this->request->request->all());
+        $data = $this->request->request->get('new_card', false);
+        if (is_array($data) && isset($data['contactId'])) {
+            $contactId =  (int) $data['contactId'];
+        }
         // @todo
         // $lead = $this->checkLeadAccess($contactId, 'view');
         // if ($lead instanceof Response) {
@@ -78,6 +85,9 @@ class CardController extends FormController
 
         // Check for a submitted form and process it
         $form = $this->getForm();
+        
+        
+
 
         if ($this->isFormCancelled($form)) {
             return $this->closeModal();
@@ -110,15 +120,63 @@ class CardController extends FormController
                 ['%title%' => $card->getName()]
             );
         } else {
-            // successfully added
+            // not successfully added
             $this->addFlash(
                 'plugin.trello.card_not_added'
             );
         }
 
-        return $this->closeModal($card);
+        // return $this->closeModal($card);
+        // $session = $this->get('session');
+        // $bundle = "MauticTrelloBundle";
+        // $viewParameters = [
+        //     'page'   => $session->get('mautic.category.page'),
+        //     'bundle' => $bundle,
+        // ];
+
+        return $this->closeAndRedirect($contactId);
     }
 
+    protected function closeAndRedirect(int $contactId)
+    {
+        if ($this->isInList()) {
+            $route          = 'mautic_contact_index';
+            $viewParameters = [
+                'page' => $this->get('session')->get('mautic.lead.page', 1),
+            ];
+            $func = 'index';
+        } else {
+            $route          = 'mautic_contact_action';
+            $viewParameters = [
+                'objectAction' => 'view',
+                'objectId'     => $contactId,
+            ];
+            $func = 'view';
+        }
+
+        return $this->postActionRedirect(
+            [
+                'returnUrl'       => $this->generateUrl($route, $viewParameters),
+                'viewParameters'  => $viewParameters,
+                'contentTemplate' => 'MauticLeadBundle:Lead:'.$func,
+                'passthroughVars' => [
+                    'mauticContent' => 'lead',
+                    'closeModal'    => 1,
+                ],
+            ]
+        );
+    }
+
+    protected function isInList()
+    {
+        return ('GET' === $this->request->getMethod())
+        ? $this->request->get('list', 0)
+        : $this->request->request->get(
+            'lead_quickemail[list]',
+            0,
+            true
+        );
+    }
     /**
      * Build the form.
      *
@@ -195,6 +253,7 @@ class CardController extends FormController
                 'desc' => null,
                 'idList' => $this->getListForContact($contact),
                 'urlSource' => $this->coreParametersHelper->getParameter('site_url').'/s/contacts/view/'.$contact->getId(),
+                'contactId' => $contact->getId(),
                 // 'due' => new \DateTime('next week'),
             ]
         );
