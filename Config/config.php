@@ -54,11 +54,13 @@ return [
                     'router',
                     'translator',
                     'request_stack',
+                    'mautic.helper.integration',
                 ],
             ],
             'mautic.trello.event.config' => [
                 'class' => \MauticPlugin\MauticTrelloBundle\Event\ConfigSubscriber::class,
                 'arguments' => [
+                    'mautic.helper.integration',
                     'monolog.logger.mautic',
                 ],
             ],

@@ -8,6 +8,8 @@ use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\Event\CustomButtonEvent;
 use Mautic\CoreBundle\Templating\Helper\ButtonHelper;
 use Mautic\LeadBundle\Entity\Lead;
+use Mautic\PluginBundle\Helper\IntegrationHelper;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -33,11 +35,12 @@ class ButtonSubscriber implements EventSubscriberInterface
     /**
      * init.
      */
-    public function __construct(RouterInterface $router, TranslatorInterface $translator, RequestStack $requestStack)
+    public function __construct(RouterInterface $router, TranslatorInterface $translator, RequestStack $requestStack, IntegrationHelper $integrationHelper)
     {
         $this->router = $router;
         $this->translator = $translator;
         $this->requestStack = $requestStack;
+        $this->integration = $integrationHelper->getIntegrationObject('Trello');
     }
 
     /**
@@ -52,6 +55,10 @@ class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event)
     {
+        if (!$this->integration->isPublished()) {
+            return false;
+        }
+
         $lead = $event->getItem();
 
         if ($lead instanceof Lead) {
@@ -76,6 +83,8 @@ class ButtonSubscriber implements EventSubscriberInterface
                 'iconClass' => 'fa fa-trello',
             ];
 
+            // $addToTrelloBulkBtn = $addToTrelloBtn;
+
             // Inject a button into the page actions for the specified route (in this case /s/contacts/view/{contactId})
             $event
                 ->addButton(
@@ -90,6 +99,11 @@ class ButtonSubscriber implements EventSubscriberInterface
                     ButtonHelper::LOCATION_LIST_ACTIONS,
                     'mautic_contact_index'
                 )
+                // ->addButton(
+                //     $addToTrelloBulkBtn,
+                //     ButtonHelper::LOCATION_BULK_ACTIONS,
+                //     'mautic_contact_index'
+                // )
             ;
         }
     }

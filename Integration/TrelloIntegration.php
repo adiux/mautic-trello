@@ -26,6 +26,16 @@ class TrelloIntegration extends AbstractIntegration
     private $authorzationError = '';
 
     /**
+     * Check if plugin is published
+     *
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->getIntegrationSettings()->getIsPublished();
+    }
+
+    /**
      * Return's authentication method such as oauth2, oauth1a, key, etc.
      *
      * @return string
