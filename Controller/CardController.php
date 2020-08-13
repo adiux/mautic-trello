@@ -43,6 +43,10 @@ class CardController extends FormController
 
     /**
      * Show a new Trello card form with prefilled information from the Contact.
+     *
+     * @param integer $contactId
+     *
+     * @return Response
      */
     public function showNewCardAction(int $contactId): Response
     {
@@ -64,15 +68,18 @@ class CardController extends FormController
     }
 
     /**
-     * Add a new card by POST.
+     * Add a new card by POST or handle the cancelation of the form.
+     *
+     * @return JsonResponse
      */
     public function addAction(): JsonResponse
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.trello.service.trello_api');
 
+        $returnRoute = $this->request->get('returnRoute', '');
+
         $contactId =  0;
-        $this->logger->warn('session', $this->request->request->all());
         $data = $this->request->request->get('new_card', false);
         if (is_array($data) && isset($data['contactId'])) {
             $contactId =  (int) $data['contactId'];
@@ -85,9 +92,6 @@ class CardController extends FormController
 
         // Check for a submitted form and process it
         $form = $this->getForm();
-        
-        
-
 
         if ($this->isFormCancelled($form)) {
             return $this->closeModal();
@@ -95,7 +99,7 @@ class CardController extends FormController
 
         // process form data from HTTP variables
         $form->handleRequest($this->request);
-        
+
         // MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
         $newCard = $form->getData();
 
@@ -107,8 +111,9 @@ class CardController extends FormController
             return new JsonResponse(['error' => $message]);
         }
 
-        // create an Array from the object (workaround)
+        // create an Array from the object (workaround to remove Object)
         $cardArray = json_decode($newCard->__toString(), true);
+
         // remove other values from array, only leave id
         $cardArray['idList'] = $form->get('idList')->getData()->getId();
         $card = $this->apiService->addNewCard($cardArray);
@@ -126,56 +131,64 @@ class CardController extends FormController
             );
         }
 
-        // return $this->closeModal($card);
-        // $session = $this->get('session');
-        // $bundle = "MauticTrelloBundle";
-        // $viewParameters = [
-        //     'page'   => $session->get('mautic.category.page'),
-        //     'bundle' => $bundle,
-        // ];
-
-        return $this->closeAndRedirect($contactId);
+        return $this->closeAndRedirect($returnRoute, $contactId);
     }
 
-    protected function closeAndRedirect(int $contactId)
+    /**
+     * Close the modal after adding a contact
+     *
+     * @param string  $returnRoute
+     * @param integer $contactId
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function closeAndRedirect(string $returnRoute, int $contactId)
     {
-        if ($this->isInList()) {
-            $route          = 'mautic_contact_index';
-            $viewParameters = [
-                'page' => $this->get('session')->get('mautic.lead.page', 1),
-            ];
+        if (empty($returnRoute) || empty($contactId)) {
+            $this->logger->warning('No return url or contact for add to Trello specified', array('contactId' => $contactId, 'returnRoute' => $returnRoute));
+        }
+
+        // return user to contact overview
+        if ('mautic_contact_index' === $returnRoute) {
             $func = 'index';
+            $viewParameters = array(
+                'page' => $this->get('session')->get('mautic.lead.page', 1),
+                'objectId'     => $contactId,
+            );
         } else {
-            $route          = 'mautic_contact_action';
-            $viewParameters = [
+            // return user to contact detail view
+            $func = 'view';
+            $viewParameters = array(
                 'objectAction' => 'view',
                 'objectId'     => $contactId,
-            ];
-            $func = 'view';
+            );
         }
 
         return $this->postActionRedirect(
-            [
-                'returnUrl'       => $this->generateUrl($route, $viewParameters),
-                'viewParameters'  => $viewParameters,
+            array(
+                'returnUrl'       => $this->generateUrl($returnRoute, $viewParameters),
+                'viewParameters'  =>  $viewParameters,
                 'contentTemplate' => 'MauticLeadBundle:Lead:'.$func,
-                'passthroughVars' => [
+                'passthroughVars' => array(
                     'mauticContent' => 'lead',
                     'closeModal'    => 1,
-                ],
-            ]
+                ),
+            )
         );
     }
-
-    protected function isInList()
+    /**
+     * Just close the modal and return parameters.
+     *
+     * @return JsonResponse
+     */
+    protected function closeModal(): JsonResponse
     {
-        return ('GET' === $this->request->getMethod())
-        ? $this->request->get('list', 0)
-        : $this->request->request->get(
-            'lead_quickemail[list]',
-            0,
-            true
+        $passthroughVars = array(
+            'closeModal' => 1,
+            'mauticContent' => 'trelloCardAddCanceled',
         );
+
+        return new JsonResponse($passthroughVars);
     }
     /**
      * Build the form.
@@ -186,6 +199,10 @@ class CardController extends FormController
      */
     protected function getForm(int $contactId = null): Form
     {
+        $returnRoute = $this->request->get('returnRoute');
+        if (empty($returnRoute)) {
+            $this->logger->warning('No return route for add to Trello specified', array('contactId' => $contactId));
+        }
         $card = new NewCard();
 
         if (!empty($contactId)) {
@@ -198,31 +215,9 @@ class CardController extends FormController
             $card = $this->contactToCard($contact);
         }
 
-        $action = $this->generateUrl('plugin_trello_card_add');
+        $action = $this->generateUrl('plugin_trello_card_add', array('returnRoute' => $returnRoute));
 
         return $form = $this->createForm(NewCardType::class, $card, ['action' => $action]);
-    }
-
-    /**
-     * Just close the modal and return parameters.
-     *
-     * @param Card $card
-     */
-    protected function closeModal(Card $card = null): JsonResponse
-    {
-        $passthroughVars['closeModal'] = 1;
-
-        if (!empty($card) && $card->valid()) {
-            // $passthroughVars['noteHtml'] = $this->renderView(
-            //     'MauticTrelloBundle:Card:test.html.php',
-            // );
-            $passthroughVars['cardId'] = $card->getId();
-            $passthroughVars['cardUrl'] = $card->getUrl();
-        }
-
-        $passthroughVars['mauticContent'] = 'trelloCardAdded';
-
-        return new JsonResponse($passthroughVars);
     }
 
     /**
@@ -242,6 +237,10 @@ class CardController extends FormController
 
     /**
      * Set the default values for the new card.
+     *
+     * @param Lead $contact
+     *
+     * @return NewCard
      */
     protected function contactToCard(Lead $contact): NewCard
     {
@@ -263,6 +262,8 @@ class CardController extends FormController
      * Get the current list name the contact is on based on the stage name.
      *
      * @param Lead $contact Mautic Lead (aka Contact)
+     *
+     * @return string
      */
     protected function getListForContact(Lead $contact): string
     {

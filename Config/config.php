@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright   2020 Mautic Contributors. All rights reserved
+ *
  * @author      Mautic
  *
  * @see        http://mautic.org
@@ -21,6 +22,7 @@ return [
                 'path' => '/trello/card',
                 'method' => 'POST',
                 'controller' => 'MauticTrelloBundle:Card:add',
+                'returnRoute' => '',
             ],
         ],
     ],
@@ -51,6 +53,7 @@ return [
                 'arguments' => [
                     'router',
                     'translator',
+                    'request_stack',
                 ],
             ],
             'mautic.trello.event.config' => [

@@ -69,6 +69,11 @@ class TrelloIntegration extends AbstractIntegration
         ];
     }
 
+    /**
+     * Configure the name of the secret key
+     *
+     * @return void
+     */
     public function getSecretKeys()
     {
         return [
@@ -88,7 +93,7 @@ class TrelloIntegration extends AbstractIntegration
         $router     = $this->router;
         $translator = $this->getTranslator();
 
-        if ('authorization' == $section) {
+        if ('authorization' === $section) {
             return [
                 $translator->trans('mautic.trello.integration.info'),
                 'info',

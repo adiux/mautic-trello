@@ -11,12 +11,15 @@ use Mautic\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Add a Trello button.
  */
 class ButtonSubscriber implements EventSubscriberInterface
 {
+    protected $requestStack;
+
     /**
      * @var RouterInterface
      */
@@ -30,10 +33,11 @@ class ButtonSubscriber implements EventSubscriberInterface
     /**
      * init.
      */
-    public function __construct(RouterInterface $router, TranslatorInterface $translator)
+    public function __construct(RouterInterface $router, TranslatorInterface $translator, RequestStack $requestStack)
     {
         $this->router = $router;
         $this->translator = $translator;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -48,42 +52,45 @@ class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event)
     {
-        if ($lead = $event->getItem()) {
-            if ($lead instanceof Lead) {
-                $addToTrelloBtn = [
-                    'attr' => [
-                        'data-toggle' => 'ajaxmodal',
-                        'data-target' => '#MauticSharedModal',
-                        'data-header' => $this->translator->trans(
-                            'plugin.trello.add_card_to_trello'
-                        ),
-                        'href' => $this->router->generate(
-                            'plugin_create_cards_show_new',
-                            ['contactId' => $lead->getId()]
-                        ),
-                    ],
-                    'btnText' => $this->translator->trans(
+        $lead = $event->getItem();
+
+        if ($lead instanceof Lead) {
+            $request = $this->requestStack->getCurrentRequest();
+            $returnRoute = $request->get('_route');
+
+            $addToTrelloBtn = [
+                'attr' => [
+                    'data-toggle' => 'ajaxmodal',
+                    'data-target' => '#MauticSharedModal',
+                    'data-header' => $this->translator->trans(
                         'plugin.trello.add_card_to_trello'
                     ),
-                    'iconClass' => 'fa fa-trello',
-                ];
+                    'href' => $this->router->generate(
+                        'plugin_create_cards_show_new',
+                        ['contactId' => $lead->getId(), 'returnRoute' => $returnRoute ]
+                    ),
+                ],
+                'btnText' => $this->translator->trans(
+                    'plugin.trello.add_card_to_trello'
+                ),
+                'iconClass' => 'fa fa-trello',
+            ];
 
-                // Inject a button into the page actions for the specified route (in this case /s/contacts/view/{contactId})
-                $event
-                    ->addButton(
-                        $addToTrelloBtn,
-                        // Location of where to inject the button; this can be an array of multiple locations
-                        ButtonHelper::LOCATION_PAGE_ACTIONS,
-                        ['mautic_contact_action', ['objectAction' => 'view']]
-                    )
-                    // Inject a button into the list actions for each contact on the /s/contacts page
-                    ->addButton(
-                        $addToTrelloBtn,
-                        ButtonHelper::LOCATION_LIST_ACTIONS,
-                        'mautic_contact_index'
-                    )
-                ;
-            }
+            // Inject a button into the page actions for the specified route (in this case /s/contacts/view/{contactId})
+            $event
+                ->addButton(
+                    $addToTrelloBtn,
+                    // Location of where to inject the button; this can be an array of multiple locations
+                    ButtonHelper::LOCATION_PAGE_ACTIONS,
+                    ['mautic_contact_action', ['objectAction' => 'view']]
+                )
+                // Inject a button into the list actions for each contact on the /s/contacts page
+                ->addButton(
+                    $addToTrelloBtn,
+                    ButtonHelper::LOCATION_LIST_ACTIONS,
+                    'mautic_contact_index'
+                )
+            ;
         }
     }
 }
