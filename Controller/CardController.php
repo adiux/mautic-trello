@@ -16,6 +16,7 @@ namespace MauticPlugin\MauticTrelloBundle\Controller;
 
 use Mautic\CoreBundle\Controller\FormController;
 use Mautic\LeadBundle\Entity\Lead;
+use Mautic\LeadBundle\Controller\LeadAccessTrait;
 use MauticPlugin\MauticTrelloBundle\Form\NewCardType;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
@@ -29,6 +30,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CardController extends FormController
 {
+    use LeadAccessTrait;
+
     /**
      * Logger.
      *
@@ -52,6 +55,12 @@ class CardController extends FormController
     {
         $this->logger = $this->get('monolog.logger.mautic');
         $this->apiService = $this->get('mautic.trello.service.trello_api');
+
+        // returns the Contact or an error Response to show to the user
+        $contact = $this->checkLeadAccess($contactId, 'view');
+        if ($contact instanceof Response) {
+            return $contact;
+        }
 
         // build the form
         $form = $this->getForm($contactId);
@@ -84,11 +93,12 @@ class CardController extends FormController
         if (is_array($data) && isset($data['contactId'])) {
             $contactId =  (int) $data['contactId'];
         }
-        // @todo
-        // $lead = $this->checkLeadAccess($contactId, 'view');
-        // if ($lead instanceof Response) {
-        //     return $lead;
-        // }
+       
+        // returns the Contact or an error Response to show to the user
+        $contact = $this->checkLeadAccess($contactId, 'view');
+        if ($contact instanceof Response) {
+            return $contact;
+        }
 
         // Check for a submitted form and process it
         $form = $this->getForm();
@@ -135,7 +145,7 @@ class CardController extends FormController
     }
 
     /**
-     * Close the modal after adding a contact
+     * Close the modal after adding a card in Trello
      *
      * @param string  $returnRoute
      * @param integer $contactId
