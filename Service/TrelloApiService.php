@@ -67,7 +67,7 @@ class TrelloApiService
     {
         // setup auth
         $auth = $this->getAuthParams();
-        if (!$this->integration->isPublished || empty($auth['key'])) {
+        if (!$this->integration->isPublished() || empty($auth['key'])) {
             return false;
         }
         $config = Configuration::getDefaultConfiguration()->setApiKey('key', $auth['key']);
