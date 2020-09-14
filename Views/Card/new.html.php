@@ -1,12 +1,12 @@
 <?php
 
-/*
- * @copyright   2020 Mautic Contributors. All rights reserved
- * @author      Mautic
+/**
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @link        http://mautic.org
+ * @see https://www.idea2.ch
  *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 ?>

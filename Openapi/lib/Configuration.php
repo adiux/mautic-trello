@@ -27,7 +27,7 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
+namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 
 /**
  * Configuration Class Doc Comment
@@ -406,7 +406,7 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (MauticPlugin\MauticTrelloBundle\Openapi\lib) Debug Report:'.PHP_EOL;
+        $report  = 'PHP SDK (MauticPlugin\Idea2TrelloBundle\Openapi\lib) Debug Report:'.PHP_EOL;
         $report .= '    OS: '.php_uname().PHP_EOL;
         $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
         $report .= '    The version of the OpenAPI document: 0.1.1'.PHP_EOL;

@@ -28,7 +28,7 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
 /**
  * Interface abstracting model access.

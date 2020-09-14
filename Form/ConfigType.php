@@ -1,19 +1,19 @@
 <?php
 
-/*
- * @copyright   2016 Mautic, Inc. All rights reserved
- * @author      Mautic, Inc
+/**
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @link        https://mautic.org
+ * @see https://www.idea2.ch
  *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Form;
+namespace MauticPlugin\Idea2TrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
-use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -3,22 +3,22 @@
 declare(strict_types=1);
 
 /**
- * @author    Mautic
- * @copyright 2020 Mautic Contributors. All rights reserved
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @see http://mautic.org
+ * @see https://www.idea2.ch
  *
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Controller;
+namespace MauticPlugin\Idea2TrelloBundle\Controller;
 
 use Mautic\CoreBundle\Controller\AbstractFormController;
 use Mautic\LeadBundle\Controller\LeadAccessTrait;
 use Mautic\LeadBundle\Entity\Lead;
-use MauticPlugin\MauticTrelloBundle\Form\NewCardType;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,7 +40,7 @@ class CardController extends AbstractFormController
     protected $logger;
 
     /**
-     * @var \MauticPlugin\MauticTrelloBundle\Service\TrelloApiService
+     * @var \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService
      */
     private $apiService;
 
@@ -67,7 +67,7 @@ class CardController extends AbstractFormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => 'MauticTrelloBundle:Card:new.html.php',
+                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.php',
             ]
         );
     }
@@ -106,7 +106,7 @@ class CardController extends AbstractFormController
         // process form data from HTTP variables
         $form->handleRequest($this->request);
 
-        // MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
+        // MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
         $newCard = $form->getData();
 
         if (!$newCard->valid()) {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 /**
- * @copyright   2020 Mautic Contributors. All rights reserved
- * @author      Mautic
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @see        http://mautic.org
+ * @see https://www.idea2.ch
  *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Tests\Mock;
+namespace MauticPlugin\Idea2TrelloBundle\Tests\Mock;
 
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 
 /**
  * Return static mock data for the Trello API.

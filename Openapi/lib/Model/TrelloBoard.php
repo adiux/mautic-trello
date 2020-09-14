@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * TrelloBoard Class Doc Comment.

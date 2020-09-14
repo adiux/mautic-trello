@@ -1,8 +1,8 @@
 <?php
 
-// plugins/MauticTrelloBundle/Event/ButtonSubscriber.php
+// plugins/Idea2TrelloBundle/Event/ButtonSubscriber.php
 
-namespace MauticPlugin\MauticTrelloBundle\Event;
+namespace MauticPlugin\Idea2TrelloBundle\Event;
 
 use Exception;
 use Mautic\CoreBundle\CoreEvents;
@@ -11,7 +11,7 @@ use Mautic\CoreBundle\Templating\Helper\ButtonHelper;
 use Mautic\LeadBundle\Entity\Lead;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 use Mautic\PluginBundle\Integration\AbstractIntegration;
-use MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration;
+use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 /**
- * @copyright   2020 Mautic Contributors. All rights reserved
- * @author      Mautic
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @see        http://mautic.org
+ * @see https://www.idea2.ch
  *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Form;
+namespace MauticPlugin\Idea2TrelloBundle\Form;
 
 use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
-use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
