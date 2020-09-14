@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * Card Class Doc Comment.
@@ -59,19 +59,20 @@ class Card implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPITypes = [
-        'name' => 'string',
-        'idList' => 'string',
-        'desc' => 'string',
-        'pos' => 'float',
-        'due' => '\DateTime',
-        'urlSource' => 'string',
-        'keepFromSource' => 'string',
-        'id' => 'string',
-        'labels' => 'object[]',
-        'url' => 'string',
+        'name'             => 'string',
+        'idList'           => 'string',
+        'desc'             => 'string',
+        'pos'              => 'string',
+        'due'              => '\DateTime',
+        'urlSource'        => 'string',
+        'contactId'        => 'int',
+        'keepFromSource'   => 'string',
+        'id'               => 'string',
         'dateLastActivity' => '\DateTime',
-        'idMembers' => 'string',
-        'attachments' => 'object[]',
+        'labels'           => 'object[]',
+        'url'              => 'string',
+        'idMembers'        => 'string[]',
+        'attachments'      => 'object[]',
     ];
 
     /**
@@ -80,19 +81,20 @@ class Card implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'name' => null,
-        'idList' => null,
-        'desc' => null,
-        'pos' => null,
-        'due' => 'date-time',
-        'urlSource' => 'uri',
-        'keepFromSource' => null,
-        'id' => null,
-        'labels' => null,
-        'url' => 'uri',
+        'name'             => null,
+        'idList'           => null,
+        'desc'             => null,
+        'pos'              => null,
+        'due'              => 'date-time',
+        'urlSource'        => 'uri',
+        'contactId'        => null,
+        'keepFromSource'   => null,
+        'id'               => null,
         'dateLastActivity' => 'date-time',
-        'idMembers' => null,
-        'attachments' => null,
+        'labels'           => null,
+        'url'              => 'uri',
+        'idMembers'        => null,
+        'attachments'      => null,
     ];
 
     /**
@@ -122,19 +124,20 @@ class Card implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'idList' => 'idList',
-        'desc' => 'desc',
-        'pos' => 'pos',
-        'due' => 'due',
-        'urlSource' => 'urlSource',
-        'keepFromSource' => 'keepFromSource',
-        'id' => 'id',
-        'labels' => 'labels',
-        'url' => 'url',
+        'name'             => 'name',
+        'idList'           => 'idList',
+        'desc'             => 'desc',
+        'pos'              => 'pos',
+        'due'              => 'due',
+        'urlSource'        => 'urlSource',
+        'contactId'        => 'contactId',
+        'keepFromSource'   => 'keepFromSource',
+        'id'               => 'id',
         'dateLastActivity' => 'dateLastActivity',
-        'idMembers' => 'idMembers',
-        'attachments' => 'attachments',
+        'labels'           => 'labels',
+        'url'              => 'url',
+        'idMembers'        => 'idMembers',
+        'attachments'      => 'attachments',
     ];
 
     /**
@@ -143,19 +146,20 @@ class Card implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'idList' => 'setIdList',
-        'desc' => 'setDesc',
-        'pos' => 'setPos',
-        'due' => 'setDue',
-        'urlSource' => 'setUrlSource',
-        'keepFromSource' => 'setKeepFromSource',
-        'id' => 'setId',
-        'labels' => 'setLabels',
-        'url' => 'setUrl',
+        'name'             => 'setName',
+        'idList'           => 'setIdList',
+        'desc'             => 'setDesc',
+        'pos'              => 'setPos',
+        'due'              => 'setDue',
+        'urlSource'        => 'setUrlSource',
+        'contactId'        => 'setContactId',
+        'keepFromSource'   => 'setKeepFromSource',
+        'id'               => 'setId',
         'dateLastActivity' => 'setDateLastActivity',
-        'idMembers' => 'setIdMembers',
-        'attachments' => 'setAttachments',
+        'labels'           => 'setLabels',
+        'url'              => 'setUrl',
+        'idMembers'        => 'setIdMembers',
+        'attachments'      => 'setAttachments',
     ];
 
     /**
@@ -164,19 +168,20 @@ class Card implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'idList' => 'getIdList',
-        'desc' => 'getDesc',
-        'pos' => 'getPos',
-        'due' => 'getDue',
-        'urlSource' => 'getUrlSource',
-        'keepFromSource' => 'getKeepFromSource',
-        'id' => 'getId',
-        'labels' => 'getLabels',
-        'url' => 'getUrl',
+        'name'             => 'getName',
+        'idList'           => 'getIdList',
+        'desc'             => 'getDesc',
+        'pos'              => 'getPos',
+        'due'              => 'getDue',
+        'urlSource'        => 'getUrlSource',
+        'contactId'        => 'getContactId',
+        'keepFromSource'   => 'getKeepFromSource',
+        'id'               => 'getId',
         'dateLastActivity' => 'getDateLastActivity',
-        'idMembers' => 'getIdMembers',
-        'attachments' => 'getAttachments',
+        'labels'           => 'getLabels',
+        'url'              => 'getUrl',
+        'idMembers'        => 'getIdMembers',
+        'attachments'      => 'getAttachments',
     ];
 
     /**
@@ -235,19 +240,20 @@ class Card implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['idList'] = isset($data['idList']) ? $data['idList'] : null;
-        $this->container['desc'] = isset($data['desc']) ? $data['desc'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
-        $this->container['due'] = isset($data['due']) ? $data['due'] : null;
-        $this->container['urlSource'] = isset($data['urlSource']) ? $data['urlSource'] : null;
-        $this->container['keepFromSource'] = isset($data['keepFromSource']) ? $data['keepFromSource'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
+        $this->container['name']             = isset($data['name']) ? $data['name'] : null;
+        $this->container['idList']           = isset($data['idList']) ? $data['idList'] : null;
+        $this->container['desc']             = isset($data['desc']) ? $data['desc'] : null;
+        $this->container['pos']              = isset($data['pos']) ? $data['pos'] : null;
+        $this->container['due']              = isset($data['due']) ? $data['due'] : null;
+        $this->container['urlSource']        = isset($data['urlSource']) ? $data['urlSource'] : null;
+        $this->container['contactId']        = isset($data['contactId']) ? $data['contactId'] : null;
+        $this->container['keepFromSource']   = isset($data['keepFromSource']) ? $data['keepFromSource'] : null;
+        $this->container['id']               = isset($data['id']) ? $data['id'] : null;
         $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
-        $this->container['idMembers'] = isset($data['idMembers']) ? $data['idMembers'] : null;
-        $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
+        $this->container['labels']           = isset($data['labels']) ? $data['labels'] : null;
+        $this->container['url']              = isset($data['url']) ? $data['url'] : null;
+        $this->container['idMembers']        = isset($data['idMembers']) ? $data['idMembers'] : null;
+        $this->container['attachments']      = isset($data['attachments']) ? $data['attachments'] : null;
     }
 
     /**
@@ -271,6 +277,10 @@ class Card implements ModelInterface, ArrayAccess
         }
         if ((mb_strlen($this->container['idList']) < 1)) {
             $invalidProperties[] = "invalid value for 'idList', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['contactId']) && ($this->container['contactId'] < 0)) {
+            $invalidProperties[] = "invalid value for 'contactId', must be bigger than or equal to 0.";
         }
 
         if (null === $this->container['id']) {
@@ -377,7 +387,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Gets pos.
      *
-     * @return float|null
+     * @return string|null
      */
     public function getPos()
     {
@@ -387,7 +397,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Sets pos.
      *
-     * @param float|null $pos pos
+     * @param string|null $pos pos
      *
      * @return $this
      */
@@ -447,6 +457,34 @@ class Card implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets contactId.
+     *
+     * @return int|null
+     */
+    public function getContactId()
+    {
+        return $this->container['contactId'];
+    }
+
+    /**
+     * Sets contactId.
+     *
+     * @param int|null $contactId the ID of the Mautic contact (Lead)
+     *
+     * @return $this
+     */
+    public function setContactId($contactId)
+    {
+        if (!is_null($contactId) && ($contactId < 0)) {
+            throw new \InvalidArgumentException('invalid value for $contactId when calling Card., must be bigger than or equal to 0.');
+        }
+
+        $this->container['contactId'] = $contactId;
+
+        return $this;
+    }
+
+    /**
      * Gets keepFromSource.
      *
      * @return string|null
@@ -494,6 +532,30 @@ class Card implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets dateLastActivity.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateLastActivity()
+    {
+        return $this->container['dateLastActivity'];
+    }
+
+    /**
+     * Sets dateLastActivity.
+     *
+     * @param \DateTime|null $dateLastActivity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
+     *
+     * @return $this
+     */
+    public function setDateLastActivity($dateLastActivity)
+    {
+        $this->container['dateLastActivity'] = $dateLastActivity;
 
         return $this;
     }
@@ -547,33 +609,9 @@ class Card implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets dateLastActivity.
-     *
-     * @return \DateTime|null
-     */
-    public function getDateLastActivity()
-    {
-        return $this->container['dateLastActivity'];
-    }
-
-    /**
-     * Sets dateLastActivity.
-     *
-     * @param \DateTime|null $dateLastActivity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
-     *
-     * @return $this
-     */
-    public function setDateLastActivity($dateLastActivity)
-    {
-        $this->container['dateLastActivity'] = $dateLastActivity;
-
-        return $this;
-    }
-
-    /**
      * Gets idMembers.
      *
-     * @return string|null
+     * @return string[]|null
      */
     public function getIdMembers()
     {
@@ -583,7 +621,7 @@ class Card implements ModelInterface, ArrayAccess
     /**
      * Sets idMembers.
      *
-     * @param string|null $idMembers Comma-separated list of member IDs
+     * @param string[]|null $idMembers Array of memebr ids as strings
      *
      * @return $this
      */

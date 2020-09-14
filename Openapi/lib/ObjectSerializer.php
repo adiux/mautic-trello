@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,9 +28,9 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\ModelInterface;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\ModelInterface;
 
 /**
  * ObjectSerializer Class Doc Comment.
@@ -70,7 +70,7 @@ class ObjectSerializer
                 $formats = $data::openAPIFormats();
                 foreach ($data::openAPITypes() as $property => $openAPIType) {
                     $getter = $data::getters()[$property];
-                    $value = $data->$getter();
+                    $value  = $data->$getter();
                     if (null !== $value
                         && !in_array($openAPIType, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)
                         && method_exists($openAPIType, 'getAllowableEnumValues')
@@ -247,11 +247,11 @@ class ObjectSerializer
         } elseif ('map[' === substr($class, 0, 4)) { // for associative array e.g. map[string,int]
             $data = is_string($data) ? json_decode($data) : $data;
             settype($data, 'array');
-            $inner = substr($class, 4, -1);
+            $inner        = substr($class, 4, -1);
             $deserialized = [];
             if (false !== strrpos($inner, ',')) {
                 $subClass_array = explode(',', $inner, 2);
-                $subClass = $subClass_array[1];
+                $subClass       = $subClass_array[1];
                 foreach ($data as $key => $value) {
                     $deserialized[$key] = self::deserialize($value, $subClass, null);
                 }
@@ -259,9 +259,9 @@ class ObjectSerializer
 
             return $deserialized;
         } elseif (0 === strcasecmp(substr($class, -2), '[]')) {
-            $data = is_string($data) ? json_decode($data) : $data;
+            $data     = is_string($data) ? json_decode($data) : $data;
             $subClass = substr($class, 0, -2);
-            $values = [];
+            $values   = [];
             foreach ($data as $key => $value) {
                 $values[] = self::deserialize($value, $subClass, null);
             }
@@ -288,7 +288,7 @@ class ObjectSerializer
 
             return $data;
         } elseif ('\SplFileObject' === $class) {
-            /* @var \Psr\Http\Message\StreamInterface $data */
+            /** @var \Psr\Http\Message\StreamInterface $data */
 
             // determine file name
             if (array_key_exists('Content-Disposition', $httpHeaders) &&
@@ -317,7 +317,7 @@ class ObjectSerializer
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\\'.$data->{$discriminator};
+                $subclass = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\\'.$data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }

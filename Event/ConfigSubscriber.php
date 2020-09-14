@@ -1,16 +1,25 @@
 <?php
 
-namespace MauticPlugin\Idea2TrelloBundle\Event;
+namespace MauticPlugin\MauticTrelloBundle\Event;
 
+use Exception;
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
 use Mautic\ConfigBundle\Event\ConfigEvent;
-use MauticPlugin\Idea2TrelloBundle\Form\ConfigType;
+use Mautic\PluginBundle\Helper\IntegrationHelper;
+use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MauticPlugin\MauticTrelloBundle\Form\ConfigType;
+use MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration;
 use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var TrelloIntegration|AbstractIntegration|bool
+     */
+    protected $integration;
+
     /**
      * @var Logger
      */
@@ -19,9 +28,14 @@ class ConfigSubscriber implements EventSubscriberInterface
     /**
      * Setup Trello Configuration Subscriber.
      */
-    public function __construct(Logger $logger)
+    public function __construct(IntegrationHelper $integrationHelper, Logger $logger)
     {
-        $this->logger = $logger;
+        $this->logger      = $logger;
+        $integration       = $integrationHelper->getIntegrationObject('Trello');
+        if (!$integration instanceof TrelloIntegration) {
+            throw new Exception('No TrelloIntegration instance provided');
+        }
+        $this->integration = $integration;
     }
 
     /**
@@ -31,20 +45,29 @@ class ConfigSubscriber implements EventSubscriberInterface
     {
         return [
             ConfigEvents::CONFIG_ON_GENERATE => ['onConfigGenerate', 0],
-            ConfigEvents::CONFIG_PRE_SAVE => ['onConfigSave', 0],
+            ConfigEvents::CONFIG_PRE_SAVE    => ['onConfigSave', 0],
         ];
     }
 
-    public function onConfigGenerate(ConfigBuilderEvent $event)
+    /**
+     * setup the configuration for Trello.
+     */
+    public function onConfigGenerate(ConfigBuilderEvent $event): bool
     {
+        if (!$this->integration->isPublished()) {
+            return false;
+        }
+
         $event->addForm(
             [
-                'formAlias' => 'trello_config', // same as in the View filename
-                'formTheme' => 'Idea2TrelloBundle:FormTheme\Config',
-                'formType' => ConfigType::class,
-                'parameters' => $event->getParametersFromConfig('Idea2TrelloBundle'),
+                'formAlias'  => 'trello_config', // same as in the View filename
+                'formTheme'  => 'MauticTrelloBundle:FormTheme\Config',
+                'formType'   => ConfigType::class,
+                'parameters' => $event->getParametersFromConfig('MauticTrelloBundle'),
             ]
         );
+
+        return true;
     }
 
     /**
@@ -54,16 +77,11 @@ class ConfigSubscriber implements EventSubscriberInterface
      */
     public function onConfigSave(ConfigEvent $event)
     {
-        /** @var array $values */
+        /**
+         * @var array $values
+         */
         $config = $event->getConfig('trello_config');
 
-        // Manipulate the values
-        // if (!empty($config['favorite_board'])) {
-        //     $board = $config['favorite_board'];
-        //     $config['favorite_board'] = $board->getId();
-        //     // htmlspecialchars($values['trello_config']['favorite_board']->getId());
-        // }
-        $this->logger->warning('values', $config);
         // Set updated values
         $event->setConfig($config, 'trello_config');
     }

@@ -1,26 +1,27 @@
 <?php
 /**
- * @copyright   2020 Idea2 Collective GmbH. All rights reserved.
+ * @author    Idea2
+ * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
- * @author      Idea2
+ * @see https://www.idea2.ch
  *
- * @see        https://www.idea2.ch
- * @see        https://developer.mautic.org/#services
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 return [
-    'name' => 'Mautic Trello',
-    'description' => 'Add Mautic Contacts to Trello',
-    'version' => '1.0.0',
-    'routes' => [
+    'name'        => 'Mautic Trello',
+    'description' => 'Create Trello cards from Mautic contacts',
+    'version'     => '1.0.0',
+    'routes'      => [
         'main' => [
             'plugin_create_cards_show_new' => [
-                'path' => '/trello/card/show-new/{contactId}',
-                'controller' => 'Idea2TrelloBundle:Card:showNewCard',
+                'path'       => '/trello/card/show-new/{contactId}',
+                'controller' => 'MauticTrelloBundle:Card:showNewCard',
             ],
             'plugin_trello_card_add' => [
-                'path' => '/trello/card',
-                'method' => 'POST',
-                'controller' => 'Idea2TrelloBundle:Card:add',
+                'path'        => '/trello/card',
+                'method'      => 'POST',
+                'controller'  => 'MauticTrelloBundle:Card:add',
+                'returnRoute' => '',
             ],
         ],
     ],
@@ -29,39 +30,43 @@ return [
     ],
     'services' => [
         'forms' => [
-            'mautic.idea2trello.form.card' => [
-                'class' => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
+            'mautic.trello.form.card' => [
+                'class'     => 'MauticPlugin\MauticTrelloBundle\Form\NewCardType',
                 'arguments' => [
-                    'mautic.idea2trello.service.trello_api',
+                    'mautic.trello.service.trello_api',
                     'monolog.logger.mautic',
                 ],
             ],
-            'mautic.idea2trello.form.config' => [
-                'class' => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
+            'mautic.trello.form.config' => [
+                'class'     => 'MauticPlugin\MauticTrelloBundle\Form\ConfigType',
                 'arguments' => [
                     'mautic.lead.model.field',
-                    'mautic.idea2trello.service.trello_api',
-                    ],
+                    'mautic.trello.service.trello_api',
+                    'monolog.logger.mautic',
+                ],
             ],
         ],
         'events' => [
             'mautic.channel.button.subscriber.trello' => [
-                'class' => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Event\ButtonSubscriber::class,
                 'arguments' => [
                     'router',
                     'translator',
+                    'request_stack',
+                    'mautic.helper.integration',
                 ],
             ],
-            'mautic.idea2trello.event.config' => [
-                'class' => \MauticPlugin\Idea2TrelloBundle\Event\ConfigSubscriber::class,
+            'mautic.trello.event.config' => [
+                'class'     => \MauticPlugin\MauticTrelloBundle\Event\ConfigSubscriber::class,
                 'arguments' => [
+                    'mautic.helper.integration',
                     'monolog.logger.mautic',
                 ],
             ],
         ],
         'others' => [
-            'mautic.idea2trello.service.trello_api' => [
-                'class' => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
+            'mautic.trello.service.trello_api' => [
+                'class'     => \MauticPlugin\MauticTrelloBundle\Service\TrelloApiService::class,
                 'arguments' => [
                     'mautic.helper.integration',
                     'mautic.helper.core_parameters',
@@ -71,7 +76,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.trello' => [
-                'class' => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',

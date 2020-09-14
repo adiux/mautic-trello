@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * TrelloList Class Doc Comment.
@@ -59,9 +59,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPITypes = [
-        'id' => 'string',
+        'id'   => 'string',
         'name' => 'string',
-        'pos' => 'int',
+        'pos'  => 'int',
     ];
 
     /**
@@ -70,9 +70,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'id' => null,
+        'id'   => null,
         'name' => null,
-        'pos' => 'int16',
+        'pos'  => null,
     ];
 
     /**
@@ -102,9 +102,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
+        'id'   => 'id',
         'name' => 'name',
-        'pos' => 'pos',
+        'pos'  => 'pos',
     ];
 
     /**
@@ -113,9 +113,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
+        'id'   => 'setId',
         'name' => 'setName',
-        'pos' => 'setPos',
+        'pos'  => 'setPos',
     ];
 
     /**
@@ -124,9 +124,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
+        'id'   => 'getId',
         'name' => 'getName',
-        'pos' => 'getPos',
+        'pos'  => 'getPos',
     ];
 
     /**
@@ -185,9 +185,9 @@ class TrelloList implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['id']   = isset($data['id']) ? $data['id'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
+        $this->container['pos']  = isset($data['pos']) ? $data['pos'] : null;
     }
 
     /**

@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * CardError Class Doc Comment.
@@ -59,9 +59,9 @@ class CardError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPITypes = [
-        'code' => 'string',
+        'code'    => 'string',
         'message' => 'string',
-        'data' => '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData',
+        'data'    => '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData',
     ];
 
     /**
@@ -70,9 +70,9 @@ class CardError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'code' => null,
+        'code'    => null,
         'message' => null,
-        'data' => null,
+        'data'    => null,
     ];
 
     /**
@@ -102,9 +102,9 @@ class CardError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'code' => 'code',
+        'code'    => 'code',
         'message' => 'message',
-        'data' => 'data',
+        'data'    => 'data',
     ];
 
     /**
@@ -113,9 +113,9 @@ class CardError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'code' => 'setCode',
+        'code'    => 'setCode',
         'message' => 'setMessage',
-        'data' => 'setData',
+        'data'    => 'setData',
     ];
 
     /**
@@ -124,9 +124,9 @@ class CardError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'code' => 'getCode',
+        'code'    => 'getCode',
         'message' => 'getMessage',
-        'data' => 'getData',
+        'data'    => 'getData',
     ];
 
     /**
@@ -185,9 +185,9 @@ class CardError implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['code']    = isset($data['code']) ? $data['code'] : null;
         $this->container['message'] = isset($data['message']) ? $data['message'] : null;
-        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['data']    = isset($data['data']) ? $data['data'] : null;
     }
 
     /**
@@ -271,7 +271,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Gets data.
      *
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null
+     * @return \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData|null
      */
     public function getData()
     {
@@ -281,7 +281,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Sets data.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null $data data
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardErrorData|null $data data
      *
      * @return $this
      */

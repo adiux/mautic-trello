@@ -9,10 +9,12 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Form;
+namespace MauticPlugin\MauticTrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
+use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,38 +32,37 @@ class ConfigType extends AbstractType
     protected $fieldModel;
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * ConfigType constructor.
      */
-    public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService)
+    public function __construct(FieldModel $fieldModel, TrelloApiService $trelloApiService, Logger $logger)
     {
         $this->fieldModel = $fieldModel;
         $this->apiService = $trelloApiService;
+        $this->logger     = $logger;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * Creates the Settings section for Trello.
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $leadFields = $this->fieldModel->getFieldList(false, false);
+        $this->fieldModel->getFieldList(false, false);
 
         $builder->add(
             'favorite_board',
             ChoiceType::class,
             [
-                'choices' => $this->getBoards(),
-                'required' => false,
+                'choices'    => $this->getBoards(),
+                'required'   => false,
                 'label_attr' => ['class' => 'control-label'],
-                'attr' => ['class' => 'form-control'],
+                'attr'       => ['class' => 'form-control'],
             ]
         );
-
-        // $builder->add(
-        //     '',
-        //     ChoiceType::class,
-        //     array(
-        //         'choices' => ,
-        //         'choice_value' => 'id',
-        //         'choice_label' => 'name',
-        //     )
-        // );
     }
 
     /**
@@ -74,24 +75,11 @@ class ConfigType extends AbstractType
 
     /**
      * Get all Trello boards.
-     *
-     * @return void
      */
-    protected function getBoards()
+    protected function getBoards(): array
     {
-        $api = $this->apiService->getApi();
-        try {
-            $fields = 'id,name';
-            $filter = 'open';
-            $boards = $api->getBoards($fields, $filter);
-            $boardsArray = [];
-            foreach ($boards as $board) {
-                $boardsArray[$board->getName()] = $board->getId();
-            }
+        $boards = array_flip($this->apiService->getBoardsArray());
 
-            return $boardsArray;
-        } catch (Exception $e) {
-            echo 'Exception when calling DefaultApi->getBoards: ', $e->getMessage(), PHP_EOL;
-        }
+        return null !== $boards ? $boards : [];
     }
 }

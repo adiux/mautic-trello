@@ -11,7 +11,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -27,7 +27,7 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -35,10 +35,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\HeaderSelector;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\HeaderSelector;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * DefaultApi Class Doc Comment.
@@ -83,10 +83,10 @@ class DefaultApi
         HeaderSelector $selector = null,
         $host_index = 0
     ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
+        $this->client         = $client ?: new Client();
+        $this->config         = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
-        $this->hostIndex = $host_index;
+        $this->hostIndex      = $host_index;
     }
 
     /**
@@ -120,12 +120,12 @@ class DefaultApi
     /**
      * Operation addCard.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError
+     * @return \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError
      */
     public function addCard($newCard)
     {
@@ -137,12 +137,12 @@ class DefaultApi
     /**
      * Operation addCardWithHttpInfo.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError, HTTP status code, HTTP response headers (array of strings)
      */
     public function addCardWithHttpInfo($newCard)
     {
@@ -165,44 +165,44 @@ class DefaultApi
             $responseBody = $response->getBody();
             switch ($statusCode) {
                 case 200:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card' === '\SplFileObject') {
+                    if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card', []),
                         $response->getStatusCode(),
                         $response->getHeaders(),
                     ];
                 case 400:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
+                    if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError', []),
                         $response->getStatusCode(),
                         $response->getHeaders(),
                     ];
                 case 404:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
+                    if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError', []),
                         $response->getStatusCode(),
                         $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
+            $returnType   = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card';
             $responseBody = $response->getBody();
             if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
@@ -220,7 +220,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card',
+                        '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -228,7 +228,7 @@ class DefaultApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError',
+                        '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -236,7 +236,7 @@ class DefaultApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError',
+                        '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -249,7 +249,7 @@ class DefaultApi
     /**
      * Operation addCardAsync.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -268,7 +268,7 @@ class DefaultApi
     /**
      * Operation addCardAsyncWithHttpInfo.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -276,8 +276,8 @@ class DefaultApi
      */
     public function addCardAsyncWithHttpInfo($newCard)
     {
-        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
-        $request = $this->addCardRequest($newCard);
+        $returnType = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card';
+        $request    = $this->addCardRequest($newCard);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -307,7 +307,7 @@ class DefaultApi
     /**
      * Create request for operation 'addCard'.
      *
-     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -321,11 +321,11 @@ class DefaultApi
         }
 
         $resourcePath = '/card';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
+        $httpBody     = '';
+        $multipart    = false;
 
         // body params
         $_tempBody = null;
@@ -357,7 +357,7 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
+                        'name'     => $formParamName,
                         'contents' => $formParamValue,
                     ];
                 }
@@ -409,10 +409,10 @@ class DefaultApi
      * @param string $fields fields (optional)
      * @param string $filter filter (optional)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]
+     * @return \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]
      */
     public function getBoards($fields = null, $filter = null)
     {
@@ -427,10 +427,10 @@ class DefaultApi
      * @param string $fields (optional)
      * @param string $filter (optional)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getBoardsWithHttpInfo($fields = null, $filter = null)
     {
@@ -453,20 +453,20 @@ class DefaultApi
             $responseBody = $response->getBody();
             switch ($statusCode) {
                 case 200:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]' === '\SplFileObject') {
+                    if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]', []),
                         $response->getStatusCode(),
                         $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
+            $returnType   = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]';
             $responseBody = $response->getBody();
             if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
@@ -484,7 +484,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]',
+                        '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -526,8 +526,8 @@ class DefaultApi
      */
     public function getBoardsAsyncWithHttpInfo($fields = null, $filter = null)
     {
-        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
-        $request = $this->getBoardsRequest($fields, $filter);
+        $returnType = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]';
+        $request    = $this->getBoardsRequest($fields, $filter);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -567,11 +567,11 @@ class DefaultApi
     protected function getBoardsRequest($fields = null, $filter = null)
     {
         $resourcePath = '/members/me/boards';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
+        $httpBody     = '';
+        $multipart    = false;
 
         // query params
         if (null !== $fields) {
@@ -609,7 +609,7 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
+                        'name'     => $formParamName,
                         'contents' => $formParamValue,
                     ];
                 }
@@ -663,10 +663,10 @@ class DefaultApi
      * @param string $filter  filter (optional)
      * @param string $fields  fields (optional)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]
+     * @return \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]
      */
     public function getLists($boardId, $cards = null, $filter = null, $fields = null)
     {
@@ -683,10 +683,10 @@ class DefaultApi
      * @param string $filter  (optional)
      * @param string $fields  (optional)
      *
-     * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
+     * @throws \MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getListsWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
     {
@@ -709,20 +709,20 @@ class DefaultApi
             $responseBody = $response->getBody();
             switch ($statusCode) {
                 case 200:
-                    if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]' === '\SplFileObject') {
+                    if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = $responseBody->getContents();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]', []),
+                        ObjectSerializer::deserialize($content, '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]', []),
                         $response->getStatusCode(),
                         $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
+            $returnType   = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]';
             $responseBody = $response->getBody();
             if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
@@ -740,7 +740,7 @@ class DefaultApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]',
+                        '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -786,8 +786,8 @@ class DefaultApi
      */
     public function getListsAsyncWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
     {
-        $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
-        $request = $this->getListsRequest($boardId, $cards, $filter, $fields);
+        $returnType = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]';
+        $request    = $this->getListsRequest($boardId, $cards, $filter, $fields);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -834,11 +834,11 @@ class DefaultApi
         }
 
         $resourcePath = '/boards/{boardId}/lists';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
+        $httpBody     = '';
+        $multipart    = false;
 
         // query params
         if (null !== $cards) {
@@ -889,7 +889,7 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
+                        'name'     => $formParamName,
                         'contents' => $formParamValue,
                     ];
                 }

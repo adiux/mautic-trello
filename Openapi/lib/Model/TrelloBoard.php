@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * TrelloBoard Class Doc Comment.
@@ -59,12 +59,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'name' => 'string',
-        'desc' => 'string',
-        'starred' => 'bool',
-        'url' => 'string',
-        'closed' => 'bool',
+        'id'             => 'string',
+        'name'           => 'string',
+        'desc'           => 'string',
+        'starred'        => 'bool',
+        'url'            => 'string',
+        'closed'         => 'bool',
         'idOrganization' => 'string',
     ];
 
@@ -74,12 +74,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'id' => null,
-        'name' => null,
-        'desc' => null,
-        'starred' => null,
-        'url' => 'uri',
-        'closed' => null,
+        'id'             => null,
+        'name'           => null,
+        'desc'           => null,
+        'starred'        => null,
+        'url'            => 'uri',
+        'closed'         => null,
         'idOrganization' => null,
     ];
 
@@ -110,12 +110,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'name' => 'name',
-        'desc' => 'desc',
-        'starred' => 'starred',
-        'url' => 'url',
-        'closed' => 'closed',
+        'id'             => 'id',
+        'name'           => 'name',
+        'desc'           => 'desc',
+        'starred'        => 'starred',
+        'url'            => 'url',
+        'closed'         => 'closed',
         'idOrganization' => 'idOrganization',
     ];
 
@@ -125,12 +125,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'name' => 'setName',
-        'desc' => 'setDesc',
-        'starred' => 'setStarred',
-        'url' => 'setUrl',
-        'closed' => 'setClosed',
+        'id'             => 'setId',
+        'name'           => 'setName',
+        'desc'           => 'setDesc',
+        'starred'        => 'setStarred',
+        'url'            => 'setUrl',
+        'closed'         => 'setClosed',
         'idOrganization' => 'setIdOrganization',
     ];
 
@@ -140,12 +140,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'name' => 'getName',
-        'desc' => 'getDesc',
-        'starred' => 'getStarred',
-        'url' => 'getUrl',
-        'closed' => 'getClosed',
+        'id'             => 'getId',
+        'name'           => 'getName',
+        'desc'           => 'getDesc',
+        'starred'        => 'getStarred',
+        'url'            => 'getUrl',
+        'closed'         => 'getClosed',
         'idOrganization' => 'getIdOrganization',
     ];
 
@@ -205,12 +205,12 @@ class TrelloBoard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['desc'] = isset($data['desc']) ? $data['desc'] : null;
-        $this->container['starred'] = isset($data['starred']) ? $data['starred'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['closed'] = isset($data['closed']) ? $data['closed'] : null;
+        $this->container['id']             = isset($data['id']) ? $data['id'] : null;
+        $this->container['name']           = isset($data['name']) ? $data['name'] : null;
+        $this->container['desc']           = isset($data['desc']) ? $data['desc'] : null;
+        $this->container['starred']        = isset($data['starred']) ? $data['starred'] : null;
+        $this->container['url']            = isset($data['url']) ? $data['url'] : null;
+        $this->container['closed']         = isset($data['closed']) ? $data['closed'] : null;
         $this->container['idOrganization'] = isset($data['idOrganization']) ? $data['idOrganization'] : null;
     }
 

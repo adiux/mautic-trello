@@ -11,7 +11,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -27,7 +27,7 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
 /**
  * Configuration Class Doc Comment
@@ -406,7 +406,7 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report = 'PHP SDK (MauticPlugin\Idea2TrelloBundle\Openapi\lib) Debug Report:'.PHP_EOL;
+        $report  = 'PHP SDK (MauticPlugin\MauticTrelloBundle\Openapi\lib) Debug Report:'.PHP_EOL;
         $report .= '    OS: '.php_uname().PHP_EOL;
         $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
         $report .= '    The version of the OpenAPI document: 0.1.1'.PHP_EOL;
@@ -449,7 +449,7 @@ class Configuration
     {
         return [
           [
-            'url' => 'https://api.trello.com/1',
+            'url'         => 'https://api.trello.com/1',
             'description' => 'Production Trello server',
           ],
         ];
@@ -477,7 +477,7 @@ class Configuration
         }
 
         $host = $hosts[$index];
-        $url = $host['url'];
+        $url  = $host['url'];
 
         // go through variable and assign a value
         foreach ($host['variables'] as $name => $variable) {

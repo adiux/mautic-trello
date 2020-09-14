@@ -12,7 +12,7 @@
  */
 
 /**
- * Idea2 Trello API.
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,10 +28,10 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
 use ArrayAccess;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * NewCard Class Doc Comment.
@@ -59,12 +59,13 @@ class NewCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPITypes = [
-        'name' => 'string',
-        'idList' => 'string',
-        'desc' => 'string',
-        'pos' => 'string',
-        'due' => '\DateTime',
-        'urlSource' => 'string',
+        'name'           => 'string',
+        'idList'         => 'string',
+        'desc'           => 'string',
+        'pos'            => 'string',
+        'due'            => '\DateTime',
+        'urlSource'      => 'string',
+        'contactId'      => 'int',
         'keepFromSource' => 'string',
     ];
 
@@ -74,12 +75,13 @@ class NewCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $openAPIFormats = [
-        'name' => null,
-        'idList' => null,
-        'desc' => null,
-        'pos' => null,
-        'due' => 'date-time',
-        'urlSource' => 'uri',
+        'name'           => null,
+        'idList'         => null,
+        'desc'           => null,
+        'pos'            => null,
+        'due'            => 'date-time',
+        'urlSource'      => 'uri',
+        'contactId'      => null,
         'keepFromSource' => null,
     ];
 
@@ -110,12 +112,13 @@ class NewCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'idList' => 'idList',
-        'desc' => 'desc',
-        'pos' => 'pos',
-        'due' => 'due',
-        'urlSource' => 'urlSource',
+        'name'           => 'name',
+        'idList'         => 'idList',
+        'desc'           => 'desc',
+        'pos'            => 'pos',
+        'due'            => 'due',
+        'urlSource'      => 'urlSource',
+        'contactId'      => 'contactId',
         'keepFromSource' => 'keepFromSource',
     ];
 
@@ -125,12 +128,13 @@ class NewCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'idList' => 'setIdList',
-        'desc' => 'setDesc',
-        'pos' => 'setPos',
-        'due' => 'setDue',
-        'urlSource' => 'setUrlSource',
+        'name'           => 'setName',
+        'idList'         => 'setIdList',
+        'desc'           => 'setDesc',
+        'pos'            => 'setPos',
+        'due'            => 'setDue',
+        'urlSource'      => 'setUrlSource',
+        'contactId'      => 'setContactId',
         'keepFromSource' => 'setKeepFromSource',
     ];
 
@@ -140,12 +144,13 @@ class NewCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'idList' => 'getIdList',
-        'desc' => 'getDesc',
-        'pos' => 'getPos',
-        'due' => 'getDue',
-        'urlSource' => 'getUrlSource',
+        'name'           => 'getName',
+        'idList'         => 'getIdList',
+        'desc'           => 'getDesc',
+        'pos'            => 'getPos',
+        'due'            => 'getDue',
+        'urlSource'      => 'getUrlSource',
+        'contactId'      => 'getContactId',
         'keepFromSource' => 'getKeepFromSource',
     ];
 
@@ -190,22 +195,6 @@ class NewCard implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    const POS_TOP = 'top';
-    const POS_BOTTOM = 'bottom';
-
-    /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public function getPosAllowableValues()
-    {
-        return [
-            self::POS_TOP,
-            self::POS_BOTTOM,
-        ];
-    }
-
     /**
      * Associative array for storing property values.
      *
@@ -221,12 +210,13 @@ class NewCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['idList'] = isset($data['idList']) ? $data['idList'] : null;
-        $this->container['desc'] = isset($data['desc']) ? $data['desc'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
-        $this->container['due'] = isset($data['due']) ? $data['due'] : null;
-        $this->container['urlSource'] = isset($data['urlSource']) ? $data['urlSource'] : null;
+        $this->container['name']           = isset($data['name']) ? $data['name'] : null;
+        $this->container['idList']         = isset($data['idList']) ? $data['idList'] : null;
+        $this->container['desc']           = isset($data['desc']) ? $data['desc'] : null;
+        $this->container['pos']            = isset($data['pos']) ? $data['pos'] : null;
+        $this->container['due']            = isset($data['due']) ? $data['due'] : null;
+        $this->container['urlSource']      = isset($data['urlSource']) ? $data['urlSource'] : null;
+        $this->container['contactId']      = isset($data['contactId']) ? $data['contactId'] : null;
         $this->container['keepFromSource'] = isset($data['keepFromSource']) ? $data['keepFromSource'] : null;
     }
 
@@ -253,12 +243,8 @@ class NewCard implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'idList', the character length must be bigger than or equal to 1.";
         }
 
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($this->container['pos']) && !in_array($this->container['pos'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'pos', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+        if (!is_null($this->container['contactId']) && ($this->container['contactId'] < 0)) {
+            $invalidProperties[] = "invalid value for 'contactId', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -374,10 +360,6 @@ class NewCard implements ModelInterface, ArrayAccess
      */
     public function setPos($pos)
     {
-        $allowedValues = $this->getPosAllowableValues();
-        if (!is_null($pos) && !in_array($pos, $allowedValues, true)) {
-            throw new \InvalidArgumentException(sprintf("Invalid value for 'pos', must be one of '%s'", implode("', '", $allowedValues)));
-        }
         $this->container['pos'] = $pos;
 
         return $this;
@@ -427,6 +409,34 @@ class NewCard implements ModelInterface, ArrayAccess
     public function setUrlSource($urlSource)
     {
         $this->container['urlSource'] = $urlSource;
+
+        return $this;
+    }
+
+    /**
+     * Gets contactId.
+     *
+     * @return int|null
+     */
+    public function getContactId()
+    {
+        return $this->container['contactId'];
+    }
+
+    /**
+     * Sets contactId.
+     *
+     * @param int|null $contactId the ID of the Mautic contact (Lead)
+     *
+     * @return $this
+     */
+    public function setContactId($contactId)
+    {
+        if (!is_null($contactId) && ($contactId < 0)) {
+            throw new \InvalidArgumentException('invalid value for $contactId when calling NewCard., must be bigger than or equal to 0.');
+        }
+
+        $this->container['contactId'] = $contactId;
 
         return $this;
     }
