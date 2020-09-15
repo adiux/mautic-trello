@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Service;
+namespace MauticPlugin\Idea2TrelloBundle\Service;
 
 use Error;
 use Exception;
@@ -18,16 +18,16 @@ use GuzzleHttp\Client as HttpClient;
 use InvalidArgumentException;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\CardError;
+use MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError;
 use Monolog\Logger;
 
 /**
- * Provide the auto generated Trello API to the MauticTrelloBundle.
+ * Provide the auto generated Trello API to the Idea2TrelloBundle.
  */
 class TrelloApiService
 {

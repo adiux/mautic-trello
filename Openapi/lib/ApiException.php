@@ -27,7 +27,7 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
+namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 
 use Exception;
 

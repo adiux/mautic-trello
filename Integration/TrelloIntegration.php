@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Integration;
+namespace MauticPlugin\Idea2TrelloBundle\Integration;
 
 // use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Mautic\PluginBundle\Integration\AbstractIntegration;

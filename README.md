@@ -14,7 +14,7 @@ npm install
 
 ## Run tests
 ```
-bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter MauticTrelloBundle
+bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter Idea2TrelloBundle
 ```
 
 ## API Documentation

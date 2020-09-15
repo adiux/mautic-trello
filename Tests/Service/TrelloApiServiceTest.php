@@ -10,17 +10,17 @@ declare(strict_types=1);
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticTrelloBundle\Tests\Service;
+namespace MauticPlugin\Idea2TrelloBundle\Tests\Service;
 
 use GuzzleHttp\Client as HttpClient;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Api\DefaultApi;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList;
-use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
-use MauticPlugin\MauticTrelloBundle\Tests\Mock\DefaultApiMock;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Api\DefaultApi;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
+use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\Idea2TrelloBundle\Tests\Mock\DefaultApiMock;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
