@@ -1,6 +1,6 @@
 {
   "name": "idea2/idea2-trello-bundle",
-  "description": "Add Trello cards from Mautic",
+  "description": "Add Trello cards from Mautic from composer",
   "authors": [
     {
       "name": "Adrian Schimpf",
