@@ -1,16 +1,16 @@
 <?php
 
 declare(strict_types=1);
-/**
- * @author    Idea2
- * @copyright 2020 Idea2 Collective GmbH. All rights reserved
+/*
+ * @copyright   2014 Mautic Contributors. All rights reserved
+ * @author      Mautic
  *
- * @see https://www.idea2.ch
+ * @link        http://mautic.org
  *
- * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Integration;
+namespace MauticPlugin\MauticTrelloBundle\Integration;
 
 // use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Mautic\PluginBundle\Integration\AbstractIntegration;
