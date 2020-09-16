@@ -47,11 +47,7 @@ class ButtonSubscriber implements EventSubscriberInterface
         $this->router       = $router;
         $this->translator   = $translator;
         $this->requestStack = $requestStack;
-        $integration        = $integrationHelper->getIntegrationObject('Trello');
-        if (!$integration instanceof TrelloIntegration) {
-            throw new Exception('No TrelloIntegration instance provided');
-        }
-        $this->integration = $integration;
+        $this->integration  = $integrationHelper->getIntegrationObject('Trello');
     }
 
     /**
@@ -66,7 +62,7 @@ class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event)
     {
-        if (!$this->integration->isPublished()) {
+        if (!empty($this->integration) && !$this->integration->isPublished()) {
             return false;
         }
 

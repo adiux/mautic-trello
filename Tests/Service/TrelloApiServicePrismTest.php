@@ -20,7 +20,6 @@ use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
-use MauticPlugin\Idea2TrelloBundle\Tests\Mock\DefaultApiMock;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,7 +27,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Test the Mautic Trello API Services.
  */
-class TrellApiServiceTest extends TestCase
+class TrellApiServicePrismTest extends TestCase
 {
     const MOCK_API_HOST  = 'http://127.0.0.1:4010';
     const MOCK_API_KEY   = 'KEY';
@@ -59,19 +58,16 @@ class TrellApiServiceTest extends TestCase
             ->getMock();
 
         // use with Prism mock server
-        // $config = new Configuration();
-        // $config->setHost(self::MOCK_API_HOST);
-        // $config->setApiKey('key', self::MOCK_API_KEY);
-        // $config->setApiKey('token', self::MOCK_API_TOKEN);
-
-        // $this->apiService->method('getApi')
-        //     ->willReturn(new DefaultApi(
-        //         new HttpClient(),
-        //         $config
-        //     ));
+        $config = new Configuration();
+        $config->setHost(self::MOCK_API_HOST);
+        $config->setApiKey('key', self::MOCK_API_KEY);
+        $config->setApiKey('token', self::MOCK_API_TOKEN);
 
         $this->apiService->method('getApi')
-            ->willReturn(new DefaultApiMock());
+            ->willReturn(new DefaultApi(
+                new HttpClient(),
+                $config
+            ));
 
         // valid for both variants
         $this->apiService->method('getFavouriteBoard')
@@ -128,4 +124,26 @@ class TrellApiServiceTest extends TestCase
             $this->assertTrue($card->valid());
         }
     }
+
+    // public function testWithPrism(){
+
+
+
+    //     // $this->testAddNewCard();
+    //     $newCard = [
+    //         'name'           => 'this is a card name',
+    //         'desc'           => "sample description with some special chars: %'ä.$&",
+    //         'pos'            => 'top',
+    //         'due'            => '2020-06-28T11:14:12.523Z',
+    //         'urlSource'      => 'https://www.mautic.org',
+    //         'keepFromSource' => 'all',
+    //         'idList'         => '5e5c1f8f12326fasd8b6qba6',
+    //     ];
+
+    //     $card = $this->apiService->addNewCard($newCard);
+    //     $this->assertInstanceOf(Card::class, $card);
+    //     if ($card instanceof Card) {
+    //         $this->assertTrue($card->valid());
+    //     }
+    // }
 }
