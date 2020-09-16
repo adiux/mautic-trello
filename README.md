@@ -4,8 +4,12 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 ![Showing how to create a Trello card from a Mautic contact](https://www.idea2.ch/wp-content/uploads/2020/09/Create-Trello-card-from-Mautic-contact-optimized-c20.gif)
 
 ## Requirements
-- Mautic v3.0.1
+- Mautic v3.0.2
 - Trello
+
+## Enduser Documentation
+- [English](docs/enduser/docs.en.md)
+- [German](docs/enduser/docs.de.md)
 
 # Contributing
 
