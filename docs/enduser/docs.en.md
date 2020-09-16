@@ -6,7 +6,7 @@ order_by: ''
 order_manual: ''
 taxonomy:
     category:
-        - docs
+        - Docs
 ---
 
 -------------------

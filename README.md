@@ -11,8 +11,8 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 
 ## Enduser Documentation
 
-- [English](docs/enduser/docs.en.md)
-- [German](docs/enduser/docs.de.md)
+- [English](Docs/enduser/Docs.en.md)
+- [German](Docs/enduser/Docs.de.md)
 
 # Issue? / Feedback? / Feature Requests?
 
@@ -48,5 +48,5 @@ Can be combined with [prism](https://github.com/stoplightio/prism) to automatica
 ### Start mock server
 
 ```
-prism mock -d docs/api/i2-trello.oas3.yml
+prism mock -d Docs/api/i2-trello.oas3.yml
 ```
