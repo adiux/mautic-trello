@@ -1,14 +1,16 @@
 <?php
 
-declare(strict_types=1);
 /**
  * @copyright 2020 Idea2 Collective GmbH. All rights reserved
+ *
  * @author    Idea2
  *
  * @see https://www.idea2.ch
  *
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
+
+declare(strict_types=1);
 
 namespace MauticPlugin\Idea2TrelloBundle\Tests\Service;
 
@@ -30,10 +32,10 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 class TrellApiServiceMockTest extends TestCase
 {
-    const MOCK_API_HOST  = 'http://127.0.0.1:4010';
-    const MOCK_API_KEY   = 'KEY';
-    const MOCK_API_TOKEN = 'TOKEN';
-    const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
+    private const MOCK_API_HOST  = 'http://127.0.0.1:4010';
+    private const MOCK_API_KEY   = 'KEY';
+    private const MOCK_API_TOKEN = 'TOKEN';
+    private const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
 
     /**
      * @var MockObject
