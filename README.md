@@ -1,11 +1,13 @@
 # Mautic Trello Integration
 Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts.
 
-The api is based on OpenAPI v3.
+![Showing how to create a Trello card from a Mautic contact](https://www.idea2.ch/wp-content/uploads/2020/09/Create-Trello-card-from-Mautic-contact-optimized-c20.gif)
 
 ## Requirements
 - Mautic v3.0.1
 - Trello
+
+# Contributing
 
 ## Install OpenAPI generator
 ```
@@ -18,13 +20,13 @@ bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist
 ```
 
 ## API Documentation
+The api is based on OpenAPI v3.
+
 - [Overview](Openapi/README.md)
 
 ## Enduser documentation
 https://github.com/mautic/mautic-documentation/tree/master/pages/12.Plugins/17.Trello
 
-
-# Experimental
 
 ## Mock Server for UnitTests
 
