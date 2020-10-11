@@ -1,17 +1,18 @@
 <?php
 /**
- * CardAllOf
+ * CardAllOf.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -29,60 +30,61 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
-use \ArrayAccess;
-use \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use ArrayAccess;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * CardAllOf Class Doc Comment
+ * CardAllOf Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class CardAllOf implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'Card_allOf';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
-        'id' => 'string',
+        'id'               => 'string',
         'dateLastActivity' => '\DateTime',
-        'labels' => 'object[]',
-        'due' => '\DateTime',
-        'url' => 'string',
-        'idMembers' => 'string[]',
-        'attachments' => 'object[]'
+        'labels'           => 'object[]',
+        'due'              => '\DateTime',
+        'url'              => 'string',
+        'idMembers'        => 'string[]',
+        'attachments'      => 'object[]',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPIFormats = [
-        'id' => null,
+        'id'               => null,
         'dateLastActivity' => 'date-time',
-        'labels' => null,
-        'due' => 'date-time',
-        'url' => 'uri',
-        'idMembers' => null,
-        'attachments' => null
+        'labels'           => null,
+        'due'              => 'date-time',
+        'url'              => 'uri',
+        'idMembers'        => null,
+        'attachments'      => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -92,7 +94,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -103,53 +105,53 @@ class CardAllOf implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
+        'id'               => 'id',
         'dateLastActivity' => 'dateLastActivity',
-        'labels' => 'labels',
-        'due' => 'due',
-        'url' => 'url',
-        'idMembers' => 'idMembers',
-        'attachments' => 'attachments'
+        'labels'           => 'labels',
+        'due'              => 'due',
+        'url'              => 'url',
+        'idMembers'        => 'idMembers',
+        'attachments'      => 'attachments',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
+        'id'               => 'setId',
         'dateLastActivity' => 'setDateLastActivity',
-        'labels' => 'setLabels',
-        'due' => 'setDue',
-        'url' => 'setUrl',
-        'idMembers' => 'setIdMembers',
-        'attachments' => 'setAttachments'
+        'labels'           => 'setLabels',
+        'due'              => 'setDue',
+        'url'              => 'setUrl',
+        'idMembers'        => 'setIdMembers',
+        'attachments'      => 'setAttachments',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
+        'id'               => 'getId',
         'dateLastActivity' => 'getDateLastActivity',
-        'labels' => 'getLabels',
-        'due' => 'getDue',
-        'url' => 'getUrl',
-        'idMembers' => 'getIdMembers',
-        'attachments' => 'getAttachments'
+        'labels'           => 'getLabels',
+        'due'              => 'getDue',
+        'url'              => 'getUrl',
+        'idMembers'        => 'getIdMembers',
+        'attachments'      => 'getAttachments',
     ];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -159,7 +161,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -169,7 +171,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -188,32 +190,28 @@ class CardAllOf implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['id']               = isset($data['id']) ? $data['id'] : null;
         $this->container['dateLastActivity'] = isset($data['dateLastActivity']) ? $data['dateLastActivity'] : null;
-        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
-        $this->container['due'] = isset($data['due']) ? $data['due'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['idMembers'] = isset($data['idMembers']) ? $data['idMembers'] : null;
-        $this->container['attachments'] = isset($data['attachments']) ? $data['attachments'] : null;
+        $this->container['labels']           = isset($data['labels']) ? $data['labels'] : null;
+        $this->container['due']              = isset($data['due']) ? $data['due'] : null;
+        $this->container['url']              = isset($data['url']) ? $data['url'] : null;
+        $this->container['idMembers']        = isset($data['idMembers']) ? $data['idMembers'] : null;
+        $this->container['attachments']      = isset($data['attachments']) ? $data['attachments'] : null;
     }
 
     /**
@@ -225,7 +223,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
+        if (null === $this->container['id']) {
             $invalidProperties[] = "'id' can't be null";
         }
         if ((mb_strlen($this->container['id']) < 1)) {
@@ -237,18 +235,17 @@ class CardAllOf implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets id
+     * Gets id.
      *
      * @return string
      */
@@ -258,7 +255,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param string $id id
      *
@@ -276,7 +273,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets dateLastActivity
+     * Gets dateLastActivity.
      *
      * @return \DateTime|null
      */
@@ -286,7 +283,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets dateLastActivity
+     * Sets dateLastActivity.
      *
      * @param \DateTime|null $dateLastActivity full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
      *
@@ -300,7 +297,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets labels
+     * Gets labels.
      *
      * @return object[]|null
      */
@@ -310,7 +307,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets labels
+     * Sets labels.
      *
      * @param object[]|null $labels labels
      *
@@ -324,7 +321,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets due
+     * Gets due.
      *
      * @return \DateTime|null
      */
@@ -334,7 +331,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets due
+     * Sets due.
      *
      * @param \DateTime|null $due full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
      *
@@ -348,7 +345,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets url
+     * Gets url.
      *
      * @return string|null
      */
@@ -358,7 +355,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets url
+     * Sets url.
      *
      * @param string|null $url url
      *
@@ -372,7 +369,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets idMembers
+     * Gets idMembers.
      *
      * @return string[]|null
      */
@@ -382,7 +379,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets idMembers
+     * Sets idMembers.
      *
      * @param string[]|null $idMembers Array of memebr ids as strings
      *
@@ -396,7 +393,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets attachments
+     * Gets attachments.
      *
      * @return object[]|null
      */
@@ -406,7 +403,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets attachments
+     * Sets attachments.
      *
      * @param object[]|null $attachments attachments
      *
@@ -418,12 +415,13 @@ class CardAllOf implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -433,7 +431,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -445,8 +443,8 @@ class CardAllOf implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      *
      * @return void
      */
@@ -462,7 +460,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return void
      */
@@ -472,7 +470,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -485,7 +483,7 @@ class CardAllOf implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets a header-safe presentation of the object
+     * Gets a header-safe presentation of the object.
      *
      * @return string
      */

@@ -1,17 +1,18 @@
 <?php
 /**
- * TrelloBoard
+ * TrelloBoard.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -29,60 +30,61 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
-use \ArrayAccess;
-use \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use ArrayAccess;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * TrelloBoard Class Doc Comment
+ * TrelloBoard Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class TrelloBoard implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'TrelloBoard';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'name' => 'string',
-        'desc' => 'string',
-        'starred' => 'bool',
-        'url' => 'string',
-        'closed' => 'bool',
-        'idOrganization' => 'string'
+        'id'             => 'string',
+        'name'           => 'string',
+        'desc'           => 'string',
+        'starred'        => 'bool',
+        'url'            => 'string',
+        'closed'         => 'bool',
+        'idOrganization' => 'string',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPIFormats = [
-        'id' => null,
-        'name' => null,
-        'desc' => null,
-        'starred' => null,
-        'url' => 'uri',
-        'closed' => null,
-        'idOrganization' => null
+        'id'             => null,
+        'name'           => null,
+        'desc'           => null,
+        'starred'        => null,
+        'url'            => 'uri',
+        'closed'         => null,
+        'idOrganization' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -92,7 +94,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -103,53 +105,53 @@ class TrelloBoard implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'name' => 'name',
-        'desc' => 'desc',
-        'starred' => 'starred',
-        'url' => 'url',
-        'closed' => 'closed',
-        'idOrganization' => 'idOrganization'
+        'id'             => 'id',
+        'name'           => 'name',
+        'desc'           => 'desc',
+        'starred'        => 'starred',
+        'url'            => 'url',
+        'closed'         => 'closed',
+        'idOrganization' => 'idOrganization',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'name' => 'setName',
-        'desc' => 'setDesc',
-        'starred' => 'setStarred',
-        'url' => 'setUrl',
-        'closed' => 'setClosed',
-        'idOrganization' => 'setIdOrganization'
+        'id'             => 'setId',
+        'name'           => 'setName',
+        'desc'           => 'setDesc',
+        'starred'        => 'setStarred',
+        'url'            => 'setUrl',
+        'closed'         => 'setClosed',
+        'idOrganization' => 'setIdOrganization',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'name' => 'getName',
-        'desc' => 'getDesc',
-        'starred' => 'getStarred',
-        'url' => 'getUrl',
-        'closed' => 'getClosed',
-        'idOrganization' => 'getIdOrganization'
+        'id'             => 'getId',
+        'name'           => 'getName',
+        'desc'           => 'getDesc',
+        'starred'        => 'getStarred',
+        'url'            => 'getUrl',
+        'closed'         => 'getClosed',
+        'idOrganization' => 'getIdOrganization',
     ];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -159,7 +161,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -169,7 +171,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -188,31 +190,27 @@ class TrelloBoard implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['desc'] = isset($data['desc']) ? $data['desc'] : null;
-        $this->container['starred'] = isset($data['starred']) ? $data['starred'] : null;
-        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['closed'] = isset($data['closed']) ? $data['closed'] : null;
+        $this->container['id']             = isset($data['id']) ? $data['id'] : null;
+        $this->container['name']           = isset($data['name']) ? $data['name'] : null;
+        $this->container['desc']           = isset($data['desc']) ? $data['desc'] : null;
+        $this->container['starred']        = isset($data['starred']) ? $data['starred'] : null;
+        $this->container['url']            = isset($data['url']) ? $data['url'] : null;
+        $this->container['closed']         = isset($data['closed']) ? $data['closed'] : null;
         $this->container['idOrganization'] = isset($data['idOrganization']) ? $data['idOrganization'] : null;
     }
 
@@ -225,29 +223,29 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
+        if (null === $this->container['id']) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['name'] === null) {
+        if (null === $this->container['name']) {
             $invalidProperties[] = "'name' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets id
+     * Gets id.
      *
      * @return string
      */
@@ -257,7 +255,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param string $id id
      *
@@ -271,7 +269,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets name
+     * Gets name.
      *
      * @return string
      */
@@ -281,7 +279,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets name
+     * Sets name.
      *
      * @param string $name name
      *
@@ -295,7 +293,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets desc
+     * Gets desc.
      *
      * @return string|null
      */
@@ -305,7 +303,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets desc
+     * Sets desc.
      *
      * @param string|null $desc desc
      *
@@ -319,7 +317,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets starred
+     * Gets starred.
      *
      * @return bool|null
      */
@@ -329,7 +327,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets starred
+     * Sets starred.
      *
      * @param bool|null $starred starred
      *
@@ -343,7 +341,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets url
+     * Gets url.
      *
      * @return string|null
      */
@@ -353,7 +351,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets url
+     * Sets url.
      *
      * @param string|null $url url
      *
@@ -367,7 +365,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets closed
+     * Gets closed.
      *
      * @return bool|null
      */
@@ -377,7 +375,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets closed
+     * Sets closed.
      *
      * @param bool|null $closed closed
      *
@@ -391,7 +389,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets idOrganization
+     * Gets idOrganization.
      *
      * @return string|null
      */
@@ -401,7 +399,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets idOrganization
+     * Sets idOrganization.
      *
      * @param string|null $idOrganization idOrganization
      *
@@ -413,12 +411,13 @@ class TrelloBoard implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -428,7 +427,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -440,8 +439,8 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      *
      * @return void
      */
@@ -457,7 +456,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return void
      */
@@ -467,7 +466,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -480,7 +479,7 @@ class TrelloBoard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets a header-safe presentation of the object
+     * Gets a header-safe presentation of the object.
      *
      * @return string
      */

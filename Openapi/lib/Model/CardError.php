@@ -1,17 +1,18 @@
 <?php
 /**
- * CardError
+ * CardError.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -29,52 +30,53 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
-use \ArrayAccess;
-use \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use ArrayAccess;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * CardError Class Doc Comment
+ * CardError Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class CardError implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'CardError';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
-        'code' => 'string',
+        'code'    => 'string',
         'message' => 'string',
-        'data' => '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData'
+        'data'    => '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPIFormats = [
-        'code' => null,
+        'code'    => null,
         'message' => null,
-        'data' => null
+        'data'    => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -84,7 +86,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -95,41 +97,41 @@ class CardError implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
-        'code' => 'code',
+        'code'    => 'code',
         'message' => 'message',
-        'data' => 'data'
+        'data'    => 'data',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
-        'code' => 'setCode',
+        'code'    => 'setCode',
         'message' => 'setMessage',
-        'data' => 'setData'
+        'data'    => 'setData',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
-        'code' => 'getCode',
+        'code'    => 'getCode',
         'message' => 'getMessage',
-        'data' => 'getData'
+        'data'    => 'getData',
     ];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -139,7 +141,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -149,7 +151,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -168,28 +170,24 @@ class CardError implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['code']    = isset($data['code']) ? $data['code'] : null;
         $this->container['message'] = isset($data['message']) ? $data['message'] : null;
-        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['data']    = isset($data['data']) ? $data['data'] : null;
     }
 
     /**
@@ -201,29 +199,29 @@ class CardError implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['code'] === null) {
+        if (null === $this->container['code']) {
             $invalidProperties[] = "'code' can't be null";
         }
-        if ($this->container['message'] === null) {
+        if (null === $this->container['message']) {
             $invalidProperties[] = "'message' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets code
+     * Gets code.
      *
      * @return string
      */
@@ -233,7 +231,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets code
+     * Sets code.
      *
      * @param string $code short error code
      *
@@ -247,7 +245,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets message
+     * Gets message.
      *
      * @return string
      */
@@ -257,7 +255,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets message
+     * Sets message.
      *
      * @param string $message plain text error message for displaying to user
      *
@@ -271,7 +269,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets data
+     * Gets data.
      *
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null
      */
@@ -281,7 +279,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets data
+     * Sets data.
      *
      * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardErrorData|null $data data
      *
@@ -293,12 +291,13 @@ class CardError implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -308,7 +307,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -320,8 +319,8 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      *
      * @return void
      */
@@ -337,7 +336,7 @@ class CardError implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return void
      */
@@ -347,7 +346,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -360,7 +359,7 @@ class CardError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets a header-safe presentation of the object
+     * Gets a header-safe presentation of the object.
      *
      * @return string
      */

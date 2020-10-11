@@ -1,17 +1,18 @@
 <?php
 /**
- * TrelloBoardTest
+ * TrelloBoardTest.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -32,96 +33,96 @@ namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 use PHPUnit\Framework\TestCase;
 
 /**
- * TrelloBoardTest Class Doc Comment
+ * TrelloBoardTest Class Doc Comment.
  *
  * @category    Class
  * @description TrelloBoard
- * @package     MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author      OpenAPI Generator team
- * @link        https://openapi-generator.tech
+ *
+ * @see        https://openapi-generator.tech
  */
 class TrelloBoardTest extends TestCase
 {
-
     /**
-     * Setup before running any test case
+     * Setup before running any test case.
      */
     public static function setUpBeforeClass()
     {
     }
 
     /**
-     * Setup before running each test case
+     * Setup before running each test case.
      */
     public function setUp()
     {
     }
 
     /**
-     * Clean up after running each test case
+     * Clean up after running each test case.
      */
     public function tearDown()
     {
     }
 
     /**
-     * Clean up after running all test cases
+     * Clean up after running all test cases.
      */
     public static function tearDownAfterClass()
     {
     }
 
     /**
-     * Test "TrelloBoard"
+     * Test "TrelloBoard".
      */
     public function testTrelloBoard()
     {
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "id".
      */
     public function testPropertyId()
     {
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "name".
      */
     public function testPropertyName()
     {
     }
 
     /**
-     * Test attribute "desc"
+     * Test attribute "desc".
      */
     public function testPropertyDesc()
     {
     }
 
     /**
-     * Test attribute "starred"
+     * Test attribute "starred".
      */
     public function testPropertyStarred()
     {
     }
 
     /**
-     * Test attribute "url"
+     * Test attribute "url".
      */
     public function testPropertyUrl()
     {
     }
 
     /**
-     * Test attribute "closed"
+     * Test attribute "closed".
      */
     public function testPropertyClosed()
     {
     }
 
     /**
-     * Test attribute "idOrganization"
+     * Test attribute "idOrganization".
      */
     public function testPropertyIdOrganization()
     {

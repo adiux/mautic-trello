@@ -1,16 +1,17 @@
 <?php
 /**
  * ApiException
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -28,19 +29,19 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 
-use \Exception;
+use Exception;
 
 /**
- * ApiException Class Doc Comment
+ * ApiException Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class ApiException extends Exception
 {
-
     /**
      * The HTTP body of the server response either as Json or string.
      *
@@ -56,29 +57,27 @@ class ApiException extends Exception
     protected $responseHeaders;
 
     /**
-     * The deserialized response object
-     *
-     * @var $responseObject;
+     * The deserialized response object.
      */
     protected $responseObject;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string        $message         Error message
      * @param int           $code            HTTP status code
      * @param string[]|null $responseHeaders HTTP response header
      * @param mixed         $responseBody    HTTP decoded body of the server response either as \stdClass or string
      */
-    public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
+    public function __construct($message = '', $code = 0, $responseHeaders = [], $responseBody = null)
     {
         parent::__construct($message, $code);
         $this->responseHeaders = $responseHeaders;
-        $this->responseBody = $responseBody;
+        $this->responseBody    = $responseBody;
     }
 
     /**
-     * Gets the HTTP response header
+     * Gets the HTTP response header.
      *
      * @return string[]|null HTTP response header
      */
@@ -88,7 +87,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the HTTP body of the server response either as Json or string
+     * Gets the HTTP body of the server response either as Json or string.
      *
      * @return mixed HTTP body of the server response either as \stdClass or string
      */
@@ -98,7 +97,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Sets the deseralized response object (during deserialization)
+     * Sets the deseralized response object (during deserialization).
      *
      * @param mixed $obj Deserialized response object
      *
@@ -110,7 +109,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the deseralized response object (during deserialization)
+     * Gets the deseralized response object (during deserialization).
      *
      * @return mixed the deserialized response object
      */

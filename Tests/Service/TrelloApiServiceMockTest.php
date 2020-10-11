@@ -2,7 +2,6 @@
 
 /**
  * @copyright 2020 Idea2 Collective GmbH. All rights reserved
- *
  * @author    Idea2
  *
  * @see https://www.idea2.ch
@@ -24,8 +23,8 @@ use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use MauticPlugin\Idea2TrelloBundle\Tests\Mock\DefaultApiMock;
 use Monolog\Logger;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the Mautic Trello API Services.
@@ -120,8 +119,6 @@ class TrellApiServiceMockTest extends TestCase
     }
 
     // public function testWithPrism(){
-
-
 
     //     // $this->testAddNewCard();
     //     $newCard = [

@@ -1,17 +1,18 @@
 <?php
 /**
- * CardErrorDataTest
+ * CardErrorDataTest.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -32,54 +33,54 @@ namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 use PHPUnit\Framework\TestCase;
 
 /**
- * CardErrorDataTest Class Doc Comment
+ * CardErrorDataTest Class Doc Comment.
  *
  * @category    Class
  * @description CardErrorData
- * @package     MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author      OpenAPI Generator team
- * @link        https://openapi-generator.tech
+ *
+ * @see        https://openapi-generator.tech
  */
 class CardErrorDataTest extends TestCase
 {
-
     /**
-     * Setup before running any test case
+     * Setup before running any test case.
      */
     public static function setUpBeforeClass()
     {
     }
 
     /**
-     * Setup before running each test case
+     * Setup before running each test case.
      */
     public function setUp()
     {
     }
 
     /**
-     * Clean up after running each test case
+     * Clean up after running each test case.
      */
     public function tearDown()
     {
     }
 
     /**
-     * Clean up after running all test cases
+     * Clean up after running all test cases.
      */
     public static function tearDownAfterClass()
     {
     }
 
     /**
-     * Test "CardErrorData"
+     * Test "CardErrorData".
      */
     public function testCardErrorData()
     {
     }
 
     /**
-     * Test attribute "status"
+     * Test attribute "status".
      */
     public function testPropertyStatus()
     {

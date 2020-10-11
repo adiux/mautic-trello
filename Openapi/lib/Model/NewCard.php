@@ -1,17 +1,18 @@
 <?php
 /**
- * NewCard
+ * NewCard.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -29,62 +30,63 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
-use \ArrayAccess;
-use \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use ArrayAccess;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * NewCard Class Doc Comment
+ * NewCard Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class NewCard implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'NewCard';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
-        'name' => 'string',
-        'idList' => 'string',
-        'desc' => 'string',
-        'pos' => 'string',
-        'due' => '\DateTime',
-        'urlSource' => 'string',
-        'contactId' => 'int',
-        'keepFromSource' => 'string'
+        'name'           => 'string',
+        'idList'         => 'string',
+        'desc'           => 'string',
+        'pos'            => 'string',
+        'due'            => '\DateTime',
+        'urlSource'      => 'string',
+        'contactId'      => 'int',
+        'keepFromSource' => 'string',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPIFormats = [
-        'name' => null,
-        'idList' => null,
-        'desc' => null,
-        'pos' => null,
-        'due' => 'date-time',
-        'urlSource' => 'uri',
-        'contactId' => null,
-        'keepFromSource' => null
+        'name'           => null,
+        'idList'         => null,
+        'desc'           => null,
+        'pos'            => null,
+        'due'            => 'date-time',
+        'urlSource'      => 'uri',
+        'contactId'      => null,
+        'keepFromSource' => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -94,7 +96,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -105,56 +107,56 @@ class NewCard implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'idList' => 'idList',
-        'desc' => 'desc',
-        'pos' => 'pos',
-        'due' => 'due',
-        'urlSource' => 'urlSource',
-        'contactId' => 'contactId',
-        'keepFromSource' => 'keepFromSource'
+        'name'           => 'name',
+        'idList'         => 'idList',
+        'desc'           => 'desc',
+        'pos'            => 'pos',
+        'due'            => 'due',
+        'urlSource'      => 'urlSource',
+        'contactId'      => 'contactId',
+        'keepFromSource' => 'keepFromSource',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'idList' => 'setIdList',
-        'desc' => 'setDesc',
-        'pos' => 'setPos',
-        'due' => 'setDue',
-        'urlSource' => 'setUrlSource',
-        'contactId' => 'setContactId',
-        'keepFromSource' => 'setKeepFromSource'
+        'name'           => 'setName',
+        'idList'         => 'setIdList',
+        'desc'           => 'setDesc',
+        'pos'            => 'setPos',
+        'due'            => 'setDue',
+        'urlSource'      => 'setUrlSource',
+        'contactId'      => 'setContactId',
+        'keepFromSource' => 'setKeepFromSource',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'idList' => 'getIdList',
-        'desc' => 'getDesc',
-        'pos' => 'getPos',
-        'due' => 'getDue',
-        'urlSource' => 'getUrlSource',
-        'contactId' => 'getContactId',
-        'keepFromSource' => 'getKeepFromSource'
+        'name'           => 'getName',
+        'idList'         => 'getIdList',
+        'desc'           => 'getDesc',
+        'pos'            => 'getPos',
+        'due'            => 'getDue',
+        'urlSource'      => 'getUrlSource',
+        'contactId'      => 'getContactId',
+        'keepFromSource' => 'getKeepFromSource',
     ];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -164,7 +166,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -174,7 +176,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -193,32 +195,28 @@ class NewCard implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['idList'] = isset($data['idList']) ? $data['idList'] : null;
-        $this->container['desc'] = isset($data['desc']) ? $data['desc'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
-        $this->container['due'] = isset($data['due']) ? $data['due'] : null;
-        $this->container['urlSource'] = isset($data['urlSource']) ? $data['urlSource'] : null;
-        $this->container['contactId'] = isset($data['contactId']) ? $data['contactId'] : null;
+        $this->container['name']           = isset($data['name']) ? $data['name'] : null;
+        $this->container['idList']         = isset($data['idList']) ? $data['idList'] : null;
+        $this->container['desc']           = isset($data['desc']) ? $data['desc'] : null;
+        $this->container['pos']            = isset($data['pos']) ? $data['pos'] : null;
+        $this->container['due']            = isset($data['due']) ? $data['due'] : null;
+        $this->container['urlSource']      = isset($data['urlSource']) ? $data['urlSource'] : null;
+        $this->container['contactId']      = isset($data['contactId']) ? $data['contactId'] : null;
         $this->container['keepFromSource'] = isset($data['keepFromSource']) ? $data['keepFromSource'] : null;
     }
 
@@ -231,14 +229,14 @@ class NewCard implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
+        if (null === $this->container['name']) {
             $invalidProperties[] = "'name' can't be null";
         }
         if ((mb_strlen($this->container['name']) < 1)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 1.";
         }
 
-        if ($this->container['idList'] === null) {
+        if (null === $this->container['idList']) {
             $invalidProperties[] = "'idList' can't be null";
         }
         if ((mb_strlen($this->container['idList']) < 1)) {
@@ -254,18 +252,17 @@ class NewCard implements ModelInterface, ArrayAccess
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets name
+     * Gets name.
      *
      * @return string
      */
@@ -275,7 +272,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets name
+     * Sets name.
      *
      * @param string $name Card Name
      *
@@ -293,7 +290,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets idList
+     * Gets idList.
      *
      * @return string
      */
@@ -303,7 +300,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets idList
+     * Sets idList.
      *
      * @param string $idList The ID of the list the card should be created in
      *
@@ -321,7 +318,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets desc
+     * Gets desc.
      *
      * @return string|null
      */
@@ -331,7 +328,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets desc
+     * Sets desc.
      *
      * @param string|null $desc Card Description
      *
@@ -345,7 +342,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pos
+     * Gets pos.
      *
      * @return string|null
      */
@@ -355,7 +352,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets pos
+     * Sets pos.
      *
      * @param string|null $pos pos
      *
@@ -369,7 +366,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets due
+     * Gets due.
      *
      * @return \DateTime|null
      */
@@ -379,7 +376,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets due
+     * Sets due.
      *
      * @param \DateTime|null $due full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
      *
@@ -393,7 +390,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets urlSource
+     * Gets urlSource.
      *
      * @return string|null
      */
@@ -403,7 +400,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets urlSource
+     * Sets urlSource.
      *
      * @param string|null $urlSource urlSource
      *
@@ -417,7 +414,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets contactId
+     * Gets contactId.
      *
      * @return int|null
      */
@@ -427,9 +424,9 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets contactId
+     * Sets contactId.
      *
-     * @param int|null $contactId The ID of the Mautic contact (Lead).
+     * @param int|null $contactId the ID of the Mautic contact (Lead)
      *
      * @return $this
      */
@@ -445,7 +442,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets keepFromSource
+     * Gets keepFromSource.
      *
      * @return string|null
      */
@@ -455,9 +452,9 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets keepFromSource
+     * Sets keepFromSource.
      *
-     * @param string|null $keepFromSource If using idCardSource you can specify which properties to copy over.
+     * @param string|null $keepFromSource if using idCardSource you can specify which properties to copy over
      *
      * @return $this
      */
@@ -467,12 +464,13 @@ class NewCard implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -482,7 +480,7 @@ class NewCard implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -494,8 +492,8 @@ class NewCard implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      *
      * @return void
      */
@@ -511,7 +509,7 @@ class NewCard implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return void
      */
@@ -521,7 +519,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -534,7 +532,7 @@ class NewCard implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets a header-safe presentation of the object
+     * Gets a header-safe presentation of the object.
      *
      * @return string
      */

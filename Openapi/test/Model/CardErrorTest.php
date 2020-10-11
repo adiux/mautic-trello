@@ -1,17 +1,18 @@
 <?php
 /**
- * CardErrorTest
+ * CardErrorTest.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -32,68 +33,68 @@ namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 use PHPUnit\Framework\TestCase;
 
 /**
- * CardErrorTest Class Doc Comment
+ * CardErrorTest Class Doc Comment.
  *
  * @category    Class
  * @description CardError
- * @package     MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author      OpenAPI Generator team
- * @link        https://openapi-generator.tech
+ *
+ * @see        https://openapi-generator.tech
  */
 class CardErrorTest extends TestCase
 {
-
     /**
-     * Setup before running any test case
+     * Setup before running any test case.
      */
     public static function setUpBeforeClass()
     {
     }
 
     /**
-     * Setup before running each test case
+     * Setup before running each test case.
      */
     public function setUp()
     {
     }
 
     /**
-     * Clean up after running each test case
+     * Clean up after running each test case.
      */
     public function tearDown()
     {
     }
 
     /**
-     * Clean up after running all test cases
+     * Clean up after running all test cases.
      */
     public static function tearDownAfterClass()
     {
     }
 
     /**
-     * Test "CardError"
+     * Test "CardError".
      */
     public function testCardError()
     {
     }
 
     /**
-     * Test attribute "code"
+     * Test attribute "code".
      */
     public function testPropertyCode()
     {
     }
 
     /**
-     * Test attribute "message"
+     * Test attribute "message".
      */
     public function testPropertyMessage()
     {
     }
 
     /**
-     * Test attribute "data"
+     * Test attribute "data".
      */
     public function testPropertyData()
     {

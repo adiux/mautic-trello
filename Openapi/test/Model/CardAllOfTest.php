@@ -1,17 +1,18 @@
 <?php
 /**
- * CardAllOfTest
+ * CardAllOfTest.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -32,96 +33,96 @@ namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 use PHPUnit\Framework\TestCase;
 
 /**
- * CardAllOfTest Class Doc Comment
+ * CardAllOfTest Class Doc Comment.
  *
  * @category    Class
  * @description CardAllOf
- * @package     MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author      OpenAPI Generator team
- * @link        https://openapi-generator.tech
+ *
+ * @see        https://openapi-generator.tech
  */
 class CardAllOfTest extends TestCase
 {
-
     /**
-     * Setup before running any test case
+     * Setup before running any test case.
      */
     public static function setUpBeforeClass()
     {
     }
 
     /**
-     * Setup before running each test case
+     * Setup before running each test case.
      */
     public function setUp()
     {
     }
 
     /**
-     * Clean up after running each test case
+     * Clean up after running each test case.
      */
     public function tearDown()
     {
     }
 
     /**
-     * Clean up after running all test cases
+     * Clean up after running all test cases.
      */
     public static function tearDownAfterClass()
     {
     }
 
     /**
-     * Test "CardAllOf"
+     * Test "CardAllOf".
      */
     public function testCardAllOf()
     {
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "id".
      */
     public function testPropertyId()
     {
     }
 
     /**
-     * Test attribute "dateLastActivity"
+     * Test attribute "dateLastActivity".
      */
     public function testPropertyDateLastActivity()
     {
     }
 
     /**
-     * Test attribute "labels"
+     * Test attribute "labels".
      */
     public function testPropertyLabels()
     {
     }
 
     /**
-     * Test attribute "due"
+     * Test attribute "due".
      */
     public function testPropertyDue()
     {
     }
 
     /**
-     * Test attribute "url"
+     * Test attribute "url".
      */
     public function testPropertyUrl()
     {
     }
 
     /**
-     * Test attribute "idMembers"
+     * Test attribute "idMembers".
      */
     public function testPropertyIdMembers()
     {
     }
 
     /**
-     * Test attribute "attachments"
+     * Test attribute "attachments".
      */
     public function testPropertyAttachments()
     {

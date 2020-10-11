@@ -21,8 +21,8 @@ use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList;
 use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the Mautic Trello API Services.
@@ -126,8 +126,6 @@ class TrellApiServicePrismTest extends TestCase
     }
 
     // public function testWithPrism(){
-
-
 
     //     // $this->testAddNewCard();
     //     $newCard = [

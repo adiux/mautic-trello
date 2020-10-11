@@ -1,16 +1,17 @@
 <?php
 /**
  * DefaultApi
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -40,12 +41,13 @@ use MauticPlugin\Idea2TrelloBundle\Openapi\lib\HeaderSelector;
 use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * DefaultApi Class Doc Comment
+ * DefaultApi Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class DefaultApi
 {
@@ -81,14 +83,14 @@ class DefaultApi
         HeaderSelector $selector = null,
         $host_index = 0
     ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
+        $this->client         = $client ?: new Client();
+        $this->config         = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
-        $this->hostIndex = $host_index;
+        $this->hostIndex      = $host_index;
     }
 
     /**
-     * Set the host index
+     * Set the host index.
      *
      * @param  int Host index (required)
      */
@@ -98,7 +100,7 @@ class DefaultApi
     }
 
     /**
-     * Get the host index
+     * Get the host index.
      *
      * @return Host index
      */
@@ -116,27 +118,30 @@ class DefaultApi
     }
 
     /**
-     * Operation addCard
+     * Operation addCard.
      *
-     * @param  \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError
      */
     public function addCard($newCard)
     {
         list($response) = $this->addCardWithHttpInfo($newCard);
+
         return $response;
     }
 
     /**
-     * Operation addCardWithHttpInfo
+     * Operation addCardWithHttpInfo.
      *
-     * @param  \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError|\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError, HTTP status code, HTTP response headers (array of strings)
      */
     public function addCardWithHttpInfo($newCard)
@@ -148,27 +153,13 @@ class DefaultApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
+                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? (string) $e->getResponse()->getBody() : null);
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
             }
 
             $responseBody = $response->getBody();
@@ -183,7 +174,7 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 case 400:
                     if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
@@ -195,7 +186,7 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 case 404:
                     if ('\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError' === '\SplFileObject') {
@@ -207,13 +198,13 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\CardError', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
+            $returnType   = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
             $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
+            if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = (string) $responseBody;
@@ -222,7 +213,7 @@ class DefaultApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
@@ -256,13 +247,12 @@ class DefaultApi
     }
 
     /**
-     * Operation addCardAsync
+     * Operation addCardAsync.
      *
-     *
-     *
-     * @param  \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function addCardAsync($newCard)
@@ -276,26 +266,25 @@ class DefaultApi
     }
 
     /**
-     * Operation addCardAsyncWithHttpInfo
+     * Operation addCardAsyncWithHttpInfo.
      *
-     *
-     *
-     * @param  \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function addCardAsyncWithHttpInfo($newCard)
     {
         $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card';
-        $request = $this->addCardRequest($newCard);
+        $request    = $this->addCardRequest($newCard);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
+                    if ('\SplFileObject' === $returnType) {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
@@ -304,52 +293,39 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
+                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
                 }
             );
     }
 
     /**
-     * Create request for operation 'addCard'
+     * Create request for operation 'addCard'.
      *
-     * @param  \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
+     * @param \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard $newCard Card to be added (required)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function addCardRequest($newCard)
     {
         // verify the required parameter 'newCard' is set
-        if ($newCard === null || (is_array($newCard) && count($newCard) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $newCard when calling addCard'
-            );
+        if (null === $newCard || (is_array($newCard) && 0 === count($newCard))) {
+            throw new \InvalidArgumentException('Missing the required parameter $newCard when calling addCard');
         }
 
         $resourcePath = '/card';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
+        $httpBody     = '';
+        $multipart    = false;
 
         // body params
         $_tempBody = null;
@@ -371,7 +347,7 @@ class DefaultApi
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            if ($headers['Content-Type'] === 'application/json') {
+            if ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
             } else {
                 $httpBody = $_tempBody;
@@ -381,13 +357,13 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'name'     => $formParamName,
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            } elseif ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
@@ -397,12 +373,12 @@ class DefaultApi
 
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('token');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['token'] = $apiKey;
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['key'] = $apiKey;
         }
 
@@ -418,38 +394,42 @@ class DefaultApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
     }
 
     /**
-     * Operation getBoards
+     * Operation getBoards.
      *
-     * @param  string $fields fields (optional)
-     * @param  string $filter filter (optional)
+     * @param string $fields fields (optional)
+     * @param string $filter filter (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]
      */
     public function getBoards($fields = null, $filter = null)
     {
         list($response) = $this->getBoardsWithHttpInfo($fields, $filter);
+
         return $response;
     }
 
     /**
-     * Operation getBoardsWithHttpInfo
+     * Operation getBoardsWithHttpInfo.
      *
-     * @param  string $fields (optional)
-     * @param  string $filter (optional)
+     * @param string $fields (optional)
+     * @param string $filter (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getBoardsWithHttpInfo($fields = null, $filter = null)
@@ -461,27 +441,13 @@ class DefaultApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
+                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? (string) $e->getResponse()->getBody() : null);
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
             }
 
             $responseBody = $response->getBody();
@@ -496,13 +462,13 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
+            $returnType   = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
             $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
+            if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = (string) $responseBody;
@@ -511,7 +477,7 @@ class DefaultApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
@@ -529,14 +495,13 @@ class DefaultApi
     }
 
     /**
-     * Operation getBoardsAsync
+     * Operation getBoardsAsync.
      *
-     *
-     *
-     * @param  string $fields (optional)
-     * @param  string $filter (optional)
+     * @param string $fields (optional)
+     * @param string $filter (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getBoardsAsync($fields = null, $filter = null)
@@ -550,27 +515,26 @@ class DefaultApi
     }
 
     /**
-     * Operation getBoardsAsyncWithHttpInfo
+     * Operation getBoardsAsyncWithHttpInfo.
      *
-     *
-     *
-     * @param  string $fields (optional)
-     * @param  string $filter (optional)
+     * @param string $fields (optional)
+     * @param string $filter (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getBoardsAsyncWithHttpInfo($fields = null, $filter = null)
     {
         $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloBoard[]';
-        $request = $this->getBoardsRequest($fields, $filter);
+        $request    = $this->getBoardsRequest($fields, $filter);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
+                    if ('\SplFileObject' === $returnType) {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
@@ -579,46 +543,38 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
+                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
                 }
             );
     }
 
     /**
-     * Create request for operation 'getBoards'
+     * Create request for operation 'getBoards'.
      *
-     * @param  string $fields (optional)
-     * @param  string $filter (optional)
+     * @param string $fields (optional)
+     * @param string $filter (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function getBoardsRequest($fields = null, $filter = null)
     {
         $resourcePath = '/members/me/boards';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
+        $httpBody     = '';
+        $multipart    = false;
 
         // query params
-        if ($fields !== null) {
+        if (null !== $fields) {
             if ('form' === 'form' && is_array($fields)) {
                 foreach ($fields as $key => $value) {
                     $queryParams[$key] = $value;
@@ -628,7 +584,7 @@ class DefaultApi
             }
         }
         // query params
-        if ($filter !== null) {
+        if (null !== $filter) {
             if ('form' === 'form' && is_array($filter)) {
                 foreach ($filter as $key => $value) {
                     $queryParams[$key] = $value;
@@ -637,8 +593,6 @@ class DefaultApi
                 $queryParams['filter'] = $filter;
             }
         }
-
-
 
         // body params
         $_tempBody = null;
@@ -657,7 +611,7 @@ class DefaultApi
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            if ($headers['Content-Type'] === 'application/json') {
+            if ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
             } else {
                 $httpBody = $_tempBody;
@@ -667,13 +621,13 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'name'     => $formParamName,
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            } elseif ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
@@ -683,12 +637,12 @@ class DefaultApi
 
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('token');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['token'] = $apiKey;
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['key'] = $apiKey;
         }
 
@@ -704,42 +658,46 @@ class DefaultApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
     }
 
     /**
-     * Operation getLists
+     * Operation getLists.
      *
-     * @param  string $boardId boardId (required)
-     * @param  string $cards cards (optional)
-     * @param  string $filter filter (optional)
-     * @param  string $fields fields (optional)
+     * @param string $boardId boardId (required)
+     * @param string $cards   cards (optional)
+     * @param string $filter  filter (optional)
+     * @param string $fields  fields (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]
      */
     public function getLists($boardId, $cards = null, $filter = null, $fields = null)
     {
         list($response) = $this->getListsWithHttpInfo($boardId, $cards, $filter, $fields);
+
         return $response;
     }
 
     /**
-     * Operation getListsWithHttpInfo
+     * Operation getListsWithHttpInfo.
      *
-     * @param  string $boardId (required)
-     * @param  string $cards (optional)
-     * @param  string $filter (optional)
-     * @param  string $fields (optional)
+     * @param string $boardId (required)
+     * @param string $cards   (optional)
+     * @param string $filter  (optional)
+     * @param string $fields  (optional)
      *
      * @throws \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     *
      * @return array of \MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getListsWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
@@ -751,27 +709,13 @@ class DefaultApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
+                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? (string) $e->getResponse()->getBody() : null);
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
             }
 
             $responseBody = $response->getBody();
@@ -786,13 +730,13 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
             }
 
-            $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
+            $returnType   = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
             $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
+            if ('\SplFileObject' === $returnType) {
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = (string) $responseBody;
@@ -801,7 +745,7 @@ class DefaultApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
@@ -819,16 +763,15 @@ class DefaultApi
     }
 
     /**
-     * Operation getListsAsync
+     * Operation getListsAsync.
      *
-     *
-     *
-     * @param  string $boardId (required)
-     * @param  string $cards (optional)
-     * @param  string $filter (optional)
-     * @param  string $fields (optional)
+     * @param string $boardId (required)
+     * @param string $cards   (optional)
+     * @param string $filter  (optional)
+     * @param string $fields  (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getListsAsync($boardId, $cards = null, $filter = null, $fields = null)
@@ -842,29 +785,28 @@ class DefaultApi
     }
 
     /**
-     * Operation getListsAsyncWithHttpInfo
+     * Operation getListsAsyncWithHttpInfo.
      *
-     *
-     *
-     * @param  string $boardId (required)
-     * @param  string $cards (optional)
-     * @param  string $filter (optional)
-     * @param  string $fields (optional)
+     * @param string $boardId (required)
+     * @param string $cards   (optional)
+     * @param string $filter  (optional)
+     * @param string $fields  (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getListsAsyncWithHttpInfo($boardId, $cards = null, $filter = null, $fields = null)
     {
         $returnType = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\TrelloList[]';
-        $request = $this->getListsRequest($boardId, $cards, $filter, $fields);
+        $request    = $this->getListsRequest($boardId, $cards, $filter, $fields);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
+                    if ('\SplFileObject' === $returnType) {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
@@ -873,55 +815,45 @@ class DefaultApi
                     return [
                         ObjectSerializer::deserialize($content, $returnType, []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
                     ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
+                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
                 }
             );
     }
 
     /**
-     * Create request for operation 'getLists'
+     * Create request for operation 'getLists'.
      *
-     * @param  string $boardId (required)
-     * @param  string $cards (optional)
-     * @param  string $filter (optional)
-     * @param  string $fields (optional)
+     * @param string $boardId (required)
+     * @param string $cards   (optional)
+     * @param string $filter  (optional)
+     * @param string $fields  (optional)
      *
      * @throws \InvalidArgumentException
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function getListsRequest($boardId, $cards = null, $filter = null, $fields = null)
     {
         // verify the required parameter 'boardId' is set
-        if ($boardId === null || (is_array($boardId) && count($boardId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $boardId when calling getLists'
-            );
+        if (null === $boardId || (is_array($boardId) && 0 === count($boardId))) {
+            throw new \InvalidArgumentException('Missing the required parameter $boardId when calling getLists');
         }
 
         $resourcePath = '/boards/{boardId}/lists';
-        $formParams = [];
-        $queryParams = [];
+        $formParams   = [];
+        $queryParams  = [];
         $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
+        $httpBody     = '';
+        $multipart    = false;
 
         // query params
-        if ($cards !== null) {
+        if (null !== $cards) {
             if ('form' === 'form' && is_array($cards)) {
                 foreach ($cards as $key => $value) {
                     $queryParams[$key] = $value;
@@ -931,7 +863,7 @@ class DefaultApi
             }
         }
         // query params
-        if ($filter !== null) {
+        if (null !== $filter) {
             if ('form' === 'form' && is_array($filter)) {
                 foreach ($filter as $key => $value) {
                     $queryParams[$key] = $value;
@@ -941,7 +873,7 @@ class DefaultApi
             }
         }
         // query params
-        if ($fields !== null) {
+        if (null !== $fields) {
             if ('form' === 'form' && is_array($fields)) {
                 foreach ($fields as $key => $value) {
                     $queryParams[$key] = $value;
@@ -951,11 +883,10 @@ class DefaultApi
             }
         }
 
-
         // path params
-        if ($boardId !== null) {
+        if (null !== $boardId) {
             $resourcePath = str_replace(
-                '{' . 'boardId' . '}',
+                '{'.'boardId'.'}',
                 ObjectSerializer::toPathValue($boardId),
                 $resourcePath
             );
@@ -978,7 +909,7 @@ class DefaultApi
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            if ($headers['Content-Type'] === 'application/json') {
+            if ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
             } else {
                 $httpBody = $_tempBody;
@@ -988,13 +919,13 @@ class DefaultApi
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'name'     => $formParamName,
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            } elseif ('application/json' === $headers['Content-Type']) {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
@@ -1004,12 +935,12 @@ class DefaultApi
 
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('token');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['token'] = $apiKey;
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['key'] = $apiKey;
         }
 
@@ -1025,18 +956,20 @@ class DefaultApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
     }
 
     /**
-     * Create http client option
+     * Create http client option.
      *
      * @throws \RuntimeException on file opening failure
+     *
      * @return array of http client options
      */
     protected function createHttpClientOption()
@@ -1045,7 +978,7 @@ class DefaultApi
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
             }
         }
 

@@ -1,16 +1,17 @@
 <?php
 /**
  * Configuration
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -30,89 +31,90 @@ namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
 
 /**
  * Configuration Class Doc Comment
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class Configuration
 {
     private static $defaultConfiguration;
 
     /**
-     * Associate array to store API key(s)
+     * Associate array to store API key(s).
      *
      * @var string[]
      */
     protected $apiKeys = [];
 
     /**
-     * Associate array to store API prefix (e.g. Bearer)
+     * Associate array to store API prefix (e.g. Bearer).
      *
      * @var string[]
      */
     protected $apiKeyPrefixes = [];
 
     /**
-     * Access token for OAuth/Bearer authentication
+     * Access token for OAuth/Bearer authentication.
      *
      * @var string
      */
     protected $accessToken = '';
 
     /**
-     * Username for HTTP basic authentication
+     * Username for HTTP basic authentication.
      *
      * @var string
      */
     protected $username = '';
 
     /**
-     * Password for HTTP basic authentication
+     * Password for HTTP basic authentication.
      *
      * @var string
      */
     protected $password = '';
 
     /**
-     * The host
+     * The host.
      *
      * @var string
      */
     protected $host = 'https://api.trello.com/1';
 
     /**
-     * User agent of the HTTP request, set to "OpenAPI-Generator/{version}/PHP" by default
+     * User agent of the HTTP request, set to "OpenAPI-Generator/{version}/PHP" by default.
      *
      * @var string
      */
     protected $userAgent = 'OpenAPI-Generator/1.0.0/PHP';
 
     /**
-     * Debug switch (default set to false)
+     * Debug switch (default set to false).
      *
      * @var bool
      */
     protected $debug = false;
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $debugFile = 'php://output';
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $tempFolderPath;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -120,7 +122,7 @@ class Configuration
     }
 
     /**
-     * Sets API key
+     * Sets API key.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      * @param string $key              API key or token
@@ -130,11 +132,12 @@ class Configuration
     public function setApiKey($apiKeyIdentifier, $key)
     {
         $this->apiKeys[$apiKeyIdentifier] = $key;
+
         return $this;
     }
 
     /**
-     * Gets API key
+     * Gets API key.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
@@ -146,7 +149,7 @@ class Configuration
     }
 
     /**
-     * Sets the prefix for API key (e.g. Bearer)
+     * Sets the prefix for API key (e.g. Bearer).
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      * @param string $prefix           API key prefix, e.g. Bearer
@@ -156,11 +159,12 @@ class Configuration
     public function setApiKeyPrefix($apiKeyIdentifier, $prefix)
     {
         $this->apiKeyPrefixes[$apiKeyIdentifier] = $prefix;
+
         return $this;
     }
 
     /**
-     * Gets API key prefix
+     * Gets API key prefix.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
@@ -172,7 +176,7 @@ class Configuration
     }
 
     /**
-     * Sets the access token for OAuth
+     * Sets the access token for OAuth.
      *
      * @param string $accessToken Token for OAuth
      *
@@ -181,11 +185,12 @@ class Configuration
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
         return $this;
     }
 
     /**
-     * Gets the access token for OAuth
+     * Gets the access token for OAuth.
      *
      * @return string Access token for OAuth
      */
@@ -195,7 +200,7 @@ class Configuration
     }
 
     /**
-     * Sets the username for HTTP basic authentication
+     * Sets the username for HTTP basic authentication.
      *
      * @param string $username Username for HTTP basic authentication
      *
@@ -204,11 +209,12 @@ class Configuration
     public function setUsername($username)
     {
         $this->username = $username;
+
         return $this;
     }
 
     /**
-     * Gets the username for HTTP basic authentication
+     * Gets the username for HTTP basic authentication.
      *
      * @return string Username for HTTP basic authentication
      */
@@ -218,7 +224,7 @@ class Configuration
     }
 
     /**
-     * Sets the password for HTTP basic authentication
+     * Sets the password for HTTP basic authentication.
      *
      * @param string $password Password for HTTP basic authentication
      *
@@ -227,11 +233,12 @@ class Configuration
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
     /**
-     * Gets the password for HTTP basic authentication
+     * Gets the password for HTTP basic authentication.
      *
      * @return string Password for HTTP basic authentication
      */
@@ -241,7 +248,7 @@ class Configuration
     }
 
     /**
-     * Sets the host
+     * Sets the host.
      *
      * @param string $host Host
      *
@@ -250,11 +257,12 @@ class Configuration
     public function setHost($host)
     {
         $this->host = $host;
+
         return $this;
     }
 
     /**
-     * Gets the host
+     * Gets the host.
      *
      * @return string Host
      */
@@ -264,11 +272,12 @@ class Configuration
     }
 
     /**
-     * Sets the user agent of the api client
+     * Sets the user agent of the api client.
      *
      * @param string $userAgent the user agent of the api client
      *
      * @throws \InvalidArgumentException
+     *
      * @return $this
      */
     public function setUserAgent($userAgent)
@@ -278,11 +287,12 @@ class Configuration
         }
 
         $this->userAgent = $userAgent;
+
         return $this;
     }
 
     /**
-     * Gets the user agent of the api client
+     * Gets the user agent of the api client.
      *
      * @return string user agent
      */
@@ -292,7 +302,7 @@ class Configuration
     }
 
     /**
-     * Sets debug flag
+     * Sets debug flag.
      *
      * @param bool $debug Debug flag
      *
@@ -301,11 +311,12 @@ class Configuration
     public function setDebug($debug)
     {
         $this->debug = $debug;
+
         return $this;
     }
 
     /**
-     * Gets the debug flag
+     * Gets the debug flag.
      *
      * @return bool
      */
@@ -315,7 +326,7 @@ class Configuration
     }
 
     /**
-     * Sets the debug file
+     * Sets the debug file.
      *
      * @param string $debugFile Debug file
      *
@@ -324,11 +335,12 @@ class Configuration
     public function setDebugFile($debugFile)
     {
         $this->debugFile = $debugFile;
+
         return $this;
     }
 
     /**
-     * Gets the debug file
+     * Gets the debug file.
      *
      * @return string
      */
@@ -338,7 +350,7 @@ class Configuration
     }
 
     /**
-     * Sets the temp folder path
+     * Sets the temp folder path.
      *
      * @param string $tempFolderPath Temp folder path
      *
@@ -347,11 +359,12 @@ class Configuration
     public function setTempFolderPath($tempFolderPath)
     {
         $this->tempFolderPath = $tempFolderPath;
+
         return $this;
     }
 
     /**
-     * Gets the temp folder path
+     * Gets the temp folder path.
      *
      * @return string Temp folder path
      */
@@ -361,13 +374,13 @@ class Configuration
     }
 
     /**
-     * Gets the default configuration instance
+     * Gets the default configuration instance.
      *
      * @return Configuration
      */
     public static function getDefaultConfiguration()
     {
-        if (self::$defaultConfiguration === null) {
+        if (null === self::$defaultConfiguration) {
             self::$defaultConfiguration = new Configuration();
         }
 
@@ -375,7 +388,7 @@ class Configuration
     }
 
     /**
-     * Sets the detault configuration instance
+     * Sets the detault configuration instance.
      *
      * @param Configuration $config An instance of the Configuration Object
      *
@@ -387,25 +400,25 @@ class Configuration
     }
 
     /**
-     * Gets the essential information for debugging
+     * Gets the essential information for debugging.
      *
      * @return string The report for debugging
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (MauticPlugin\Idea2TrelloBundle\Openapi\lib) Debug Report:' . PHP_EOL;
-        $report .= '    OS: ' . php_uname() . PHP_EOL;
-        $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
-        $report .= '    The version of the OpenAPI document: 0.1.1' . PHP_EOL;
-        $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
+        $report  = 'PHP SDK (MauticPlugin\Idea2TrelloBundle\Openapi\lib) Debug Report:'.PHP_EOL;
+        $report .= '    OS: '.php_uname().PHP_EOL;
+        $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
+        $report .= '    The version of the OpenAPI document: 0.1.1'.PHP_EOL;
+        $report .= '    Temp Folder Path: '.self::getDefaultConfiguration()->getTempFolderPath().PHP_EOL;
 
         return $report;
     }
 
     /**
-     * Get API key (with prefix if set)
+     * Get API key (with prefix if set).
      *
-     * @param  string $apiKeyIdentifier name of apikey
+     * @param string $apiKeyIdentifier name of apikey
      *
      * @return string API key with the prefix
      */
@@ -414,45 +427,46 @@ class Configuration
         $prefix = $this->getApiKeyPrefix($apiKeyIdentifier);
         $apiKey = $this->getApiKey($apiKeyIdentifier);
 
-        if ($apiKey === null) {
+        if (null === $apiKey) {
             return null;
         }
 
-        if ($prefix === null) {
+        if (null === $prefix) {
             $keyWithPrefix = $apiKey;
         } else {
-            $keyWithPrefix = $prefix . ' ' . $apiKey;
+            $keyWithPrefix = $prefix.' '.$apiKey;
         }
 
         return $keyWithPrefix;
     }
 
     /**
-     * Returns an array of host settings
+     * Returns an array of host settings.
      *
      * @return an array of host settings
      */
     public function getHostSettings()
     {
-        return array(
-          array(
-            "url" => "https://api.trello.com/1",
-            "description" => "Production Trello server",
-          )
-        );
+        return [
+          [
+            'url'         => 'https://api.trello.com/1',
+            'description' => 'Production Trello server',
+          ],
+        ];
     }
 
     /**
-     * Returns URL based on the index and variables
+     * Returns URL based on the index and variables.
      *
      * @param index array index of the host settings
      * @param variables hash of variable and the corresponding value (optional)
+     *
      * @return URL based on host settings
      */
     public function getHostFromSettings($index, $variables = null)
     {
         if (null === $variables) {
-            $variables = array();
+            $variables = [];
         }
 
         $hosts = $this->getHostSettings();
@@ -463,19 +477,19 @@ class Configuration
         }
 
         $host = $hosts[$index];
-        $url = $host["url"];
+        $url  = $host['url'];
 
         // go through variable and assign a value
-        foreach ($host["variables"] as $name => $variable) {
+        foreach ($host['variables'] as $name => $variable) {
             if (array_key_exists($name, $variables)) { // check to see if it's in the variables provided by the user
-                if (in_array($variables[$name], $variable["enum_values"])) { // check to see if the value is in the enum
-                    $url = str_replace("{".$name."}", $variables[$name], $url);
+                if (in_array($variables[$name], $variable['enum_values'])) { // check to see if the value is in the enum
+                    $url = str_replace('{'.$name.'}', $variables[$name], $url);
                 } else {
-                    throw new \InvalidArgumentException("The variable `$name` in the host URL has invalid value ".$variables[$name].". Must be ".join(',', $variable["enum_values"]).".");
+                    throw new \InvalidArgumentException("The variable `$name` in the host URL has invalid value ".$variables[$name].'. Must be '.join(',', $variable['enum_values']).'.');
                 }
             } else {
                 // use default value
-                $url = str_replace("{".$name."}", $variable["default_value"], $url);
+                $url = str_replace('{'.$name.'}', $variable['default_value'], $url);
             }
         }
 

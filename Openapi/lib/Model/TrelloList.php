@@ -1,17 +1,18 @@
 <?php
 /**
- * TrelloList
+ * TrelloList.
  *
  * PHP version 5
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 
 /**
- * Mautic Trello API
+ * Mautic Trello API.
  *
  * Create or update a card via the Trello API
  *
@@ -29,52 +30,53 @@
 
 namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model;
 
-use \ArrayAccess;
-use \MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use ArrayAccess;
+use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
- * TrelloList Class Doc Comment
+ * TrelloList Class Doc Comment.
  *
  * @category Class
- * @package  MauticPlugin\Idea2TrelloBundle\Openapi\lib
+ *
  * @author   OpenAPI Generator team
- * @link     https://openapi-generator.tech
+ *
+ * @see     https://openapi-generator.tech
  */
 class TrelloList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'TrelloList';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
-        'id' => 'string',
+        'id'   => 'string',
         'name' => 'string',
-        'pos' => 'int'
+        'pos'  => 'int',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $openAPIFormats = [
-        'id' => null,
+        'id'   => null,
         'name' => null,
-        'pos' => null
+        'pos'  => null,
     ];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -84,7 +86,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -95,41 +97,41 @@ class TrelloList implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
+        'id'   => 'id',
         'name' => 'name',
-        'pos' => 'pos'
+        'pos'  => 'pos',
     ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
+        'id'   => 'setId',
         'name' => 'setName',
-        'pos' => 'setPos'
+        'pos'  => 'setPos',
     ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
+        'id'   => 'getId',
         'name' => 'getName',
-        'pos' => 'getPos'
+        'pos'  => 'getPos',
     ];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -139,7 +141,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -149,7 +151,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -168,28 +170,24 @@ class TrelloList implements ModelInterface, ArrayAccess
         return self::$openAPIModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['id']   = isset($data['id']) ? $data['id'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['pos'] = isset($data['pos']) ? $data['pos'] : null;
+        $this->container['pos']  = isset($data['pos']) ? $data['pos'] : null;
     }
 
     /**
@@ -201,29 +199,29 @@ class TrelloList implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
+        if (null === $this->container['id']) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['name'] === null) {
+        if (null === $this->container['name']) {
             $invalidProperties[] = "'name' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets id
+     * Gets id.
      *
      * @return string
      */
@@ -233,7 +231,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param string $id id
      *
@@ -247,7 +245,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets name
+     * Gets name.
      *
      * @return string
      */
@@ -257,7 +255,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets name
+     * Sets name.
      *
      * @param string $name name
      *
@@ -271,7 +269,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pos
+     * Gets pos.
      *
      * @return int|null
      */
@@ -281,7 +279,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets pos
+     * Sets pos.
      *
      * @param int|null $pos pos
      *
@@ -293,12 +291,13 @@ class TrelloList implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -308,7 +307,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -320,8 +319,8 @@ class TrelloList implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      *
      * @return void
      */
@@ -337,7 +336,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return void
      */
@@ -347,7 +346,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object
+     * Gets the string presentation of the object.
      *
      * @return string
      */
@@ -360,7 +359,7 @@ class TrelloList implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets a header-safe presentation of the object
+     * Gets a header-safe presentation of the object.
      *
      * @return string
      */
