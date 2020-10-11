@@ -31,11 +31,7 @@ class ConfigSubscriber implements EventSubscriberInterface
     public function __construct(IntegrationHelper $integrationHelper, Logger $logger)
     {
         $this->logger      = $logger;
-        $integration       = $integrationHelper->getIntegrationObject('Trello');
-        if (!$integration instanceof TrelloIntegration) {
-            throw new Exception('No TrelloIntegration instance provided');
-        }
-        $this->integration = $integration;
+        $this->integration  = $integrationHelper->getIntegrationObject('Trello');
     }
 
     /**
@@ -54,7 +50,7 @@ class ConfigSubscriber implements EventSubscriberInterface
      */
     public function onConfigGenerate(ConfigBuilderEvent $event): bool
     {
-        if (!$this->integration->isPublished()) {
+        if (empty($this->integration) || !$this->integration->isPublished()) {
             return false;
         }
 

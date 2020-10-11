@@ -62,7 +62,7 @@ class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event)
     {
-        if (!empty($this->integration) && !$this->integration->isPublished()) {
+        if (empty($this->integration) || !$this->integration->isPublished()) {
             return false;
         }
 
