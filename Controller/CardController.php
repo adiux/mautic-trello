@@ -117,7 +117,7 @@ class CardController extends AbstractFormController
             return new JsonResponse(['error' => $message]);
         }
 
-        // create an Array from the object (workaround to remove Object)
+        // create an array from the object (workaround to remove Object)
         $cardArray = json_decode($newCard->__toString(), true);
 
         // remove other values from array, only leave id
@@ -242,13 +242,14 @@ class CardController extends AbstractFormController
     protected function contactToCard(Lead $contact): NewCard
     {
         // $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
+        $siteUrl = rtrim($this->coreParametersHelper->get('site_url'),'/');
 
         return new NewCard(
             [
                 'name'      => $contact->getName(),
                 'desc'      => null,
                 'idList'    => $this->getListForContact($contact),
-                'urlSource' => $this->coreParametersHelper->get('site_url').'/s/contacts/view/'.$contact->getId(),
+                'urlSource' => $siteUrl.'/s/contacts/view/'.$contact->getId(),
                 'contactId' => $contact->getId(),
                 // 'due' => new \DateTime('next week'),
             ]
