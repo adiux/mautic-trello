@@ -99,7 +99,7 @@ class NewCardType extends AbstractType
                         'class'       => 'form-control',
                         'data-toggle' => 'datetime',
                         'preaddon'    => 'fa fa-calendar',
-                        'help'        => 'My Help Message',
+                        'help'        => 'The moment this card becomes due',
                     ],
                     'format' => 'yyyy-MM-dd HH:mm',
                     // 'data'   => $data,
