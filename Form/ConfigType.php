@@ -9,11 +9,11 @@
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Form;
+namespace MauticPlugin\MauticTrelloBundle\Form;
 
 use Mautic\LeadBundle\Model\FieldModel;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException;
-use MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\MauticTrelloBundle\Service\TrelloApiService;
 use Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

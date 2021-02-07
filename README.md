@@ -6,8 +6,8 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 
 ## Requirements
 
-- Mautic v3.0.2
-- Trello
+- [Mautic](https://www.mautic.org) > v3.0.2
+- [Trello](https://www.trello.com)
 
 ## Enduser Documentation
 
@@ -18,7 +18,7 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 
 We are always looking for new ways to improve working with Mautic. Please contact us if you have a feature request, or found an issue.
 
-- [Issues](https://github.com/adiwegs/mautic-trello/issues)
+- [Issues](https://github.com/adiux/mautic-trello/issues)
 - [Contact](https://www.idea2.ch/en/contact/)
 
 # Contributing
@@ -32,7 +32,7 @@ npm install
 ## Run tests
 
 ```
-bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter Idea2TrelloBundle
+bin/phpunit --bootstrap vendor/autoload.php --configuration app/phpunit.xml.dist --filter MauticTrelloBundle
 ```
 
 ## API Documentation

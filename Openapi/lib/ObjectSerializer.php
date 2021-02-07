@@ -28,9 +28,9 @@
  * Do not edit the class manually.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\ModelInterface;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\ModelInterface;
 
 /**
  * ObjectSerializer Class Doc Comment.
@@ -337,7 +337,7 @@ class ObjectSerializer
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\\'.$data->{$discriminator};
+                $subclass = '\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\\'.$data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }

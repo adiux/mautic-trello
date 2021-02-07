@@ -27,11 +27,11 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Openapi\lib;
+namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ApiException;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Configuration;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\ObjectSerializer;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ApiException;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Configuration;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**

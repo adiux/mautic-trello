@@ -11,14 +11,14 @@ declare(strict_types=1);
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\Idea2TrelloBundle\Controller;
+namespace MauticPlugin\MauticTrelloBundle\Controller;
 
 use Mautic\CoreBundle\Controller\AbstractFormController;
 use Mautic\LeadBundle\Controller\LeadAccessTrait;
 use Mautic\LeadBundle\Entity\Lead;
-use MauticPlugin\Idea2TrelloBundle\Form\NewCardType;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\Card;
-use MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+use MauticPlugin\MauticTrelloBundle\Form\NewCardType;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card;
+use MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,7 +40,7 @@ class CardController extends AbstractFormController
     protected $logger;
 
     /**
-     * @var \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService
+     * @var \MauticPlugin\MauticTrelloBundle\Service\TrelloApiService
      */
     private $apiService;
 
@@ -67,7 +67,7 @@ class CardController extends AbstractFormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => 'Idea2TrelloBundle:Card:new.html.php',
+                'contentTemplate' => 'MauticTrelloBundle:Card:new.html.php',
             ]
         );
     }
@@ -106,7 +106,7 @@ class CardController extends AbstractFormController
         // process form data from HTTP variables
         $form->handleRequest($this->request);
 
-        // MauticPlugin\Idea2TrelloBundle\Openapi\lib\Model\NewCard;
+        // MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\NewCard;
         $newCard = $form->getData();
 
         if (!$newCard->valid()) {

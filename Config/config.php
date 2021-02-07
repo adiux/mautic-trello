@@ -15,12 +15,12 @@ return [
         'main' => [
             'plugin_create_cards_show_new' => [
                 'path'       => '/trello/card/show-new/{contactId}',
-                'controller' => 'Idea2TrelloBundle:Card:showNewCard',
+                'controller' => 'MauticTrelloBundle:Card:showNewCard',
             ],
             'plugin_trello_card_add' => [
                 'path'        => '/trello/card',
                 'method'      => 'POST',
-                'controller'  => 'Idea2TrelloBundle:Card:add',
+                'controller'  => 'MauticTrelloBundle:Card:add',
                 'returnRoute' => '',
             ],
         ],
@@ -31,14 +31,14 @@ return [
     'services' => [
         'forms' => [
             'mautic.trello.form.card' => [
-                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\NewCardType',
+                'class'     => 'MauticPlugin\MauticTrelloBundle\Form\NewCardType',
                 'arguments' => [
                     'mautic.trello.service.trello_api',
                     'monolog.logger.mautic',
                 ],
             ],
             'mautic.trello.form.config' => [
-                'class'     => 'MauticPlugin\Idea2TrelloBundle\Form\ConfigType',
+                'class'     => 'MauticPlugin\MauticTrelloBundle\Form\ConfigType',
                 'arguments' => [
                     'mautic.lead.model.field',
                     'mautic.trello.service.trello_api',
@@ -48,7 +48,7 @@ return [
         ],
         'events' => [
             'mautic.channel.button.subscriber.trello' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Event\ButtonSubscriber::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Event\ButtonSubscriber::class,
                 'arguments' => [
                     'router',
                     'translator',
@@ -57,7 +57,7 @@ return [
                 ],
             ],
             'mautic.trello.event.config' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Event\ConfigSubscriber::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Event\ConfigSubscriber::class,
                 'arguments' => [
                     'mautic.helper.integration',
                     'monolog.logger.mautic',
@@ -66,7 +66,7 @@ return [
         ],
         'others' => [
             'mautic.trello.service.trello_api' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Service\TrelloApiService::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Service\TrelloApiService::class,
                 'arguments' => [
                     'mautic.helper.integration',
                     'mautic.helper.core_parameters',
@@ -76,7 +76,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.trello' => [
-                'class'     => \MauticPlugin\Idea2TrelloBundle\Integration\TrelloIntegration::class,
+                'class'     => \MauticPlugin\MauticTrelloBundle\Integration\TrelloIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
