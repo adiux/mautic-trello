@@ -128,7 +128,7 @@ class CardController extends AbstractFormController
             // successfully added
             $this->addFlash(
                 'plugin.trello.card_added',
-                ['%title%' => $card->getName()]
+                ['%url%' => $card->getUrl(),'%title%' => $card->getName()]
             );
         } else {
             // not successfully added

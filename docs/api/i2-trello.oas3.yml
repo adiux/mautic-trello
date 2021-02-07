@@ -134,6 +134,7 @@ components:
               type: string
               format: uri
               example: "https://trello.com/c/aJidRx3k/9-123"
+              description: url to the Trello card
             idMembers:
               type: array
               description: Array of memebr ids as strings
@@ -168,10 +169,6 @@ components:
           format: date-time
           description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
           example: "2019-09-21"
-        urlSource:
-          type: string
-          format: uri
-          example: https://www.example.com
         contactId:
           type: integer
           minimum: 0
