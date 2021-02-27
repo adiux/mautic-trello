@@ -48,5 +48,5 @@ Can be combined with [prism](https://github.com/stoplightio/prism) to automatica
 ### Start mock server
 
 ```
-prism mock -d Docs/api/i2-trello.oas3.yml
+prism mock -d docs/api/i2-trello.oas3.yml
 ```

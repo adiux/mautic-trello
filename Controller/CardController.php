@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author    Idea2
+ *
  * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
  * @see https://www.idea2.ch
@@ -128,7 +129,7 @@ class CardController extends AbstractFormController
             // successfully added
             $this->addFlash(
                 'plugin.trello.card_added',
-                ['%url%' => $card->getUrl(),'%title%' => $card->getName()]
+                ['%url%' => $card->getUrl(), '%title%' => $card->getName()]
             );
         } else {
             // not successfully added
@@ -211,7 +212,7 @@ class CardController extends AbstractFormController
             if (empty($contact)) {
                 $this->logger->warning('no contact found for id', [$contactId]);
 
-                return new FormInterface();
+                return null;
             }
             $card = $this->contactToCard($contact);
         }
@@ -242,7 +243,7 @@ class CardController extends AbstractFormController
     protected function contactToCard(Lead $contact): NewCard
     {
         // $desc = array('Contact:', $contact->getEmail(), $contact->getPhone(), $contact->getMobile());
-        $siteUrl = rtrim($this->coreParametersHelper->get('site_url'),'/');
+        $siteUrl = rtrim($this->coreParametersHelper->get('site_url'), '/');
 
         return new NewCard(
             [
