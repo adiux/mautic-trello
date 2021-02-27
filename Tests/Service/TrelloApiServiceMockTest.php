@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the Mautic Trello API Services.
  */
-class TrellApiServiceMockTest extends TestCase
+class TrelloApiServiceMockTest extends TestCase
 {
     private const MOCK_API_HOST  = 'http://127.0.0.1:4010';
     private const MOCK_API_KEY   = 'KEY';
@@ -65,7 +65,10 @@ class TrellApiServiceMockTest extends TestCase
         // valid for both variants
         $this->apiService->method('getFavouriteBoard')
             ->willReturn(self::MOCK_FAV_BOARD);
+        $this->apiService->method('getListsOnBoard')
+            ->willReturn('');
     }
+    // public function getListsOnBoard(int $boardId = null): array
 
     /**
      * Get valid Trello lists from mocked API.
