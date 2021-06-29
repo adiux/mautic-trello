@@ -5,7 +5,7 @@ declare(strict_types=1);
  * @copyright 2021 Idea2 Collective GmbH. All rights reserved
  * @author    Idea2
  *
- * @see https://www.idea2.ch
+ * @see https://aivie.ch
  *
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
