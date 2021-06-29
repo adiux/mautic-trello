@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 /**
  * @author    Idea2
- *
  * @copyright 2020 Idea2 Collective GmbH. All rights reserved
  *
  * @see https://www.idea2.ch

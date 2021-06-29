@@ -80,7 +80,7 @@ class TrelloApiServicePrismTest extends TestCase
     // public function testGetListsOnBoard(): void
     // {
     //     $lists = $this->apiService->getListsOnBoard();
-       
+
     //     $this->assertGreaterThan(0, count($lists));
     //     foreach ($lists as $list) {
     //         $this->assertInstanceOf(TrelloList::class, $list);

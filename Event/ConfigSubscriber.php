@@ -30,7 +30,7 @@ class ConfigSubscriber implements EventSubscriberInterface
      */
     public function __construct(IntegrationHelper $integrationHelper, Logger $logger)
     {
-        $this->logger      = $logger;
+        $this->logger       = $logger;
         $this->integration  = $integrationHelper->getIntegrationObject('Trello');
     }
 

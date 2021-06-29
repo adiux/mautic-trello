@@ -68,6 +68,7 @@ class TrelloApiServiceMockTest extends TestCase
         $this->apiService->method('getListsOnBoard')
             ->willReturn('');
     }
+
     // public function getListsOnBoard(int $boardId = null): array
 
     /**
