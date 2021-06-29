@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * @author    Idea2
+ * @author    Aivie
  * @copyright 2021 Idea2 Collective GmbH. All rights reserved
  *
  * @see https://aivie.ch
