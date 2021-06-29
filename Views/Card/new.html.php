@@ -2,7 +2,7 @@
 
 /**
  * @author    Idea2
- * @copyright 2020 Idea2 Collective GmbH. All rights reserved
+ * @copyright 2021 Idea2 Collective GmbH. All rights reserved
  *
  * @see https://www.idea2.ch
  *
