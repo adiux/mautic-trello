@@ -162,6 +162,8 @@ class TrelloApiService
 
         if (empty($keys['appkey']) || empty($keys['apitoken'])) {
             $this->logger->warning('No valid Trello api keys');
+
+            return [];
         }
 
         $encryptedKeys = [
@@ -169,9 +171,7 @@ class TrelloApiService
             'token' => isset($keys['apitoken']) ? $keys['apitoken'] : '',
         ];
 
-        $keys = $this->integration->decryptApiKeys($encryptedKeys);
-
-        return $keys;
+        return $this->integration->decryptApiKeys($encryptedKeys);
     }
 
     /**
