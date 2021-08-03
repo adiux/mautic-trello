@@ -67,7 +67,7 @@ class ButtonSubscriber implements EventSubscriberInterface
         }
 
         $request     = $this->requestStack->getCurrentRequest();
-        $returnRoute = $request->get('_route');
+        $returnRoute = $request->attributes->get('_route');
 
         $lead = $event->getItem();
 
