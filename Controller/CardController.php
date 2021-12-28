@@ -133,7 +133,8 @@ class CardController extends AbstractFormController
         } else {
             // not successfully added
             $this->addFlash(
-                'plugin.trello.card_not_added'
+                'plugin.trello.card_not_added',
+                ['not-added']
             );
         }
 
