@@ -19,7 +19,7 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 We are always looking for new ways to improve working with Mautic. Please contact us if you have a feature request, or found an issue.
 
 - [Issues](https://github.com/adiux/mautic-trello/issues)
-- [Contact](https://www.idea2.ch/en/contact/)
+- [Contact](https://aivie.ch/en/contact/)
 
 # Contributing
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Aivie
- * @copyright 2021 Idea2 Collective GmbH. All rights reserved
+ * @copyright 2022 Aivie. All rights reserved
  *
  * @see https://aivie.ch
  *
