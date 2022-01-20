@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author    Aivie
- * @copyright 2021 Idea2 Collective GmbH. All rights reserved
+ * @copyright 2022 Aivie. All rights reserved
  *
  * @see https://aivie.ch
  *
@@ -149,7 +149,7 @@ class CardController extends AbstractFormController
     protected function closeAndRedirect(string $returnRoute, int $contactId)
     {
         if (empty($returnRoute) || empty($contactId)) {
-            $this->logger->warning('No return url or contact for add to Trello specified', ['contactId' => $contactId, 'returnRoute' => $returnRoute]);
+            $this->logger->warning('Trello: No return url or contact for add to Trello specified', ['contactId' => $contactId, 'returnRoute' => $returnRoute]);
         }
 
         // return user to contact overview
@@ -203,14 +203,15 @@ class CardController extends AbstractFormController
     {
         $returnRoute = $this->request->get('returnRoute');
         if (empty($returnRoute)) {
-            $this->logger->warning('No return route for add to Trello specified', ['contactId' => $contactId]);
+            $this->logger->warning('Trello: No return route for add to Trello specified', ['contactId' => $contactId]);
+            $returnRoute = "mautic_contact_action"; //somehow the returnRoute can be empty, so set it to the contact detail by default
         }
         $card = new NewCard();
 
         if (!empty($contactId)) {
             $contact = $this->getExistingContact($contactId);
             if (empty($contact)) {
-                $this->logger->warning('no contact found for id', [$contactId]);
+                $this->logger->warning('Trello: no contact found for id', [$contactId]);
 
                 return null;
             }
@@ -269,13 +270,13 @@ class CardController extends AbstractFormController
         if (!empty($stage) && is_array($lists)) {
             foreach ($lists as $list) {
                 if ($list->getName() === $stage->getName()) {
-                    $this->logger->debug('contact is on list', [$list->getName()]);
+                    $this->logger->debug('Trello: contact is on list', [$list->getName()]);
 
                     return $list->getName();
                 }
             }
         }
-        $this->logger->debug('stage is not a list', [$stage]);
+        $this->logger->debug('Trello: stage is not a list', [$stage]);
 
         return '';
     }
