@@ -8,18 +8,22 @@ Interact with Trello directly from Mauitc. E.g. create Trello cards for contacts
 
 - [Mautic](https://www.mautic.org) > v3.0.2
 - [Trello](https://www.trello.com)
+- This plugin is already installed with your [Aivie Mautic Hosting](https://aivie.ch/?utm_source=github&utm_medium=mautic-trello&utm_campaign=opensource&utm_content=hosting)
 
 ## Enduser Documentation
 
-- [English](Docs/enduser/Docs.en.md)
-- [German](Docs/enduser/Docs.de.md)
+- [English](docs/enduser/docs.en.md)
+- [German](docs/enduser/docs.de.md)
+
+## See Aivie/Mautic contact data in Trello
+There is a companion [Trello Power-UP](https://aivie.ch/mautic-mit-trello-verbinden/?utm_source=github&utm_medium=mautic-trello&utm_campaign=opensource&utm_content=trello-power-up) available to show your latest contact data right inside of Trello.
 
 # Issue? / Feedback? / Feature Requests?
 
 We are always looking for new ways to improve working with Mautic. Please contact us if you have a feature request, or found an issue.
 
 - [Issues](https://github.com/adiux/mautic-trello/issues)
-- [Contact](https://aivie.ch/en/contact/)
+- [Contact](https://aivie.ch/en/contact/?utm_source=github&utm_medium=mautic-trello&utm_campaign=opensource&utm_content=contact)
 
 # Contributing
 
