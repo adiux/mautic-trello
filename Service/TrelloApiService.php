@@ -161,7 +161,7 @@ class TrelloApiService
         $keys = $this->integration->getIntegrationSettings()->getApiKeys();
 
         if (empty($keys['appkey']) || empty($keys['apitoken'])) {
-            $this->logger->warning('No valid Trello api keys');
+            $this->logger->info('No valid Trello api keys');
 
             return [];
         }
