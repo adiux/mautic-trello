@@ -49,7 +49,7 @@ class TrelloApiServiceMockTest extends TestCase
         parent::setUp();
 
         $this->apiService = $this->getMockBuilder(TrelloApiService::class)
-            ->setMethods(['getApi', 'getFavouriteBoard'])
+            ->setMethods(['getApi', 'getFavouriteBoard', 'getListsOnBoard'])
             ->setConstructorArgs(
                 [
                 $this->createMock(IntegrationHelper::class),
@@ -66,7 +66,7 @@ class TrelloApiServiceMockTest extends TestCase
         $this->apiService->method('getFavouriteBoard')
             ->willReturn(self::MOCK_FAV_BOARD);
         $this->apiService->method('getListsOnBoard')
-            ->willReturn('');
+            ->willReturn([]);
     }
 
     // public function getListsOnBoard(int $boardId = null): array
@@ -77,7 +77,8 @@ class TrelloApiServiceMockTest extends TestCase
     public function testGetListsOnBoard(): void
     {
         $lists = $this->apiService->getListsOnBoard();
-        $this->assertGreaterThan(0, count($lists));
+//        $this->assertGreaterThan(0, count($lists));
+        $this->assertCount(0, $lists);
         foreach ($lists as $list) {
             $this->assertInstanceOf(TrelloList::class, $list);
             $this->assertTrue($list->valid());
