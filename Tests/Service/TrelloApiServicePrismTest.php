@@ -29,10 +29,10 @@ use PHPUnit\Framework\TestCase;
  */
 class TrelloApiServicePrismTest extends TestCase
 {
-    const MOCK_API_HOST  = 'http://127.0.0.1:4010';
-    const MOCK_API_KEY   = 'KEY';
-    const MOCK_API_TOKEN = 'TOKEN';
-    const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
+    public const MOCK_API_HOST  = 'http://127.0.0.1:4010';
+    public const MOCK_API_KEY   = 'KEY';
+    public const MOCK_API_TOKEN = 'TOKEN';
+    public const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
 
     /**
      * @var MockObject
