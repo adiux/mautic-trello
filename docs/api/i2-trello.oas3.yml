@@ -169,6 +169,10 @@ components:
           format: date-time
           description: full-date notation as defined by RFC 3339, section 5.6. Default Timezone is UTC
           example: "2019-09-21"
+        urlSource:
+          type: string
+          format: uri
+          example: https://www.example.com
         contactId:
           type: integer
           minimum: 0

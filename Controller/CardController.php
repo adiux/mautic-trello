@@ -251,6 +251,7 @@ class CardController extends AbstractFormController
                 'name'      => $contact->getName(),
                 'desc'      => null,
                 'idList'    => $this->getListForContact($contact),
+                'urlSource' => $siteUrl.'/s/contacts/view/'.$contact->getId(),
                 'contactId' => $contact->getId(),
                 // 'due' => new \DateTime('next week'),
             ]

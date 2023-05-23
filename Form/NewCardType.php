@@ -105,6 +105,7 @@ class NewCardType extends AbstractType
                     // 'data'   => $data,
                 ]
             )
+            ->add('urlSource', HiddenType::class)
             ->add('contactId', HiddenType::class);
 
         $builder->add('buttons', FormButtonsType::class, [
