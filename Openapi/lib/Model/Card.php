@@ -28,8 +28,8 @@
 
 namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
-use ArrayAccess;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
+use \ArrayAccess;
+use \MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * Card Class Doc Comment
@@ -62,6 +62,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'string',
         'pos' => 'string',
         'due' => '\DateTime',
+        'urlSource' => 'string',
         'contactId' => 'int',
         'keepFromSource' => 'string',
         'id' => 'string',
@@ -85,6 +86,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => null,
         'pos' => null,
         'due' => 'date-time',
+        'urlSource' => 'uri',
         'contactId' => null,
         'keepFromSource' => null,
         'id' => null,
@@ -102,18 +104,19 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'name' => false,
-        'idList' => false,
-        'desc' => false,
-        'pos' => false,
-        'due' => false,
-        'contactId' => false,
-        'keepFromSource' => false,
-        'id' => false,
-        'dateLastActivity' => false,
-        'labels' => false,
-        'url' => false,
-        'idMembers' => false,
-        'attachments' => false
+		'idList' => false,
+		'desc' => false,
+		'pos' => false,
+		'due' => false,
+		'urlSource' => false,
+		'contactId' => false,
+		'keepFromSource' => false,
+		'id' => false,
+		'dateLastActivity' => false,
+		'labels' => false,
+		'url' => false,
+		'idMembers' => false,
+		'attachments' => false
     ];
 
     /**
@@ -207,6 +210,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'desc',
         'pos' => 'pos',
         'due' => 'due',
+        'urlSource' => 'urlSource',
         'contactId' => 'contactId',
         'keepFromSource' => 'keepFromSource',
         'id' => 'id',
@@ -228,6 +232,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'setDesc',
         'pos' => 'setPos',
         'due' => 'setDue',
+        'urlSource' => 'setUrlSource',
         'contactId' => 'setContactId',
         'keepFromSource' => 'setKeepFromSource',
         'id' => 'setId',
@@ -249,6 +254,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'getDesc',
         'pos' => 'getPos',
         'due' => 'getDue',
+        'urlSource' => 'getUrlSource',
         'contactId' => 'getContactId',
         'keepFromSource' => 'getKeepFromSource',
         'id' => 'getId',
@@ -321,6 +327,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('desc', $data ?? [], null);
         $this->setIfExists('pos', $data ?? [], null);
         $this->setIfExists('due', $data ?? [], null);
+        $this->setIfExists('urlSource', $data ?? [], null);
         $this->setIfExists('contactId', $data ?? [], null);
         $this->setIfExists('keepFromSource', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
@@ -539,6 +546,33 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable due cannot be null');
         }
         $this->container['due'] = $due;
+
+        return $this;
+    }
+
+    /**
+     * Gets urlSource
+     *
+     * @return string|null
+     */
+    public function getUrlSource()
+    {
+        return $this->container['urlSource'];
+    }
+
+    /**
+     * Sets urlSource
+     *
+     * @param string|null $urlSource urlSource
+     *
+     * @return self
+     */
+    public function setUrlSource($urlSource)
+    {
+        if (is_null($urlSource)) {
+            throw new \InvalidArgumentException('non-nullable urlSource cannot be null');
+        }
+        $this->container['urlSource'] = $urlSource;
 
         return $this;
     }
@@ -832,7 +866,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -858,3 +892,5 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

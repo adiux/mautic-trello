@@ -82,12 +82,12 @@ class DefaultApi
         ],
     ];
 
-    /**
-         * @param ClientInterface $client
-         * @param Configuration   $config
-         * @param HeaderSelector  $selector
-         * @param int             $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
-         */
+/**
+     * @param ClientInterface $client
+     * @param Configuration   $config
+     * @param HeaderSelector  $selector
+     * @param int             $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
+     */
     public function __construct(
         ClientInterface $client = null,
         Configuration $config = null,
@@ -193,7 +193,7 @@ class DefaultApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\Card' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -256,6 +256,7 @@ class DefaultApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -415,6 +416,7 @@ class DefaultApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
@@ -523,7 +525,7 @@ class DefaultApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloBoard[]' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -556,6 +558,7 @@ class DefaultApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -654,6 +657,10 @@ class DefaultApi
      */
     public function getBoardsRequest($fields = null, $filter = null, string $contentType = self::contentTypes['getBoards'][0])
     {
+
+
+
+
         $resourcePath = '/members/me/boards';
         $formParams = [];
         $queryParams = [];
@@ -704,6 +711,7 @@ class DefaultApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
@@ -816,7 +824,7 @@ class DefaultApi
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\MauticPlugin\MauticTrelloBundle\Openapi\lib\Model\TrelloList[]' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -849,6 +857,7 @@ class DefaultApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
+
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -1032,6 +1041,7 @@ class DefaultApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
+
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
                 $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);

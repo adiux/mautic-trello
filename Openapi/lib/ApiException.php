@@ -27,7 +27,7 @@
 
 namespace MauticPlugin\MauticTrelloBundle\Openapi\lib;
 
-use Exception;
+use \Exception;
 
 /**
  * ApiException Class Doc Comment

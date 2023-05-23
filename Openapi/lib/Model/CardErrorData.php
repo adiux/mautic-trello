@@ -28,8 +28,8 @@
 
 namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
-use ArrayAccess;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
+use \ArrayAccess;
+use \MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * CardErrorData Class Doc Comment
@@ -395,7 +395,7 @@ class CardErrorData implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -421,3 +421,5 @@ class CardErrorData implements ModelInterface, ArrayAccess, \JsonSerializable
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+
