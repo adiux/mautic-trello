@@ -199,7 +199,7 @@ class CardController extends AbstractFormController
      *
      * @param int $contactId
      */
-    protected function getForm(int $contactId = null): FormInterface
+    protected function getForm(int $contactId = null): ?FormInterface
     {
         $returnRoute = $this->request->get('returnRoute');
         if (empty($returnRoute)) {
@@ -251,7 +251,6 @@ class CardController extends AbstractFormController
                 'name'      => $contact->getName(),
                 'desc'      => null,
                 'idList'    => $this->getListForContact($contact),
-                'urlSource' => $siteUrl.'/s/contacts/view/'.$contact->getId(),
                 'contactId' => $contact->getId(),
                 // 'due' => new \DateTime('next week'),
             ]
