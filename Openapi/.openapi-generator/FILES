@@ -26,3 +26,11 @@ lib/Model/TrelloBoard.php
 lib/Model/TrelloList.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
+test/Api/DefaultApiTest.php
+test/Model/CardAllOfTest.php
+test/Model/CardErrorDataTest.php
+test/Model/CardErrorTest.php
+test/Model/CardTest.php
+test/Model/NewCardTest.php
+test/Model/TrelloBoardTest.php
+test/Model/TrelloListTest.php

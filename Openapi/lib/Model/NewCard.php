@@ -28,8 +28,8 @@
 
 namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
-use ArrayAccess;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
+use \ArrayAccess;
+use \MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * NewCard Class Doc Comment
@@ -62,6 +62,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'string',
         'pos' => 'string',
         'due' => '\DateTime',
+        'urlSource' => 'string',
         'contactId' => 'int',
         'keepFromSource' => 'string'
     ];
@@ -79,6 +80,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => null,
         'pos' => null,
         'due' => 'date-time',
+        'urlSource' => 'uri',
         'contactId' => null,
         'keepFromSource' => null
     ];
@@ -90,12 +92,13 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'name' => false,
-        'idList' => false,
-        'desc' => false,
-        'pos' => false,
-        'due' => false,
-        'contactId' => false,
-        'keepFromSource' => false
+		'idList' => false,
+		'desc' => false,
+		'pos' => false,
+		'due' => false,
+		'urlSource' => false,
+		'contactId' => false,
+		'keepFromSource' => false
     ];
 
     /**
@@ -189,6 +192,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'desc',
         'pos' => 'pos',
         'due' => 'due',
+        'urlSource' => 'urlSource',
         'contactId' => 'contactId',
         'keepFromSource' => 'keepFromSource'
     ];
@@ -204,6 +208,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'setDesc',
         'pos' => 'setPos',
         'due' => 'setDue',
+        'urlSource' => 'setUrlSource',
         'contactId' => 'setContactId',
         'keepFromSource' => 'setKeepFromSource'
     ];
@@ -219,6 +224,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'desc' => 'getDesc',
         'pos' => 'getPos',
         'due' => 'getDue',
+        'urlSource' => 'getUrlSource',
         'contactId' => 'getContactId',
         'keepFromSource' => 'getKeepFromSource'
     ];
@@ -285,6 +291,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('desc', $data ?? [], null);
         $this->setIfExists('pos', $data ?? [], null);
         $this->setIfExists('due', $data ?? [], null);
+        $this->setIfExists('urlSource', $data ?? [], null);
         $this->setIfExists('contactId', $data ?? [], null);
         $this->setIfExists('keepFromSource', $data ?? [], null);
     }
@@ -495,6 +502,33 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets urlSource
+     *
+     * @return string|null
+     */
+    public function getUrlSource()
+    {
+        return $this->container['urlSource'];
+    }
+
+    /**
+     * Sets urlSource
+     *
+     * @param string|null $urlSource urlSource
+     *
+     * @return self
+     */
+    public function setUrlSource($urlSource)
+    {
+        if (is_null($urlSource)) {
+            throw new \InvalidArgumentException('non-nullable urlSource cannot be null');
+        }
+        $this->container['urlSource'] = $urlSource;
+
+        return $this;
+    }
+
+    /**
      * Gets contactId
      *
      * @return int|null
@@ -616,7 +650,7 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -642,3 +676,5 @@ class NewCard implements ModelInterface, ArrayAccess, \JsonSerializable
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

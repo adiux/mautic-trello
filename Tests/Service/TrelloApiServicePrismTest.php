@@ -114,8 +114,8 @@ class TrelloApiServicePrismTest extends TestCase
     //         'desc'           => "sample description with some special chars: %'ä.$&",
     //         'pos'            => 'top',
     //         'due'            => '2020-06-28T11:14:12.523Z',
-    //         'urlSource'      => 'https://www.mautic.org',
     //         'keepFromSource' => 'all',
+    //         'urlSource'      => 'https://www.mautic.org',
     //         'idList'         => '5e5c1f8f12326fasd8b6qba6',
     //     ];
 

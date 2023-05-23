@@ -199,7 +199,7 @@ class CardController extends AbstractFormController
      *
      * @param int $contactId
      */
-    protected function getForm(int $contactId = null): FormInterface
+    protected function getForm(int $contactId = null): ?FormInterface
     {
         $returnRoute = $this->request->get('returnRoute');
         if (empty($returnRoute)) {

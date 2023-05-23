@@ -28,8 +28,8 @@
 
 namespace MauticPlugin\MauticTrelloBundle\Openapi\lib\Model;
 
-use ArrayAccess;
-use MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
+use \ArrayAccess;
+use \MauticPlugin\MauticTrelloBundle\Openapi\lib\ObjectSerializer;
 
 /**
  * CardAllOf Class Doc Comment
@@ -90,12 +90,12 @@ class CardAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'id' => false,
-        'dateLastActivity' => false,
-        'labels' => false,
-        'due' => false,
-        'url' => false,
-        'idMembers' => false,
-        'attachments' => false
+		'dateLastActivity' => false,
+		'labels' => false,
+		'due' => false,
+		'url' => false,
+		'idMembers' => false,
+		'attachments' => false
     ];
 
     /**
@@ -595,7 +595,7 @@ class CardAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
@@ -621,3 +621,5 @@ class CardAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+
