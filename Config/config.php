@@ -11,6 +11,7 @@ return [
     'name'        => 'Mautic Trello',
     'description' => 'Create Trello cards from Mautic contacts',
     'version'     => '1.0.0',
+    'author'      => 'Aivie',
     'routes'      => [
         'main' => [
             'plugin_create_cards_show_new' => [
