@@ -94,7 +94,7 @@ class NewCardType extends AbstractType
                     'label'      => 'mautic.trello.duedate',
                     'label_attr' => ['class' => 'control-label'],
                     'widget'     => 'single_text',
-                    'required'   => false,
+                    // 'required'   => false, // fix: because otherwise we get a 'non-nullable due cannot be null' Exception from NewCard.php
                     'attr'       => [
                         'class'       => 'form-control',
                         'data-toggle' => 'datetime',
