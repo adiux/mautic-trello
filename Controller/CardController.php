@@ -14,6 +14,7 @@ use Mautic\CoreBundle\Service\FlashBag;
 use Mautic\CoreBundle\Translation\Translator;
 use Mautic\LeadBundle\Controller\LeadAccessTrait;
 use Mautic\LeadBundle\Entity\Lead;
+use Mautic\UserBundle\Entity\User;
 use MauticPlugin\AivieTrelloBundle\Form\NewCardType;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\NewCard;
@@ -47,7 +48,7 @@ class CardController extends AbstractFormController
         EventDispatcherInterface $dispatcher,
         Translator $translator,
         FlashBag $flashBag,
-        RequestStack $requestStack,
+        private RequestStack $requestStack,
         CorePermissions $security,
     ) {
         parent::__construct($doctrine, $modelFactory, $userHelper, $coreParametersHelper, $dispatcher, $translator, $flashBag, $requestStack, $security);
@@ -111,10 +112,10 @@ class CardController extends AbstractFormController
         $newCard = $form->getData();
 
         // get the Trello Board Member for the current logged in user
-        $member =$this->apiService->getBoardMemberForUser(
-            $this->apiService->getFavouriteBoard(),
-            $this->getUser()
-        );
+        $user   = $this->getUser();
+        $member = $user instanceof User
+            ? $this->apiService->getBoardMemberForUser($this->apiService->getFavouriteBoard(), $user)
+            : null;
 
         $newCard->setIdMembers($member ? [$member->getId()] : []);
 
@@ -166,7 +167,7 @@ class CardController extends AbstractFormController
         if ('mautic_contact_index' === $returnRoute) {
             $func           = 'index';
             $viewParameters = [
-                'page'         => $this->container->get('session')->get('mautic.lead.page', 1),
+                'page'         => $this->requestStack->getSession()->get('mautic.lead.page', 1),
                 'objectId'     => $contactId,
             ];
         } else {

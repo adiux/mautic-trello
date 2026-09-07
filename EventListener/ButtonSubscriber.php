@@ -72,12 +72,12 @@ class ButtonSubscriber implements EventSubscriberInterface
                 ->addButton(
                     $addToTrelloBtn,
                     ButtonHelper::LOCATION_PAGE_ACTIONS,
-                    ['mautic_contact_action', ['objectAction' => 'view']]
+                    'mautic_contact_action'
                 )
                 // Inject a button into the list actions for contacts on the /s/contacts page
                 ->addButton(
                     $addToTrelloBtn,
-                    [ButtonHelper::LOCATION_LIST_ACTIONS],
+                    ButtonHelper::LOCATION_LIST_ACTIONS,
                     'mautic_contact_index'
                 );
         }

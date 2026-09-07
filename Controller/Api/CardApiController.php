@@ -10,6 +10,7 @@ use Mautic\CoreBundle\Helper\UserHelper;
 use Mautic\CoreBundle\Security\Permissions\CorePermissions;
 use Mautic\CoreBundle\Service\FlashBag;
 use Mautic\CoreBundle\Translation\Translator;
+use Mautic\UserBundle\Entity\User;
 use MauticPlugin\AivieTrelloBundle\Controller\CardController;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\AivieTrelloBundle\Service\TrelloApiService;
@@ -43,8 +44,8 @@ class CardApiController extends CardController
         $data      = $request->request->all();
         $itemName  = InputHelper::string($data['itemName'] ?? '');
         $boardId   = InputHelper::string($data['boardId'] ?? '');
-        $contactId = InputHelper::int($data['contactId'] ?? 0);
-        $dueDate   = InputHelper::date($data['dueDate'] ?? '');
+        $contactId = (int) ($data['contactId'] ?? 0);
+        $dueDate   = InputHelper::string($data['dueDate'] ?? '');
         $card      = null;
 
         if (empty($itemName) || empty($contactId)) {
@@ -65,10 +66,10 @@ class CardApiController extends CardController
         $card = $this->apiService->findCardForLead($boardId, $contactId);
 
         // get the Trello Board Member for the current logged in user
-        $member =$this->apiService->getBoardMemberForUser(
-            $this->apiService->getFavouriteBoard(),
-            $this->getUser()
-        );
+        $user   = $this->getUser();
+        $member = $user instanceof User
+            ? $this->apiService->getBoardMemberForUser($this->apiService->getFavouriteBoard(), $user)
+            : null;
 
         // Card for lead not found on board, so create a new card
         if (null === $card) {

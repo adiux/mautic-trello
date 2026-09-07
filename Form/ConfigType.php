@@ -42,6 +42,8 @@ class ConfigType extends AbstractType
 
     /**
      * Get all Trello boards.
+     *
+     * @return array<string, string>
      */
     protected function getBoards(): array
     {

@@ -19,9 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 class TrelloApiServiceMockTest extends TestCase
 {
-    private const MOCK_API_HOST  = 'http://127.0.0.1:4010';
-    private const MOCK_API_KEY   = 'KEY';
-    private const MOCK_API_TOKEN = 'TOKEN';
     private const MOCK_FAV_BOARD = '6e5a1f9d35b240384adcddcq';
 
     /**

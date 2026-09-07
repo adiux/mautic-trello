@@ -18,8 +18,10 @@ class DefaultApiMock extends DefaultApi
     /**
      * Get an array of TrelloBoards.
      *
-     * @param null $fields
-     * @param null $filter
+     * @param string|null $fields
+     * @param string|null $filter
+     *
+     * @return array<int, TrelloBoard>
      */
     public function getBoards($fields = null, $filter = null, string $contentType = self::contentTypes['getBoards'][0]): array
     {
@@ -36,9 +38,11 @@ class DefaultApiMock extends DefaultApi
     /**
      * Get a static array of TrelloLists.
      *
-     * @param null $cards
-     * @param null $filter
-     * @param null $fields
+     * @param string|null $cards
+     * @param string|null $filter
+     * @param string|null $fields
+     *
+     * @return array<int, TrelloList>
      */
     public function getLists($boardId, $cards = null, $filter = null, $fields = null, string $contentType = self::contentTypes['getLists'][0]): array
     {
@@ -58,7 +62,7 @@ class DefaultApiMock extends DefaultApi
      */
     public function addCard($newCard, string $contentType = self::contentTypes['addCard'][0]): Card
     {
-        $newCard = new NewCard($newCard);
+        $newCard = $newCard instanceof NewCard ? $newCard : new NewCard($newCard);
         if (!$newCard->valid()) {
             echo 'WARNING: no valid new card data';
 
@@ -72,6 +76,8 @@ class DefaultApiMock extends DefaultApi
 
     /**
      * Load the static data from a json file in the ./Tests/Data/ folder.
+     *
+     * @return array<mixed>
      */
     protected function getMockData(string $filename): array
     {

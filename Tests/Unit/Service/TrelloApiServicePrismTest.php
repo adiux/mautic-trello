@@ -136,6 +136,6 @@ class TrelloApiServicePrismTest extends TestCase
      */
     public function testPlaceholderUntilPrismConfigured(): void
     {
-        $this->assertTrue(true, 'Prism tests are commented out; uncomment when mock server is available.');
+        $this->expectNotToPerformAssertions();
     }
 }

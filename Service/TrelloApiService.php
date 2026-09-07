@@ -14,6 +14,7 @@ use MauticPlugin\AivieTrelloBundle\Openapi\lib\Configuration;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\Card;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\CardError;
 use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\Member;
+use MauticPlugin\AivieTrelloBundle\Openapi\lib\Model\NewCard;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -47,6 +48,8 @@ class TrelloApiService
 
     /**
      * Get all Trello boards as an array (id => name).
+     *
+     * @return array<string, string>
      */
     public function getBoardsArray(string $filter = 'open'): array
     {
@@ -83,6 +86,8 @@ class TrelloApiService
      * Get all the lists on the Trello board.
      *
      * @param int|null $boardId Trello Board id
+     *
+     * @return array<int, mixed>
      */
     public function getListsOnBoard(?int $boardId = null): array
     {
@@ -138,6 +143,8 @@ class TrelloApiService
 
     /**
      * All the business logic for a submitted form.
+     *
+     * @param array<string, mixed> $card
      */
     public function addNewCard(array $card): Card|\Exception|CardError
     {
@@ -147,7 +154,7 @@ class TrelloApiService
         }
 
         try {
-            $card = $api->addCard($card);
+            $card = $api->addCard(new NewCard($card));
             if ($card instanceof Card) {
                 $this->logger->debug('Successfully added card to Trello', [$card->getIdList(), $card->getId(), $card->getName()]);
             }
@@ -236,6 +243,8 @@ class TrelloApiService
     /**
      * Update only the due date of a card. Returns the updated card or null on failure.
      * Set the idMembers if you also want to change the assignees of the card.
+     *
+     * @param array<int, string>|null $idMembers
      */
     public function updateCardDueDate(string $cardId, ?string $dueDate, ?array $idMembers): ?Card
     {
@@ -245,7 +254,12 @@ class TrelloApiService
         }
 
         try {
-            $card = $api->updateCard($cardId, null, null, null, null, null, null, $dueDate, null, null, null, $idMembers);
+            $due = null;
+            if (!empty($dueDate)) {
+                $due = new \DateTime($dueDate);
+            }
+
+            $card = $api->updateCard($cardId, null, null, null, null, null, null, $due, null, null, null, null === $idMembers ? null : implode(',', $idMembers));
 
             return $card instanceof Card ? $card : null;
         } catch (\Throwable $e) {

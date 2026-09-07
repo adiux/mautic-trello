@@ -29,6 +29,9 @@ class CardApiControllerTest extends TestCase
         $this->trelloApiService = $this->createMock(TrelloApiService::class);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function createController(array $options = []): CardApiController
     {
         $apiMock = $options['api'] ?? new DefaultApiMock();
@@ -60,6 +63,9 @@ class CardApiControllerTest extends TestCase
         return $controller;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function createRequest(array $data): Request
     {
         $request = new Request([], $data, [], [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($data));
