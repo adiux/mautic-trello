@@ -1,0 +1,20 @@
+{
+  "header": "# Changelog\n\n",
+  "types": [
+    { "type": "feat", "section": "Features", "release": "patch" },
+    { "type": "fix", "section": "Bug Fixes", "release": "patch" },
+    { "type": "security", "section": "Security", "release": "patch" },
+    { "type": "ux", "section": "UX", "release": "patch" },
+    { "type": "obs", "section": "Observability", "release": "patch" },
+    { "type": "perf", "section": "Performance Improvements", "release": "patch" },
+    { "type": "refactor", "section": "Code Refactoring", "release": "patch" },
+    { "type": "ci", "section": "Continuous Integration", "release": "patch" },
+    { "type": "revert", "section": "Reverts", "release": "patch" },
+    { "type": "docs", "hidden": true },
+    { "type": "chore", "hidden": true },
+    { "type": "test", "hidden": true },
+    { "type": "style", "hidden": true },
+    { "type": "build", "hidden": true }
+  ],
+  "commitAll": true
+}
